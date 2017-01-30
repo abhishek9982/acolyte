@@ -27,7 +27,7 @@ prompt APPLICATION 89636 - Annotation
 -- Application Export:
 --   Application:     89636
 --   Name:            Annotation
---   Date and Time:   20:04 Sunday January 29, 2017
+--   Date and Time:   16:29 Monday January 30, 2017
 --   Exported By:     ABHISHEK9982@GMAIL.COM
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -69,6 +69,7 @@ prompt APPLICATION 89636 - Annotation
 --     Globalization:
 --     Reports:
 --   Supporting Objects:  Included
+--     Install scripts:          3
 
 prompt --application/delete_application
 begin
@@ -121,9 +122,9 @@ wwv_flow_api.create_flow(
 ,p_auto_time_zone=>'N'
 ,p_default_error_display_loc=>'INLINE_IN_NOTIFICATION'
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
-,p_substitution_value_01=>'77492'
+,p_substitution_value_01=>'93381'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20170129155619'
+,p_last_upd_yyyymmddhh24miss=>'20170130162929'
 ,p_email_from=>'apex@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>13
@@ -283,8 +284,8 @@ wwv_flow_api.create_list(
 '      ad_pages ap,',
 '      ad_applications aa',
 '    WHERE',
-'      NVL(amd.sub_menu_id, 201501010000001) = am.menu_id',
-'    AND NVL(amd.page_id, 201501010000001)   = ap.page_id',
+'      NVL(amd.sub_menu_id, 200101010000001) = am.menu_id',
+'    AND NVL(amd.page_id, 200101010000001)   = ap.page_id',
 '    AND ap.application_id     = aa.application_id',
 '    AND am.enabled            = ''Y''',
 '    AND sysdate BETWEEN NVL (am.date_from, sysdate) AND NVL (am.date_to,',
@@ -18868,6 +18869,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>':AD_READ_ONLY IS NULL AND :AD_READ_ONLY_PAGE IS NULL'
 ,p_button_condition_type=>'PLSQL_EXPRESSION'
 ,p_icon_css_classes=>'fa-plus'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(126749285389230)
@@ -18972,6 +18974,7 @@ wwv_flow_api.create_page_button(
 ,p_button_image_alt=>'Cancel'
 ,p_button_position=>'REGION_TEMPLATE_CLOSE'
 ,p_button_condition_type=>'NEVER'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(225829571408421)
@@ -18988,6 +18991,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>':P201_USER_ID IS NOT NULL AND :AD_ALLOW_DELETE IS NOT NULL'
 ,p_button_condition_type=>'PLSQL_EXPRESSION'
 ,p_icon_css_classes=>'fa-close'
+,p_grid_new_grid=>false
 ,p_database_action=>'DELETE'
 );
 wwv_flow_api.create_page_button(
@@ -19003,6 +19007,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>'P201_USER_ID'
 ,p_button_condition_type=>'ITEM_IS_NOT_NULL'
 ,p_icon_css_classes=>'fa-check'
+,p_grid_new_grid=>false
 ,p_database_action=>'UPDATE'
 );
 wwv_flow_api.create_page_button(
@@ -19018,6 +19023,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>'P201_USER_ID'
 ,p_button_condition_type=>'ITEM_IS_NULL'
 ,p_icon_css_classes=>'fa-check'
+,p_grid_new_grid=>false
 ,p_database_action=>'INSERT'
 );
 wwv_flow_api.create_page_item(
@@ -19586,12 +19592,334 @@ end;
 /
 prompt --application/deployment/definition
 begin
-null;
+wwv_flow_api.create_install(
+ p_id=>wwv_flow_api.id(370601436125499226)
+,p_deinstall_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'DROP TABLE AN_USERS CASCADE CONSTRAINTS;',
+'DROP SEQUENCE AN_USERS_S;',
+'DELETE FROM AD_USER_ROLES WHERE USER_ROLE_ID = ''200201010000001'';',
+'DELETE FROM AD_ROLES WHERE ROLE_ID = ''200201010000001'';',
+'DELETE FROM AD_MENU_DETAILS WHERE MENU_ID = ''200201010000001'';',
+'DELETE FROM AD_MENUS WHERE MENU_ID = ''200201010000001'';',
+'DELETE FROM AD_PAGES WHERE PAGE_ID IN (''200201010000001'', ''200201010000002'');',
+'DELETE FROM AD_APPLICATIONS WHERE APPLICATION_ID = ''200201010000001'';'))
+,p_prompt_sub_string_01=>'Y'
+);
 end;
 /
 prompt --application/deployment/install
 begin
-null;
+wwv_flow_api.create_install_script(
+ p_id=>wwv_flow_api.id(370665945163519628)
+,p_install_id=>wwv_flow_api.id(370601436125499226)
+,p_name=>'Create Tables'
+,p_sequence=>10
+,p_script_type=>'INSTALL'
+,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'CREATE TABLE "AN_USERS" ',
+'   (	"AN_USER_ID" NUMBER NOT NULL ENABLE, ',
+'	"USER_ID" NUMBER NOT NULL ENABLE, ',
+'	"WORKSPACE_ID" NUMBER NOT NULL ENABLE, ',
+'	"ADMINISTRATOR" VARCHAR2(1), ',
+'	 CONSTRAINT "AN_USERS_PK" PRIMARY KEY ("AN_USER_ID")',
+'  USING INDEX  ENABLE',
+'   ) ;',
+'',
+''))
+);
+wwv_flow_api.create_install_object(
+ p_id=>wwv_flow_api.id(370665988016519630)
+,p_script_id=>wwv_flow_api.id(370665945163519628)
+,p_object_owner=>'#OWNER#'
+,p_object_type=>'TABLE'
+,p_object_name=>'AN_USERS'
+,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
+,p_last_updated_on=>to_date('20170129220158','YYYYMMDDHH24MISS')
+,p_created_by=>'ABHISHEK9982@GMAIL.COM'
+,p_created_on=>to_date('20170129220158','YYYYMMDDHH24MISS')
+);
+wwv_flow_api.create_install_script(
+ p_id=>wwv_flow_api.id(370598337968914257)
+,p_install_id=>wwv_flow_api.id(370601436125499226)
+,p_name=>'Create Sequences'
+,p_sequence=>20
+,p_script_type=>'INSTALL'
+,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+' CREATE SEQUENCE  "AN_USERS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  CYCLE ;',
+'',
+''))
+);
+wwv_flow_api.create_install_object(
+ p_id=>wwv_flow_api.id(370598397196914263)
+,p_script_id=>wwv_flow_api.id(370598337968914257)
+,p_object_owner=>'#OWNER#'
+,p_object_type=>'SEQUENCE'
+,p_object_name=>'AN_USERS_S'
+,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
+,p_last_updated_on=>to_date('20170129220357','YYYYMMDDHH24MISS')
+,p_created_by=>'ABHISHEK9982@GMAIL.COM'
+,p_created_on=>to_date('20170129220357','YYYYMMDDHH24MISS')
+);
+wwv_flow_api.create_install_script(
+ p_id=>wwv_flow_api.id(417475687254000135)
+,p_install_id=>wwv_flow_api.id(370601436125499226)
+,p_name=>'Insert Data'
+,p_sequence=>30
+,p_script_type=>'INSTALL'
+,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'REM INSERTING into AD_APPLICATIONS',
+'SET DEFINE OFF;',
+'INSERT',
+'INTO',
+'  AD_APPLICATIONS',
+'  (',
+'    APPLICATION_ID,',
+'    APPLICATION_NAME,',
+'    APPLICATION,',
+'    APEX_APPLICATION_ID,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200201010000001'',',
+'    ''Annotation'',',
+'    ''AN'',',
+'    V(''FB_FLOW_ID''),',
+'    ''Y'',',
+'    to_date(''01-01-02'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-02'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-02'',''DD-MM-RR'')',
+'  );',
+'REM INSERTING into AD_PAGES',
+'SET DEFINE OFF;',
+'INSERT',
+'INTO',
+'  AD_PAGES',
+'  (',
+'    PAGE_ID,',
+'    APPLICATION_ID,',
+'    PAGE_NAME,',
+'    PAGE,',
+'    APEX_PAGE_ID,',
+'    PAGE_TYPE,',
+'    PAGE_ICON,',
+'    UNIQUE_NAME_COLUMN,',
+'    READ_ONLY,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200201010000001'',',
+'    ''200201010000001'',',
+'    ''Home'',',
+'    ''AN_HOME'',',
+'    ''1'',',
+'    ''1'',',
+'    ''fa-home'',',
+'    NULL,',
+'    NULL,',
+'    ''Y'',',
+'    to_date(''01-01-02'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-02'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-02'',''DD-MM-RR'')',
+'  );',
+'INSERT',
+'INTO',
+'  AD_PAGES',
+'  (',
+'    PAGE_ID,',
+'    APPLICATION_ID,',
+'    PAGE_NAME,',
+'    PAGE,',
+'    APEX_PAGE_ID,',
+'    PAGE_TYPE,',
+'    PAGE_ICON,',
+'    UNIQUE_NAME_COLUMN,',
+'    READ_ONLY,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200201010000002'',',
+'    ''200201010000001'',',
+'    ''Users'',',
+'    ''AN_USERS'',',
+'    ''200'',',
+'    ''2'',',
+'    NULL,',
+'    NULL,',
+'    NULL,',
+'    ''Y'',',
+'    to_date(''01-01-02'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-02'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-02'',''DD-MM-RR'')',
+'  );',
+'REM INSERTING into AD_MENUS',
+'SET DEFINE OFF;',
+'INSERT',
+'INTO',
+'  AD_MENUS',
+'  (',
+'    MENU_ID,',
+'    MENU_NAME,',
+'    MENU,',
+'    MENU_ICON,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200201010000001'',',
+'    ''Annotation Administrator'',',
+'    ''ANNOTATION_ADMINISTRATOR'',',
+'    ''fa-cogs'',',
+'    ''Y'',',
+'    to_date(''01-01-02'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-02'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-02'',''DD-MM-RR'')',
+'  );',
+'REM INSERTING into AD_MENU_DETAILS',
+'SET DEFINE OFF;',
+'INSERT',
+'INTO',
+'  AD_MENU_DETAILS',
+'  (',
+'    MENU_DETAIL_ID,',
+'    MENU_ID,',
+'    SEQUENCE,',
+'    SUB_MENU_ID,',
+'    PAGE_ID,',
+'    READ_ONLY,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200201010000001'',',
+'    ''200201010000001'',',
+'    ''10'',',
+'    NULL,',
+'    ''200201010000002'',',
+'    NULL,',
+'    ''Y'',',
+'    to_date(''01-01-02'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-02'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-02'',''DD-MM-RR'')',
+'  );',
+'REM INSERTING into AD_ROLES',
+'SET DEFINE OFF;',
+'INSERT',
+'INTO',
+'  AD_ROLES',
+'  (',
+'    ROLE_ID,',
+'    ROLE_NAME,',
+'    ROLE,',
+'    MENU_ID,',
+'    PROCESS_GROUP_ID,',
+'    REPORT_GROUP_ID,',
+'    HOME_PAGE,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200201010000001'',',
+'    ''Annotation Administrator'',',
+'    ''ANNOTATION_ADMINISTRATOR'',',
+'    ''200201010000001'',',
+'    NULL,',
+'    NULL,',
+'    ''200201010000001'',',
+'    ''Y'',',
+'    to_date(''01-01-02'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-02'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-02'',''DD-MM-RR'')',
+'  );',
+'REM INSERTING into AD_USER_ROLES',
+'SET DEFINE OFF;',
+'INSERT',
+'INTO',
+'  AD_USER_ROLES',
+'  (',
+'    USER_ROLE_ID,',
+'    USER_ID,',
+'    ROLE_ID,',
+'    DEFAULT_ROLE,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200201010000001'',',
+'    ''200101010000003'',',
+'    ''200201010000001'',',
+'    NULL,',
+'    ''Y'',',
+'    to_date(''01-01-02'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-02'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-02'',''DD-MM-RR'')',
+'  );'))
+);
 end;
 /
 prompt --application/deployment/checks
