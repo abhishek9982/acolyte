@@ -27,7 +27,7 @@ prompt APPLICATION 89636 - Annotation
 -- Application Export:
 --   Application:     89636
 --   Name:            Annotation
---   Date and Time:   16:29 Monday January 30, 2017
+--   Date and Time:   20:36 Monday January 30, 2017
 --   Exported By:     ABHISHEK9982@GMAIL.COM
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -124,7 +124,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'93381'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20170130162929'
+,p_last_upd_yyyymmddhh24miss=>'20170130201139'
 ,p_email_from=>'apex@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>13
@@ -18934,7 +18934,7 @@ wwv_flow_api.create_page(
 ,p_protection_level=>'C'
 ,p_cache_mode=>'NOCACHE'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20170129155619'
+,p_last_upd_yyyymmddhh24miss=>'20170130200112'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(3356989164919859849)
@@ -19261,6 +19261,8 @@ wwv_flow_api.create_page_computation(
 ,p_computation_item=>'P201_PASSWORD'
 ,p_computation_type=>'PLSQL_EXPRESSION'
 ,p_computation=>'DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => UPPER (TRIM(:P201_USER_NAME)) || ''/'' || UPPER (:P201_PASSWORD));'
+,p_compute_when=>'P201_PASSWORD'
+,p_compute_when_type=>'ITEM_IS_NOT_NULL'
 );
 wwv_flow_api.create_page_computation(
  p_id=>wwv_flow_api.id(276807701562785602)
@@ -19858,6 +19860,7 @@ wwv_flow_api.create_install_script(
 '    ROLE_ID,',
 '    ROLE_NAME,',
 '    ROLE,',
+'    APPLICATION_ID,',
 '    MENU_ID,',
 '    PROCESS_GROUP_ID,',
 '    REPORT_GROUP_ID,',
@@ -19875,6 +19878,7 @@ wwv_flow_api.create_install_script(
 '    ''200201010000001'',',
 '    ''Annotation Administrator'',',
 '    ''ANNOTATION_ADMINISTRATOR'',',
+'    ''200201010000001'',',
 '    ''200201010000001'',',
 '    NULL,',
 '    NULL,',
