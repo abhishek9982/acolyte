@@ -27,7 +27,7 @@ prompt APPLICATION 77492 - Template
 -- Application Export:
 --   Application:     77492
 --   Name:            Template
---   Date and Time:   20:02 Sunday January 29, 2017
+--   Date and Time:   18:32 Monday January 30, 2017
 --   Exported By:     ABHISHEK9982@GMAIL.COM
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -115,7 +115,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'77492'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20170128180235'
+,p_last_upd_yyyymmddhh24miss=>'20170130183132'
 ,p_email_from=>'apex@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>13
@@ -275,8 +275,8 @@ wwv_flow_api.create_list(
 '      ad_pages ap,',
 '      ad_applications aa',
 '    WHERE',
-'      NVL(amd.sub_menu_id, 201501010000001) = am.menu_id',
-'    AND NVL(amd.page_id, 201501010000001)   = ap.page_id',
+'      NVL(amd.sub_menu_id, 200101010000001) = am.menu_id',
+'    AND NVL(amd.page_id, 200101010000001)   = ap.page_id',
 '    AND ap.application_id     = aa.application_id',
 '    AND am.enabled            = ''Y''',
 '    AND sysdate BETWEEN NVL (am.date_from, sysdate) AND NVL (am.date_to,',
@@ -18628,7 +18628,10 @@ end;
 /
 prompt --application/deployment/definition
 begin
-null;
+wwv_flow_api.create_install(
+ p_id=>wwv_flow_api.id(444188140113403329)
+,p_prompt_sub_string_01=>'Y'
+);
 end;
 /
 prompt --application/deployment/install
