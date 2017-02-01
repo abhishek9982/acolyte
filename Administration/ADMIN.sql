@@ -27,7 +27,7 @@ prompt APPLICATION 89332 - Administration
 -- Application Export:
 --   Application:     89332
 --   Name:            Administration
---   Date and Time:   20:35 Monday January 30, 2017
+--   Date and Time:   19:59 Wednesday February 1, 2017
 --   Exported By:     ABHISHEK9982@GMAIL.COM
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -69,7 +69,7 @@ prompt APPLICATION 89332 - Administration
 --       Shortcuts:              2
 --     Globalization:
 --     Reports:
---   Supporting Objects:  Included
+--   Supporting Objects:  Included (auto-install)
 --     Install scripts:          4
 
 prompt --application/delete_application
@@ -122,7 +122,7 @@ wwv_flow_api.create_flow(
 ,p_auto_time_zone=>'N'
 ,p_default_error_display_loc=>'INLINE_IN_NOTIFICATION'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20170130203425'
+,p_last_upd_yyyymmddhh24miss=>'20170201191220'
 ,p_email_from=>'apex@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>13
@@ -19873,38 +19873,39 @@ wwv_flow_api.create_page(
  p_id=>20
 ,p_user_interface_id=>wwv_flow_api.id(47426564314135253791)
 ,p_name=>'Change Role'
-,p_page_mode=>'NORMAL'
-,p_step_title=>'Change Role'
+,p_page_mode=>'MODAL'
 ,p_reload_on_submit=>'A'
 ,p_warn_on_unsaved_changes=>'N'
 ,p_step_sub_title_type=>'TEXT_WITH_SUBSTITUTIONS'
 ,p_first_item=>'NO_FIRST_ITEM'
 ,p_autocomplete_on_off=>'ON'
-,p_step_template=>wwv_flow_api.id(47426523918453253767)
+,p_inline_css=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'.t-Login-header',
+'{',
+'  display: none;',
+'}'))
 ,p_page_template_options=>'#DEFAULT#'
 ,p_dialog_height=>'200'
-,p_dialog_width=>'400'
-,p_dialog_attributes=>'id:''ChangeRole'''
+,p_dialog_width=>'500'
 ,p_dialog_chained=>'Y'
 ,p_overwrite_navigation_list=>'N'
 ,p_page_is_public_y_n=>'N'
 ,p_cache_mode=>'NOCACHE'
-,p_cache_timeout_seconds=>21600
 ,p_help_text=>'No help is available for this page.'
-,p_last_updated_by=>'KE24IG'
-,p_last_upd_yyyymmddhh24miss=>'20160527120858'
+,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
+,p_last_upd_yyyymmddhh24miss=>'20170201191220'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(47508684605968321046)
-,p_plug_name=>'Role'
+,p_plug_name=>'&nbsp'
 ,p_region_template_options=>'#DEFAULT#'
-,p_escape_on_http_output=>'Y'
 ,p_plug_template=>wwv_flow_api.id(47426537941934253774)
 ,p_plug_display_sequence=>10
 ,p_include_in_reg_disp_sel_yn=>'N'
 ,p_plug_display_point=>'BODY'
 ,p_plug_query_row_template=>1
 ,p_plug_query_num_rows=>15
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_attribute_01=>'N'
 ,p_attribute_02=>'HTML'
 ,p_attribute_03=>'Y'
@@ -47549,15 +47550,7 @@ wwv_flow_api.create_install_script(
 '  )',
 '  VALUES',
 '  (',
-'    ''2001'))
-);
-end;
-/
-begin
-wwv_flow_api.append_to_install_script(
- p_id=>wwv_flow_api.id(47377959860622808042)
-,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'01010000005'',',
+'    ''200101010000005'',',
 '    ''Groups'',',
 '    ''GROUPS'',',
 '    ''fa-indent'',',
@@ -47678,7 +47671,15 @@ wwv_flow_api.append_to_install_script(
 '  VALUES',
 '  (',
 '    ''200101010000006'',',
-'    ''System Administrator'',',
+'    ''System Administrator'''))
+);
+end;
+/
+begin
+wwv_flow_api.append_to_install_script(
+ p_id=>wwv_flow_api.id(47377959860622808042)
+,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+',',
 '    ''SYSTEM_ADMINISTRATOR'',',
 '    ''fa-user-secret'',',
 '    ''Y'',',
@@ -49272,7 +49273,7 @@ end;
 /
 prompt --application/end_environment
 begin
-wwv_flow_api.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, false));
+wwv_flow_api.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, true));
 commit;
 end;
 /
