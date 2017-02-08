@@ -27,7 +27,7 @@ prompt APPLICATION 89332 - Administration
 -- Application Export:
 --   Application:     89332
 --   Name:            Administration
---   Date and Time:   19:59 Wednesday February 1, 2017
+--   Date and Time:   21:57 Wednesday February 8, 2017
 --   Exported By:     ABHISHEK9982@GMAIL.COM
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -69,7 +69,7 @@ prompt APPLICATION 89332 - Administration
 --       Shortcuts:              2
 --     Globalization:
 --     Reports:
---   Supporting Objects:  Included (auto-install)
+--   Supporting Objects:  Included
 --     Install scripts:          4
 
 prompt --application/delete_application
@@ -91,7 +91,7 @@ wwv_flow_api.create_flow(
 ,p_name=>nvl(wwv_flow_application_install.get_application_name,'Administration')
 ,p_alias=>nvl(wwv_flow_application_install.get_application_alias,'AD')
 ,p_application_group=>1546039533900105984
-,p_application_group_name=>'Acolyte Applications'
+,p_application_group_name=>'Acolyte'
 ,p_page_view_logging=>'YES'
 ,p_page_protection_enabled_y_n=>'Y'
 ,p_checksum_salt=>'77686266C2F6B2EB1E80DA15B8999C2444EB990B6CCC9B00BF45F70E12782C5C'
@@ -122,7 +122,7 @@ wwv_flow_api.create_flow(
 ,p_auto_time_zone=>'N'
 ,p_default_error_display_loc=>'INLINE_IN_NOTIFICATION'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20170201191220'
+,p_last_upd_yyyymmddhh24miss=>'20170208215713'
 ,p_email_from=>'apex@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>13
@@ -19893,7 +19893,7 @@ wwv_flow_api.create_page(
 ,p_cache_mode=>'NOCACHE'
 ,p_help_text=>'No help is available for this page.'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20170201191220'
+,p_last_upd_yyyymmddhh24miss=>'20170208215713'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(47508684605968321046)
@@ -19930,27 +19930,33 @@ wwv_flow_api.create_page_item(
 ,p_display_as=>'NATIVE_SELECT_LIST'
 ,p_lov=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'SELECT',
-'  AR.ROLE_NAME,',
-'  AR.ROLE_ID',
+'    ar.role_name,',
+'    ar.role_id',
 'FROM',
-'  AD_ROLES AR,',
-'  AD_USER_ROLES AUR',
+'    ad_roles ar,',
+'    ad_user_roles aur,',
+'    ad_applications aa',
 'WHERE',
-'  AR.ROLE_ID   = AUR.ROLE_ID',
-'AND AR.ENABLED = ''Y''',
-'AND SYSDATE BETWEEN NVL(AR.DATE_FROM, SYSDATE) AND NVL(AR.DATE_TO, SYSDATE)',
-'AND AUR.ENABLED = ''Y''',
-'AND SYSDATE BETWEEN NVL(AUR.DATE_FROM, SYSDATE) AND NVL(AUR.DATE_TO, SYSDATE)',
-'AND AUR.USER_ID = :AD_USER_ID',
-'ORDER BY',
-'  ROLE_NAME',
-''))
+'    ar.role_id = aur.role_id',
+'AND',
+'    ar.application_id = aa.application_id',
+'AND',
+'    ar.enabled = ''Y''',
+'AND',
+'    SYSDATE BETWEEN nvl(ar.date_from,SYSDATE) AND nvl(ar.date_to,SYSDATE)',
+'AND',
+'    aur.enabled = ''Y''',
+'AND',
+'    SYSDATE BETWEEN nvl(aur.date_from,SYSDATE) AND nvl(aur.date_to,SYSDATE)',
+'AND',
+'    aa.enabled = ''Y''',
+'AND',
+'    SYSDATE BETWEEN nvl(aa.date_from,SYSDATE) AND nvl(aa.date_to,SYSDATE)',
+'AND',
+'    aur.user_id =:ad_user_id',
+'ORDER BY role_name'))
 ,p_lov_display_null=>'YES'
-,p_cSize=>30
-,p_cMaxlength=>4000
 ,p_cHeight=>1
-,p_label_alignment=>'RIGHT'
-,p_field_alignment=>'LEFT-CENTER'
 ,p_field_template=>wwv_flow_api.id(47426558505769253782)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_lov_display_extra=>'NO'
@@ -49273,7 +49279,7 @@ end;
 /
 prompt --application/end_environment
 begin
-wwv_flow_api.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, true));
+wwv_flow_api.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, false));
 commit;
 end;
 /
