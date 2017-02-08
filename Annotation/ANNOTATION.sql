@@ -27,7 +27,7 @@ prompt APPLICATION 89636 - Annotation
 -- Application Export:
 --   Application:     89636
 --   Name:            Annotation
---   Date and Time:   23:23 Friday February 3, 2017
+--   Date and Time:   18:57 Wednesday February 8, 2017
 --   Exported By:     ABHISHEK9982@GMAIL.COM
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -40,7 +40,7 @@ prompt APPLICATION 89636 - Annotation
 --     Items:                   26
 --     Computations:            11
 --     Validations:              1
---     Processes:               15
+--     Processes:               18
 --     Regions:                  6
 --     Buttons:                 10
 --     Dynamic Actions:          6
@@ -49,7 +49,7 @@ prompt APPLICATION 89636 - Annotation
 --       Items:                 18
 --       Computations:           5
 --     Navigation:
---       Lists:                  2
+--       Lists:                  6
 --       Breadcrumbs:            1
 --     Security:
 --       Authentication:         1
@@ -117,24 +117,29 @@ wwv_flow_api.create_flow(
 ,p_exact_substitutions_only=>'Y'
 ,p_browser_cache=>'N'
 ,p_browser_frame=>'D'
-,p_runtime_api_usage=>'O:W'
+,p_runtime_api_usage=>'T:O:W'
 ,p_rejoin_existing_sessions=>'N'
 ,p_csv_encoding=>'Y'
 ,p_auto_time_zone=>'N'
 ,p_default_error_display_loc=>'INLINE_IN_NOTIFICATION'
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
-,p_substitution_value_01=>'93381'
+,p_substitution_value_01=>'83180'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20170203214753'
+,p_last_upd_yyyymmddhh24miss=>'20170208185729'
 ,p_email_from=>'apex@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
-,p_files_version=>13
+,p_files_version=>14
 ,p_ui_type_name => null
 );
 end;
 /
 prompt --application/shared_components/navigation/lists
 begin
+wwv_flow_api.create_list(
+ p_id=>wwv_flow_api.id(39018125820782227)
+,p_name=>'Desktop Navigation Bar'
+,p_list_status=>'PUBLIC'
+);
 wwv_flow_api.create_list(
  p_id=>wwv_flow_api.id(54161641051932301704)
 ,p_name=>'Desktop Navigation Bar'
@@ -313,6 +318,99 @@ wwv_flow_api.create_list(
 'ORDER BY',
 '  row_num ASC'))
 ,p_list_status=>'PUBLIC'
+);
+wwv_flow_api.create_list(
+ p_id=>wwv_flow_api.id(54201230173312840086)
+,p_name=>'Desktop Navigation Bar'
+,p_list_status=>'PUBLIC'
+);
+wwv_flow_api.create_list(
+ p_id=>wwv_flow_api.id(54201473928922866388)
+,p_name=>'Desktop Navigation Bar'
+,p_list_status=>'PUBLIC'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(3706380938536565202)
+,p_list_item_display_sequence=>10
+,p_list_item_link_text=>'Feedback'
+,p_list_item_link_target=>'f?p=&ADMIN_APPLICATION.:10:&SESSION.::&DEBUG.:10:P10_APPLICATION_ID,P10_PAGE_ID:&APP_ID.,&APP_PAGE_ID.'
+,p_list_item_icon=>'fa-comments'
+,p_list_item_disp_cond_type=>'USER_IS_NOT_PUBLIC_USER'
+,p_list_item_current_type=>'TARGET_PAGE'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(54283571721109496135)
+,p_list_item_display_sequence=>20
+,p_list_item_link_text=>'&APP_USER. &AD_ROLE_NAME.'
+,p_list_item_link_target=>'#'
+,p_list_item_icon=>'fa-user'
+,p_list_item_disp_cond_type=>'USER_IS_NOT_PUBLIC_USER'
+,p_list_item_current_type=>'TARGET_PAGE'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(3706426561777956159)
+,p_list_item_display_sequence=>30
+,p_list_item_link_text=>'Change Role'
+,p_list_item_link_target=>'f?p=&ADMIN_APPLICATION.:20:&SESSION.::&DEBUG.:::'
+,p_list_item_icon=>'fa-refresh'
+,p_list_item_disp_cond_type=>'ITEM_IS_NOT_NULL'
+,p_list_item_disp_condition=>'AD_ROLE_COUNT'
+,p_parent_list_item_id=>wwv_flow_api.id(54283571721109496135)
+,p_list_item_current_type=>'TARGET_PAGE'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(54201474080522866393)
+,p_list_item_display_sequence=>40
+,p_list_item_link_text=>'Log Out'
+,p_list_item_link_target=>'&LOGOUT_URL.'
+,p_list_item_icon=>'fa-sign-out'
+,p_list_item_disp_cond_type=>'USER_IS_NOT_PUBLIC_USER'
+,p_parent_list_item_id=>wwv_flow_api.id(54283571721109496135)
+,p_list_item_current_type=>'TARGET_PAGE'
+);
+wwv_flow_api.create_list(
+ p_id=>wwv_flow_api.id(54201478488774874026)
+,p_name=>'Desktop Navigation Bar'
+,p_list_status=>'PUBLIC'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(3706385498388572840)
+,p_list_item_display_sequence=>10
+,p_list_item_link_text=>'Feedback'
+,p_list_item_link_target=>'f?p=&ADMIN_APPLICATION.:10:&SESSION.::&DEBUG.:10:P10_APPLICATION_ID,P10_PAGE_ID:&APP_ID.,&APP_PAGE_ID.'
+,p_list_item_icon=>'fa-comments'
+,p_list_item_disp_cond_type=>'USER_IS_NOT_PUBLIC_USER'
+,p_list_item_current_type=>'TARGET_PAGE'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(54283576280961503773)
+,p_list_item_display_sequence=>20
+,p_list_item_link_text=>'&APP_USER. &AD_ROLE_NAME.'
+,p_list_item_link_target=>'#'
+,p_list_item_icon=>'fa-user'
+,p_list_item_disp_cond_type=>'USER_IS_NOT_PUBLIC_USER'
+,p_list_item_current_type=>'TARGET_PAGE'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(3706431121629963797)
+,p_list_item_display_sequence=>30
+,p_list_item_link_text=>'Change Role'
+,p_list_item_link_target=>'f?p=&ADMIN_APPLICATION.:20:&SESSION.::&DEBUG.:::'
+,p_list_item_icon=>'fa-refresh'
+,p_list_item_disp_cond_type=>'ITEM_IS_NOT_NULL'
+,p_list_item_disp_condition=>'AD_ROLE_COUNT'
+,p_parent_list_item_id=>wwv_flow_api.id(54283576280961503773)
+,p_list_item_current_type=>'TARGET_PAGE'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(54201478640374874031)
+,p_list_item_display_sequence=>40
+,p_list_item_link_text=>'Log Out'
+,p_list_item_link_target=>'&LOGOUT_URL.'
+,p_list_item_icon=>'fa-sign-out'
+,p_list_item_disp_cond_type=>'USER_IS_NOT_PUBLIC_USER'
+,p_parent_list_item_id=>wwv_flow_api.id(54283576280961503773)
+,p_list_item_current_type=>'TARGET_PAGE'
 );
 end;
 /
@@ -533,7 +631,7 @@ wwv_flow_api.create_plugin_setting(
 ,p_plugin=>'NATIVE_YES_NO'
 ,p_attribute_01=>'Y'
 ,p_attribute_03=>'N'
-,p_attribute_05=>'SELECT_LIST'
+,p_attribute_05=>'SWITCH'
 );
 end;
 /
@@ -18963,7 +19061,7 @@ wwv_flow_api.create_page(
 ,p_protection_level=>'C'
 ,p_cache_mode=>'NOCACHE'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20170203104451'
+,p_last_upd_yyyymmddhh24miss=>'20170208103315'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(3356989164919859849)
@@ -19424,8 +19522,24 @@ wwv_flow_api.create_page_process(
 ,p_process_when_button_id=>wwv_flow_api.id(226677406408422)
 );
 wwv_flow_api.create_page_process(
+ p_id=>wwv_flow_api.id(-2441926581566101577)
+,p_process_sequence=>21
+,p_process_point=>'AFTER_SUBMIT'
+,p_process_type=>'NATIVE_PLSQL'
+,p_process_name=>'Delete AN_Users'
+,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'BEGIN',
+'DELETE FROM AD_USER_ROLES ',
+'WHERE USER_ID = :P201_USER_ID;',
+'DELETE FROM AN_USERS ',
+'WHERE USER_ID = :P201_USER_ID;',
+'END;'))
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_when_button_id=>wwv_flow_api.id(225829571408421)
+);
+wwv_flow_api.create_page_process(
  p_id=>wwv_flow_api.id(227455737408423)
-,p_process_sequence=>30
+,p_process_sequence=>31
 ,p_process_point=>'AFTER_SUBMIT'
 ,p_process_type=>'NATIVE_FORM_PROCESS'
 ,p_process_name=>'Process Row of AD_USERS'
@@ -19438,7 +19552,7 @@ wwv_flow_api.create_page_process(
 );
 wwv_flow_api.create_page_process(
  p_id=>wwv_flow_api.id(276808916438785614)
-,p_process_sequence=>31
+,p_process_sequence=>41
 ,p_process_point=>'AFTER_SUBMIT'
 ,p_process_type=>'NATIVE_PLSQL'
 ,p_process_name=>'Insert AN_USERS'
@@ -19500,7 +19614,7 @@ wwv_flow_api.create_page_process(
 );
 wwv_flow_api.create_page_process(
  p_id=>wwv_flow_api.id(276809088402785616)
-,p_process_sequence=>32
+,p_process_sequence=>51
 ,p_process_point=>'AFTER_SUBMIT'
 ,p_process_type=>'NATIVE_PLSQL'
 ,p_process_name=>'Update AN_USERS'
@@ -19613,7 +19727,7 @@ wwv_flow_api.create_page_process(
 );
 wwv_flow_api.create_page_process(
  p_id=>wwv_flow_api.id(227813427408424)
-,p_process_sequence=>40
+,p_process_sequence=>61
 ,p_process_point=>'AFTER_SUBMIT'
 ,p_process_type=>'NATIVE_SESSION_STATE'
 ,p_process_name=>'reset page'
@@ -19623,7 +19737,7 @@ wwv_flow_api.create_page_process(
 );
 wwv_flow_api.create_page_process(
  p_id=>wwv_flow_api.id(228203159408424)
-,p_process_sequence=>50
+,p_process_sequence=>71
 ,p_process_point=>'AFTER_SUBMIT'
 ,p_process_type=>'NATIVE_CLOSE_WINDOW'
 ,p_process_name=>'Close Dialog'
@@ -19858,6 +19972,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>':AD_READ_ONLY IS NULL AND :AD_READ_ONLY_PAGE IS NULL'
 ,p_button_condition_type=>'PLSQL_EXPRESSION'
 ,p_icon_css_classes=>'fa-plus'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(220946304969734679)
@@ -19921,7 +20036,7 @@ wwv_flow_api.create_page(
 ,p_protection_level=>'C'
 ,p_cache_mode=>'NOCACHE'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20170203193153'
+,p_last_upd_yyyymmddhh24miss=>'20170208160834'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(220930790756734562)
@@ -19960,6 +20075,7 @@ wwv_flow_api.create_page_button(
 ,p_button_image_alt=>'Cancel'
 ,p_button_position=>'REGION_TEMPLATE_CLOSE'
 ,p_button_condition_type=>'NEVER'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(220931343087734562)
@@ -19976,6 +20092,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>':P301_APPLICATION_ID IS NOT NULL AND :AD_ALLOW_DELETE IS NOT NULL'
 ,p_button_condition_type=>'PLSQL_EXPRESSION'
 ,p_icon_css_classes=>'fa-close'
+,p_grid_new_grid=>false
 ,p_database_action=>'DELETE'
 );
 wwv_flow_api.create_page_button(
@@ -19991,6 +20108,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>'P301_APPLICATION_ID'
 ,p_button_condition_type=>'ITEM_IS_NOT_NULL'
 ,p_icon_css_classes=>'fa-check'
+,p_grid_new_grid=>false
 ,p_database_action=>'UPDATE'
 );
 wwv_flow_api.create_page_button(
@@ -20006,6 +20124,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>'P301_APPLICATION_ID'
 ,p_button_condition_type=>'ITEM_IS_NULL'
 ,p_icon_css_classes=>'fa-check'
+,p_grid_new_grid=>false
 ,p_database_action=>'INSERT'
 );
 wwv_flow_api.create_page_item(
@@ -20261,8 +20380,67 @@ wwv_flow_api.create_page_process(
 ,p_process_when_button_id=>wwv_flow_api.id(220931137611734562)
 );
 wwv_flow_api.create_page_process(
- p_id=>wwv_flow_api.id(220939748046734653)
+ p_id=>wwv_flow_api.id(-2441926693415101578)
 ,p_process_sequence=>30
+,p_process_point=>'AFTER_SUBMIT'
+,p_process_type=>'NATIVE_PLSQL'
+,p_process_name=>'Update Application'
+,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'DECLARE',
+'    CURSOR cur_applications IS',
+'        SELECT',
+'            application_name,',
+'            application,',
+'            apex_application_id',
+'        FROM',
+'            ad_applications',
+'        WHERE',
+'            application_id   =:p301_application_id;',
+'BEGIN',
+'    FOR rec_applications IN cur_applications LOOP',
+'        IF rec_applications.application_name <>:p301_application_name THEN',
+'            wwv_flow_api.set_application_name(',
+'                p_flow_id   => rec_applications.apex_application_id,',
+'                p_name      =>:p301_application_name',
+'            );',
+'        END IF;',
+'        IF rec_applications.application <>:p301_application THEN',
+'            wwv_flow_api.set_application_alias(',
+'                p_flow_id   => rec_applications.apex_application_id,',
+'                p_alias     =>:p301_application',
+'            );',
+'        END IF;',
+'    END LOOP;',
+'    COMMIT;',
+'END;'))
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_when_button_id=>wwv_flow_api.id(220931271596734562)
+,p_process_success_message=>'SS'
+);
+wwv_flow_api.create_page_process(
+ p_id=>wwv_flow_api.id(-2441926434826101576)
+,p_process_sequence=>40
+,p_process_point=>'AFTER_SUBMIT'
+,p_process_type=>'NATIVE_PLSQL'
+,p_process_name=>'Delete Application'
+,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'BEGIN',
+'DELETE FROM AD_USER_ROLES',
+'WHERE ROLE_ID IN (SELECT ROLE_ID FROM AD_ROLES WHERE APPLICATION_ID = :P301_APPLICATION_ID);',
+'DELETE FROM AD_ROLES',
+'WHERE APPLICATION_ID = :P301_APPLICATION_ID;',
+'DELETE FROM AD_MENUS',
+'WHERE MENU_ID IN (SELECT MENU_ID FROM AD_ROLES WHERE APPLICATION_ID = :P301_APPLICATION_ID);',
+'DELETE FROM AD_PAGES ',
+'WHERE APPLICATION_ID = :P301_APPLICATION_ID;',
+'wwv_flow_api.remove_application(p_application_id => :P301_APEX_APPLICATION_ID);',
+'END;'))
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_when_button_id=>wwv_flow_api.id(220931343087734562)
+);
+wwv_flow_api.create_page_process(
+ p_id=>wwv_flow_api.id(220939748046734653)
+,p_process_sequence=>50
 ,p_process_point=>'AFTER_SUBMIT'
 ,p_process_type=>'NATIVE_FORM_PROCESS'
 ,p_process_name=>'Process Row of AD_APPLICATIONS'
@@ -20275,20 +20453,20 @@ wwv_flow_api.create_page_process(
 );
 wwv_flow_api.create_page_process(
  p_id=>wwv_flow_api.id(-2061023865195512973)
-,p_process_sequence=>40
+,p_process_sequence=>60
 ,p_process_point=>'AFTER_SUBMIT'
 ,p_process_type=>'NATIVE_PLSQL'
 ,p_process_name=>'Create Application'
 ,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'BEGIN',
-'an_applications_pkg.create_application(:P301_APPLICATION_ID);',
+'an_applications_pkg.create_application(:P301_APPLICATION_ID, apex_application.g_flow_owner);',
 'END;'))
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_process_when_button_id=>wwv_flow_api.id(220931137611734562)
 );
 wwv_flow_api.create_page_process(
  p_id=>wwv_flow_api.id(220940115229734653)
-,p_process_sequence=>50
+,p_process_sequence=>70
 ,p_process_point=>'AFTER_SUBMIT'
 ,p_process_type=>'NATIVE_SESSION_STATE'
 ,p_process_name=>'reset page'
@@ -20298,7 +20476,7 @@ wwv_flow_api.create_page_process(
 );
 wwv_flow_api.create_page_process(
  p_id=>wwv_flow_api.id(220940601952734654)
-,p_process_sequence=>60
+,p_process_sequence=>80
 ,p_process_point=>'AFTER_SUBMIT'
 ,p_process_type=>'NATIVE_CLOSE_WINDOW'
 ,p_process_name=>'Close Dialog'
