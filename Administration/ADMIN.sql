@@ -27,7 +27,7 @@ prompt APPLICATION 89332 - Administration
 -- Application Export:
 --   Application:     89332
 --   Name:            Administration
---   Date and Time:   21:57 Wednesday February 8, 2017
+--   Date and Time:   10:39 Sunday February 12, 2017
 --   Exported By:     ABHISHEK9982@GMAIL.COM
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -46,7 +46,7 @@ prompt APPLICATION 89332 - Administration
 --     Dynamic Actions:         97
 --   Shared Components:
 --     Logic:
---       Items:                138
+--       Items:                139
 --       Computations:          13
 --     Navigation:
 --       Lists:                  5
@@ -122,7 +122,7 @@ wwv_flow_api.create_flow(
 ,p_auto_time_zone=>'N'
 ,p_default_error_display_loc=>'INLINE_IN_NOTIFICATION'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20170208215713'
+,p_last_upd_yyyymmddhh24miss=>'20170212103206'
 ,p_email_from=>'apex@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>13
@@ -263,10 +263,12 @@ wwv_flow_api.create_list(
 '      ||'':''',
 '      ||ap.apex_page_id',
 '      ||',
-'      '':&SESSION.::::AD_APPLICATION_ID,AD_PAGE_ID,AD_READ_ONLY_PAGE,AD_UNIQUE_NAME_COLUMN:''',
+'      '':&SESSION.::::AD_APPLICATION_ID,AD_PAGE_ID,AD_PAGE_NAME,AD_READ_ONLY_PAGE,AD_UNIQUE_NAME_COLUMN:''',
 '      ||aa.application_id',
 '      ||'',''',
 '      ||ap.page_id',
+'      ||'',''',
+'      ||ap.page_name',
 '      ||'',''',
 '      ||DECODE(amd.read_only, NULL, ap.read_only, ''Y'')',
 '      ||'',''',
@@ -675,6 +677,12 @@ wwv_flow_api.create_flow_item(
 wwv_flow_api.create_flow_item(
  p_id=>wwv_flow_api.id(47428076843302679291)
 ,p_name=>'AD_PAGE_ID'
+,p_scope=>'GLOBAL'
+,p_protection_level=>'N'
+);
+wwv_flow_api.create_flow_item(
+ p_id=>wwv_flow_api.id(228704692204146154)
+,p_name=>'AD_PAGE_NAME'
 ,p_scope=>'GLOBAL'
 ,p_protection_level=>'N'
 );
@@ -19598,7 +19606,7 @@ begin
 wwv_flow_api.create_page(
  p_id=>3
 ,p_user_interface_id=>wwv_flow_api.id(47426564314135253791)
-,p_name=>'BCM Home'
+,p_name=>'Home'
 ,p_page_mode=>'NORMAL'
 ,p_step_title=>'Home'
 ,p_reload_on_submit=>'A'
@@ -19608,17 +19616,15 @@ wwv_flow_api.create_page(
 ,p_autocomplete_on_off=>'ON'
 ,p_step_template=>wwv_flow_api.id(47426730721774537431)
 ,p_page_template_options=>'#DEFAULT#'
-,p_dialog_chained=>'Y'
 ,p_overwrite_navigation_list=>'Y'
 ,p_navigation_list_position=>'SIDE'
 ,p_navigation_list_id=>wwv_flow_api.id(47426746440012362632)
 ,p_navigation_list_template_id=>wwv_flow_api.id(47426556536096253781)
 ,p_page_is_public_y_n=>'N'
 ,p_cache_mode=>'NOCACHE'
-,p_cache_timeout_seconds=>21600
 ,p_help_text=>'No help is available for this page.'
-,p_last_updated_by=>'KE24IG'
-,p_last_upd_yyyymmddhh24miss=>'20160629082051'
+,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
+,p_last_upd_yyyymmddhh24miss=>'20170212103042'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(47508833205768117592)
