@@ -27,12 +27,12 @@ prompt APPLICATION 89332 - Administration
 -- Application Export:
 --   Application:     89332
 --   Name:            Administration
---   Date and Time:   23:21 Friday February 17, 2017
---   Exported By:     ABHISHEK9982@GMAIL.COM
+--   Date and Time:   00:44 Saturday February 18, 2017
+--   Exported By:     ABHISHEK
 --   Flashback:       0
 --   Export Type:     Application Export
 --   Version:         5.1.0.00.45
---   Instance ID:     63113759365424
+--   Instance ID:     220195101316710
 --
 
 -- Application Statistics:
@@ -121,8 +121,8 @@ wwv_flow_api.create_flow(
 ,p_csv_encoding=>'Y'
 ,p_auto_time_zone=>'N'
 ,p_default_error_display_loc=>'INLINE_IN_NOTIFICATION'
-,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20170217231707'
+,p_last_updated_by=>'ABHISHEK'
+,p_last_upd_yyyymmddhh24miss=>'20170218004353'
 ,p_email_from=>'apex@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -22432,6 +22432,7 @@ wwv_flow_api.create_page(
 '}'))
 ,p_step_template=>wwv_flow_api.id(47426525170131253768)
 ,p_page_template_options=>'#DEFAULT#'
+,p_dialog_chained=>'Y'
 ,p_overwrite_navigation_list=>'N'
 ,p_page_is_public_y_n=>'Y'
 ,p_cache_mode=>'NOCACHE'
@@ -22483,6 +22484,7 @@ wwv_flow_api.create_page_button(
 ,p_button_image_alt=>'Log In'
 ,p_button_position=>'BOTTOM'
 ,p_icon_css_classes=>'fa-sign-in'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_branch(
  p_id=>wwv_flow_api.id(47427652263832299392)
@@ -50763,7 +50765,7 @@ wwv_flow_api.append_to_install_script(
 '    ''200101010000001'',',
 '    ''1'',',
 '    NULL,',
-'    ''AcolyteLogo.png'',',
+'    ''ApplicationCloud.png'',',
 '    ''Y'',',
 '    to_date(''01-01-01'',''DD-MM-RR''),',
 '    NULL,',
