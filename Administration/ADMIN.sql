@@ -27,7 +27,7 @@ prompt APPLICATION 89332 - Administration
 -- Application Export:
 --   Application:     89332
 --   Name:            Administration
---   Date and Time:   00:44 Saturday February 18, 2017
+--   Date and Time:   19:14 Sunday February 19, 2017
 --   Exported By:     ABHISHEK
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -36,13 +36,13 @@ prompt APPLICATION 89332 - Administration
 --
 
 -- Application Statistics:
---   Pages:                     51
---     Items:                  438
---     Computations:            78
---     Validations:             26
---     Processes:              118
---     Regions:                100
---     Buttons:                126
+--   Pages:                     52
+--     Items:                  443
+--     Computations:            82
+--     Validations:             27
+--     Processes:              120
+--     Regions:                102
+--     Buttons:                128
 --     Dynamic Actions:         97
 --   Shared Components:
 --     Logic:
@@ -90,7 +90,7 @@ wwv_flow_api.create_flow(
 ,p_owner=>nvl(wwv_flow_application_install.get_schema,'ACOLYTE')
 ,p_name=>nvl(wwv_flow_application_install.get_application_name,'Administration')
 ,p_alias=>nvl(wwv_flow_application_install.get_application_alias,'AD')
-,p_application_group=>1546039533900105984
+,p_application_group=>5481801721444160
 ,p_application_group_name=>'Acolyte'
 ,p_page_view_logging=>'YES'
 ,p_page_protection_enabled_y_n=>'Y'
@@ -122,8 +122,8 @@ wwv_flow_api.create_flow(
 ,p_auto_time_zone=>'N'
 ,p_default_error_display_loc=>'INLINE_IN_NOTIFICATION'
 ,p_last_updated_by=>'ABHISHEK'
-,p_last_upd_yyyymmddhh24miss=>'20170218004353'
-,p_email_from=>'apex@acolyte-software.com'
+,p_last_upd_yyyymmddhh24miss=>'20170219191416'
+,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
 ,p_ui_type_name => null
@@ -22436,8 +22436,8 @@ wwv_flow_api.create_page(
 ,p_overwrite_navigation_list=>'N'
 ,p_page_is_public_y_n=>'Y'
 ,p_cache_mode=>'NOCACHE'
-,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20170217231707'
+,p_last_updated_by=>'ABHISHEK'
+,p_last_upd_yyyymmddhh24miss=>'20170219140115'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(47426564783469253802)
@@ -22486,6 +22486,19 @@ wwv_flow_api.create_page_button(
 ,p_icon_css_classes=>'fa-sign-in'
 ,p_grid_new_grid=>false
 );
+wwv_flow_api.create_page_button(
+ p_id=>wwv_flow_api.id(-147498115027625)
+,p_button_sequence=>40
+,p_button_plug_id=>wwv_flow_api.id(47426564783469253802)
+,p_button_name=>'FORGOT_PASSWORD'
+,p_button_action=>'REDIRECT_PAGE'
+,p_button_template_options=>'#DEFAULT#:t-Button--iconLeft:t-Button--stretch'
+,p_button_template_id=>wwv_flow_api.id(47426559209327253783)
+,p_button_image_alt=>'Forgot Password?'
+,p_button_position=>'BOTTOM'
+,p_button_redirect_url=>'f?p=&APP_ID.:102:&SESSION.::&DEBUG.:RP::'
+,p_icon_css_classes=>'fa-unlock'
+);
 wwv_flow_api.create_page_branch(
  p_id=>wwv_flow_api.id(47427652263832299392)
 ,p_branch_name=>'Branch to Home Page'
@@ -22514,7 +22527,7 @@ wwv_flow_api.create_page_item(
 ,p_item_sequence=>10
 ,p_item_plug_id=>wwv_flow_api.id(47426564783469253802)
 ,p_use_cache_before_default=>'NO'
-,p_prompt=>'Username'
+,p_prompt=>'User Name'
 ,p_display_as=>'NATIVE_TEXT_FIELD'
 ,p_cSize=>40
 ,p_cMaxlength=>100
@@ -22599,6 +22612,192 @@ wwv_flow_api.create_page_process(
 ,p_process_type=>'NATIVE_PLSQL'
 ,p_process_name=>'Get Username Cookie'
 ,p_process_sql_clob=>':P101_USERNAME := apex_authentication.get_login_username_cookie;'
+);
+end;
+/
+prompt --application/pages/page_00102
+begin
+wwv_flow_api.create_page(
+ p_id=>102
+,p_user_interface_id=>wwv_flow_api.id(47426564314135253791)
+,p_name=>'Forgot Password'
+,p_page_mode=>'MODAL'
+,p_step_title=>'Forgot Password'
+,p_step_sub_title_type=>'TEXT_WITH_SUBSTITUTIONS'
+,p_first_item=>'NO_FIRST_ITEM'
+,p_autocomplete_on_off=>'OFF'
+,p_step_template=>wwv_flow_api.id(47426525947945253768)
+,p_page_template_options=>'#DEFAULT#'
+,p_dialog_height=>'300'
+,p_dialog_chained=>'Y'
+,p_overwrite_navigation_list=>'N'
+,p_page_is_public_y_n=>'Y'
+,p_cache_mode=>'NOCACHE'
+,p_last_updated_by=>'ABHISHEK'
+,p_last_upd_yyyymmddhh24miss=>'20170219191416'
+);
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(-147394021027624)
+,p_plug_name=>'Forgot Password'
+,p_region_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_api.id(47426530040583253771)
+,p_plug_display_sequence=>10
+,p_include_in_reg_disp_sel_yn=>'Y'
+,p_plug_display_point=>'BODY'
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_attribute_01=>'N'
+,p_attribute_02=>'HTML'
+);
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(39847902371945)
+,p_plug_name=>'Buttons'
+,p_region_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_api.id(47426530074363253771)
+,p_plug_display_sequence=>20
+,p_include_in_reg_disp_sel_yn=>'Y'
+,p_plug_display_point=>'REGION_POSITION_03'
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_attribute_01=>'N'
+,p_attribute_02=>'HTML'
+);
+wwv_flow_api.create_page_button(
+ p_id=>wwv_flow_api.id(-147153882027622)
+,p_button_sequence=>30
+,p_button_plug_id=>wwv_flow_api.id(39847902371945)
+,p_button_name=>'SEND'
+,p_button_action=>'SUBMIT'
+,p_button_template_options=>'#DEFAULT#:t-Button--success'
+,p_button_template_id=>wwv_flow_api.id(47426558965413253783)
+,p_button_image_alt=>'Send'
+,p_button_position=>'BELOW_BOX'
+,p_icon_css_classes=>'fa-check'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(-147320132027623)
+,p_name=>'P102_USERNAME'
+,p_is_required=>true
+,p_item_sequence=>10
+,p_item_plug_id=>wwv_flow_api.id(-147394021027624)
+,p_prompt=>'User Name'
+,p_placeholder=>'Username'
+,p_display_as=>'NATIVE_TEXT_FIELD'
+,p_cSize=>40
+,p_grid_label_column_span=>3
+,p_field_template=>wwv_flow_api.id(47426558757572253782)
+,p_item_template_options=>'#DEFAULT#'
+,p_attribute_01=>'Y'
+,p_attribute_02=>'N'
+,p_attribute_04=>'TEXT'
+,p_attribute_05=>'BOTH'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(39568905371943)
+,p_name=>'P102_EMAIL'
+,p_item_sequence=>20
+,p_item_plug_id=>wwv_flow_api.id(-147394021027624)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(40352983371950)
+,p_name=>'P102_REPLACED_EMAIL'
+,p_item_sequence=>30
+,p_item_plug_id=>wwv_flow_api.id(-147394021027624)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(40510002371952)
+,p_name=>'P102_NEW_PASSWORD'
+,p_item_sequence=>40
+,p_item_plug_id=>wwv_flow_api.id(-147394021027624)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(40730447371954)
+,p_name=>'P102_ENCRYPT_PASSWORD'
+,p_item_sequence=>50
+,p_item_plug_id=>wwv_flow_api.id(-147394021027624)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_computation(
+ p_id=>wwv_flow_api.id(39753343371944)
+,p_computation_sequence=>10
+,p_computation_item=>'P102_EMAIL'
+,p_computation_type=>'QUERY'
+,p_computation=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'SELECT EMAIL FROM AD_USERS',
+'WHERE USER_NAME = UPPER(:P102_USERNAME)',
+'AND ENABLED = ''Y''',
+'AND SYSDATE BETWEEN NVL(DATE_FROM, SYSDATE) AND NVL(DATE_TO, SYSDATE)'))
+,p_computation_error_message=>'Invalid User Name'
+);
+wwv_flow_api.create_page_computation(
+ p_id=>wwv_flow_api.id(40238979371949)
+,p_computation_sequence=>20
+,p_computation_item=>'P102_REPLACED_EMAIL'
+,p_computation_type=>'PLSQL_EXPRESSION'
+,p_computation=>'REGEXP_REPLACE(substr(:P102_EMAIL, 1, instr(:P102_EMAIL, ''@'')-2), ''\S'', ''*'', 2)||substr(:P102_EMAIL, instr(:P102_EMAIL, ''@'')-1)'
+,p_computation_error_message=>'Invalid User Name'
+);
+wwv_flow_api.create_page_computation(
+ p_id=>wwv_flow_api.id(40634854371953)
+,p_computation_sequence=>30
+,p_computation_item=>'P102_NEW_PASSWORD'
+,p_computation_type=>'QUERY'
+,p_computation=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'SELECT',
+'    dbms_random.string(''X'',8)',
+'FROM',
+'    dual'))
+);
+wwv_flow_api.create_page_computation(
+ p_id=>wwv_flow_api.id(40826379371955)
+,p_computation_sequence=>40
+,p_computation_item=>'P102_ENCRYPT_PASSWORD'
+,p_computation_type=>'PLSQL_EXPRESSION'
+,p_computation=>'DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => UPPER (TRIM(:P102_USERNAME)) || ''/'' || UPPER (:P102_NEW_PASSWORD));'
+);
+wwv_flow_api.create_page_validation(
+ p_id=>wwv_flow_api.id(39872442371946)
+,p_validation_name=>'Invalid User'
+,p_validation_sequence=>10
+,p_validation=>'P102_EMAIL'
+,p_validation_type=>'ITEM_NOT_NULL'
+,p_error_message=>'Invalid User Name'
+,p_always_execute=>'N'
+,p_when_button_pressed=>wwv_flow_api.id(-147153882027622)
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+);
+wwv_flow_api.create_page_process(
+ p_id=>wwv_flow_api.id(40885167371956)
+,p_process_sequence=>10
+,p_process_point=>'AFTER_SUBMIT'
+,p_process_type=>'NATIVE_PLSQL'
+,p_process_name=>'Update Password'
+,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'BEGIN',
+'UPDATE AD_USERS',
+'SET PASSWORD = :P102_ENCRYPT_PASSWORD',
+'WHERE USER_NAME = UPPER(:P102_USERNAME);',
+'END;'))
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+);
+wwv_flow_api.create_page_process(
+ p_id=>wwv_flow_api.id(39554033371942)
+,p_process_sequence=>20
+,p_process_point=>'AFTER_SUBMIT'
+,p_process_type=>'NATIVE_SEND_EMAIL'
+,p_process_name=>'Send Mail'
+,p_attribute_01=>'administrator@acolyte-software.com'
+,p_attribute_02=>':P201_EMAIL'
+,p_attribute_06=>'Acolyte Automatic Pasword'
+,p_attribute_07=>'&P102_NEW_PASSWORD.'
+,p_attribute_10=>'Y'
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_success_message=>'An auto-generated password is sent to registered mail &P102_REPLACED_EMAIL.'
 );
 end;
 /
@@ -50948,7 +51147,7 @@ wwv_flow_api.append_to_install_script(
 '    DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => UPPER (TRIM(''SYSADMIN''))',
 '    || ''/''',
 '    || UPPER (''SYSADMIN'')),',
-'    ''SYSADMIN@ING.COM'',',
+'    ''SYSADMIN@ACOLYTE-SOFTWARE.COM'',',
 '    ''1'',',
 '    ''Y'',',
 '    to_date(''01-01-01'',''DD-MM-RR''),',
@@ -50982,7 +51181,7 @@ wwv_flow_api.append_to_install_script(
 '    DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => UPPER (TRIM(''APPDEV''))',
 '    || ''/''',
 '    || UPPER (''APPDEV'')),',
-'    ''APPDEV@ING.COM'',',
+'    ''APPDEV@ACOLYTE-SOFTWARE.COM'',',
 '    ''1'',',
 '    ''Y'',',
 '    to_date(''01-01-01'',''DD-MM-RR''),',
@@ -51016,7 +51215,7 @@ wwv_flow_api.append_to_install_script(
 '    DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => UPPER (TRIM(''ADMIN''))',
 '    || ''/''',
 '    || UPPER (''ADMIN'')),',
-'    ''ADMIN@ING.COM'',',
+'    ''ADMIN@ACOLYTE-SOFTWARE.COM'',',
 '    ''1'',',
 '    ''Y'',',
 '    to_date(''01-01-01'',''DD-MM-RR''),',
