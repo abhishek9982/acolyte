@@ -27,12 +27,12 @@ prompt APPLICATION 89332 - Administration
 -- Application Export:
 --   Application:     89332
 --   Name:            Administration
---   Date and Time:   19:14 Sunday February 19, 2017
---   Exported By:     ABHISHEK
+--   Date and Time:   18:48 Sunday February 19, 2017
+--   Exported By:     ABHISHEK9982@GMAIL.COM
 --   Flashback:       0
 --   Export Type:     Application Export
 --   Version:         5.1.0.00.45
---   Instance ID:     220195101316710
+--   Instance ID:     63113759365424
 --
 
 -- Application Statistics:
@@ -90,7 +90,7 @@ wwv_flow_api.create_flow(
 ,p_owner=>nvl(wwv_flow_application_install.get_schema,'ACOLYTE')
 ,p_name=>nvl(wwv_flow_application_install.get_application_name,'Administration')
 ,p_alias=>nvl(wwv_flow_application_install.get_application_alias,'AD')
-,p_application_group=>5481801721444160
+,p_application_group=>1546039533900105984
 ,p_application_group_name=>'Acolyte'
 ,p_page_view_logging=>'YES'
 ,p_page_protection_enabled_y_n=>'Y'
@@ -121,8 +121,8 @@ wwv_flow_api.create_flow(
 ,p_csv_encoding=>'Y'
 ,p_auto_time_zone=>'N'
 ,p_default_error_display_loc=>'INLINE_IN_NOTIFICATION'
-,p_last_updated_by=>'ABHISHEK'
-,p_last_upd_yyyymmddhh24miss=>'20170219191416'
+,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
+,p_last_upd_yyyymmddhh24miss=>'20170219184756'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -22498,6 +22498,7 @@ wwv_flow_api.create_page_button(
 ,p_button_position=>'BOTTOM'
 ,p_button_redirect_url=>'f?p=&APP_ID.:102:&SESSION.::&DEBUG.:RP::'
 ,p_icon_css_classes=>'fa-unlock'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_branch(
  p_id=>wwv_flow_api.id(47427652263832299392)
@@ -22644,6 +22645,7 @@ wwv_flow_api.create_page_plug(
 ,p_plug_display_sequence=>10
 ,p_include_in_reg_disp_sel_yn=>'Y'
 ,p_plug_display_point=>'BODY'
+,p_plug_query_row_template=>1
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_attribute_01=>'N'
 ,p_attribute_02=>'HTML'
@@ -22656,6 +22658,7 @@ wwv_flow_api.create_page_plug(
 ,p_plug_display_sequence=>20
 ,p_include_in_reg_disp_sel_yn=>'Y'
 ,p_plug_display_point=>'REGION_POSITION_03'
+,p_plug_query_row_template=>1
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_attribute_01=>'N'
 ,p_attribute_02=>'HTML'
@@ -22671,6 +22674,7 @@ wwv_flow_api.create_page_button(
 ,p_button_image_alt=>'Send'
 ,p_button_position=>'BELOW_BOX'
 ,p_icon_css_classes=>'fa-check'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(-147320132027623)
@@ -26563,7 +26567,7 @@ wwv_flow_api.create_page(
 ,p_cache_timeout_seconds=>21600
 ,p_help_text=>'No help is available for this page.'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20170217192110'
+,p_last_upd_yyyymmddhh24miss=>'20170219184756'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(47427153166824055505)
@@ -26979,6 +26983,8 @@ wwv_flow_api.create_page_computation(
 ,p_computation_item=>'P301_PASSWORD'
 ,p_computation_type=>'PLSQL_EXPRESSION'
 ,p_computation=>'DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => UPPER (TRIM(:P301_USER_NAME)) || ''/'' || UPPER (:P301_PASSWORD));'
+,p_compute_when=>'P301_PASSWORD'
+,p_compute_when_type=>'ITEM_IS_NOT_NULL'
 );
 wwv_flow_api.create_page_computation(
  p_id=>wwv_flow_api.id(47427936082265234883)
@@ -49615,14 +49621,6 @@ wwv_flow_api.create_install_script(
 '    DATE_TO,',
 '    CREATED_BY,',
 '    CREATED_ON,',
-''))
-);
-end;
-/
-begin
-wwv_flow_api.append_to_install_script(
- p_id=>wwv_flow_api.id(47377959860622808042)
-,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
 '    UPDATED_BY,',
 '    UPDATED_ON',
 '  )',
@@ -49741,7 +49739,15 @@ wwv_flow_api.append_to_install_script(
 'INTO',
 '  AD_MENUS',
 '  (',
-'    MENU_ID,',
+'    MENU_ID,'))
+);
+end;
+/
+begin
+wwv_flow_api.append_to_install_script(
+ p_id=>wwv_flow_api.id(47377959860622808042)
+,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'',
 '    APPLICATION_ID,',
 '    MENU_NAME,',
 '    MENU,',
