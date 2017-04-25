@@ -27,7 +27,7 @@ prompt APPLICATION 114943 - Administration
 -- Application Export:
 --   Application:     114943
 --   Name:            Administration
---   Date and Time:   18:51 Saturday April 1, 2017
+--   Date and Time:   17:16 Monday April 24, 2017
 --   Exported By:     ABHISHEK9982@GMAIL.COM
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -122,7 +122,7 @@ wwv_flow_api.create_flow(
 ,p_auto_time_zone=>'N'
 ,p_default_error_display_loc=>'INLINE_IN_NOTIFICATION'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20170320221808'
+,p_last_upd_yyyymmddhh24miss=>'20170422224744'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -21890,13 +21890,14 @@ wwv_flow_api.create_page(
 ,p_step_sub_title_type=>'TEXT_WITH_SUBSTITUTIONS'
 ,p_first_item=>'AUTO_FIRST_ITEM'
 ,p_autocomplete_on_off=>'OFF'
-,p_step_template=>wwv_flow_api.id(55376331664479898240)
+,p_step_template=>wwv_flow_api.id(55375951876113750056)
+,p_page_template_options=>'#DEFAULT#'
 ,p_dialog_chained=>'Y'
 ,p_overwrite_navigation_list=>'N'
 ,p_page_is_public_y_n=>'Y'
 ,p_cache_mode=>'NOCACHE'
-,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20151103224922'
+,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
+,p_last_upd_yyyymmddhh24miss=>'20170422224744'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(55378528455705153077)
@@ -21936,10 +21937,8 @@ wwv_flow_api.create_page_button(
 ,p_button_image_alt=>'Cancel'
 ,p_button_position=>'BELOW_BOX'
 ,p_button_execute_validations=>'N'
+,p_warn_on_unsaved_changes=>null
 ,p_button_condition_type=>'NEVER'
-,p_grid_new_grid=>false
-,p_grid_new_row=>'Y'
-,p_grid_new_column=>'Y'
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(55378532295852153083)
@@ -21952,9 +21951,6 @@ wwv_flow_api.create_page_button(
 ,p_button_image_alt=>'Submit Feedback'
 ,p_button_position=>'REGION_TEMPLATE_NEXT'
 ,p_icon_css_classes=>'fa-check'
-,p_grid_new_grid=>false
-,p_grid_new_row=>'Y'
-,p_grid_new_column=>'Y'
 );
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(55378528865013153079)
@@ -21964,10 +21960,7 @@ wwv_flow_api.create_page_item(
 ,p_prompt=>'Application:'
 ,p_display_as=>'NATIVE_DISPLAY_ONLY'
 ,p_lov=>'select application_id||''. ''||application_name d, application_id v from apex_applications where application_id = :P10_APPLICATION_ID'
-,p_cSize=>60
-,p_cHeight=>1
 ,p_tag_attributes=>'class="fielddatabold"'
-,p_label_alignment=>'RIGHT'
 ,p_field_template=>wwv_flow_api.id(55375984685740750070)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_lov_display_extra=>'YES'
@@ -21984,10 +21977,7 @@ wwv_flow_api.create_page_item(
 ,p_prompt=>'Page:'
 ,p_display_as=>'NATIVE_DISPLAY_ONLY'
 ,p_lov=>'select page_id||''. ''||page_name d, page_id v from apex_application_pages where page_id = :P10_PAGE_ID and application_id = :P10_APPLICATION_ID'
-,p_cSize=>60
-,p_cHeight=>1
 ,p_tag_attributes=>'class="fielddatabold"'
-,p_label_alignment=>'RIGHT'
 ,p_field_template=>wwv_flow_api.id(55375984685740750070)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_lov_display_extra=>'YES'
@@ -22007,10 +21997,8 @@ wwv_flow_api.create_page_item(
 ,p_cSize=>34
 ,p_cMaxlength=>4000
 ,p_cHeight=>4
-,p_label_alignment=>'ABOVE'
 ,p_field_template=>wwv_flow_api.id(55375984685740750070)
 ,p_item_template_options=>'#DEFAULT#'
-,p_lov_display_extra=>'YES'
 ,p_help_text=>'Enter your feedback and press the submit feedback button.'
 ,p_attribute_01=>'Y'
 ,p_attribute_02=>'N'
@@ -22028,10 +22016,7 @@ wwv_flow_api.create_page_item(
 ,p_source_type=>'STATIC'
 ,p_display_as=>'NATIVE_SELECT_LIST'
 ,p_lov=>'select the_name, id from APEX_FEEDBACK_TYPES order by id'
-,p_cSize=>20
-,p_cMaxlength=>100
 ,p_cHeight=>1
-,p_label_alignment=>'RIGHT'
 ,p_field_template=>wwv_flow_api.id(55375984685740750070)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_lov_display_extra=>'YES'
