@@ -27,7 +27,7 @@ prompt APPLICATION 114966 - Annotation Template
 -- Application Export:
 --   Application:     114966
 --   Name:            Annotation Template
---   Date and Time:   14:53 Saturday April 29, 2017
+--   Date and Time:   18:39 Saturday April 29, 2017
 --   Exported By:     ABHISHEK9982@GMAIL.COM
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -39,7 +39,7 @@ prompt APPLICATION 114966 - Annotation Template
 --   Pages:                      3
 --     Items:                    9
 --     Computations:             6
---     Processes:                5
+--     Processes:                6
 --     Regions:                  4
 --     Buttons:                  6
 --     Dynamic Actions:          6
@@ -124,7 +124,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_02=>'ANNOTATION_APPLICATION'
 ,p_substitution_value_02=>'114966'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20170429145327'
+,p_last_upd_yyyymmddhh24miss=>'20170429183747'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>13
@@ -18890,7 +18890,7 @@ wwv_flow_api.create_page(
 ,p_protection_level=>'C'
 ,p_cache_mode=>'NOCACHE'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20170423125207'
+,p_last_upd_yyyymmddhh24miss=>'20170429183747'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(12880949411735626553)
@@ -18960,8 +18960,8 @@ wwv_flow_api.create_page_button(
 ,p_button_position=>'REGION_TEMPLATE_DELETE'
 ,p_button_redirect_url=>'javascript:apex.confirm(htmldb_delete_message,''DELETE'');'
 ,p_button_execute_validations=>'N'
-,p_button_condition=>':P10_PAGE_ID IS NOT NULL AND :AD_ALLOW_DELETE IS NOT NULL'
-,p_button_condition_type=>'PLSQL_EXPRESSION'
+,p_button_condition=>'P10_PAGE_ID'
+,p_button_condition_type=>'ITEM_IS_NOT_NULL'
 ,p_icon_css_classes=>'fa-close'
 ,p_database_action=>'DELETE'
 );
@@ -19217,6 +19217,21 @@ wwv_flow_api.create_page_process(
 ,p_process_when_button_id=>wwv_flow_api.id(3551575163167200172)
 );
 wwv_flow_api.create_page_process(
+ p_id=>wwv_flow_api.id(3346571913877033704)
+,p_process_sequence=>20
+,p_process_point=>'AFTER_SUBMIT'
+,p_process_type=>'NATIVE_PLSQL'
+,p_process_name=>'Delete Page'
+,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'BEGIN',
+'    DELETE FROM ad_pages WHERE',
+'        page_id =:p10_ad_page_id;',
+'',
+'END;'))
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_when_button_id=>wwv_flow_api.id(3551574328838200172)
+);
+wwv_flow_api.create_page_process(
  p_id=>wwv_flow_api.id(3551579176760200179)
 ,p_process_sequence=>30
 ,p_process_point=>'AFTER_SUBMIT'
@@ -19246,7 +19261,7 @@ wwv_flow_api.create_page_process(
 ,p_process_type=>'NATIVE_CLOSE_WINDOW'
 ,p_process_name=>'Close Dialog'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
-,p_process_when_type=>'NEVER'
+,p_process_when_button_id=>wwv_flow_api.id(3551574328838200172)
 );
 end;
 /
