@@ -27,7 +27,7 @@ prompt APPLICATION 114966 - Annotation Template
 -- Application Export:
 --   Application:     114966
 --   Name:            Annotation Template
---   Date and Time:   13:43 Saturday April 29, 2017
+--   Date and Time:   14:53 Saturday April 29, 2017
 --   Exported By:     ABHISHEK9982@GMAIL.COM
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -42,7 +42,7 @@ prompt APPLICATION 114966 - Annotation Template
 --     Processes:                5
 --     Regions:                  4
 --     Buttons:                  6
---     Dynamic Actions:          5
+--     Dynamic Actions:          6
 --   Shared Components:
 --     Logic:
 --       Items:                 20
@@ -124,7 +124,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_02=>'ANNOTATION_APPLICATION'
 ,p_substitution_value_02=>'114966'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20170429134321'
+,p_last_upd_yyyymmddhh24miss=>'20170429145327'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>13
@@ -18727,7 +18727,7 @@ wwv_flow_api.create_page(
 ,p_cache_mode=>'NOCACHE'
 ,p_help_text=>'No help is available for this page.'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20170429134257'
+,p_last_upd_yyyymmddhh24miss=>'20170429145327'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(3346569084608033676)
@@ -18848,6 +18848,24 @@ wwv_flow_api.create_page_da_action(
 '',
 ''))
 ,p_stop_execution_on_error=>'Y'
+);
+wwv_flow_api.create_page_da_event(
+ p_id=>wwv_flow_api.id(3346571640314033701)
+,p_name=>'Dialog Closed'
+,p_event_sequence=>40
+,p_triggering_element_type=>'BUTTON'
+,p_triggering_button_id=>wwv_flow_api.id(4478247775876876977)
+,p_bind_type=>'bind'
+,p_bind_event_type=>'apexafterclosedialog'
+);
+wwv_flow_api.create_page_da_action(
+ p_id=>wwv_flow_api.id(3346571702540033702)
+,p_event_id=>wwv_flow_api.id(3346571640314033701)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'N'
+,p_action=>'NATIVE_SUBMIT_PAGE'
+,p_attribute_02=>'Y'
 );
 end;
 /
