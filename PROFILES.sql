@@ -27,7 +27,7 @@ prompt APPLICATION 38289 - Profiles
 -- Application Export:
 --   Application:     38289
 --   Name:            Profiles
---   Date and Time:   15:07 Sunday October 15, 2017
+--   Date and Time:   15:46 Sunday October 15, 2017
 --   Exported By:     ABHISHEK9982@GMAIL.COM
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -125,7 +125,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'117635'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20171015150732'
+,p_last_upd_yyyymmddhh24miss=>'20171015154348'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -26441,7 +26441,7 @@ wwv_flow_api.create_install_script(
 '    ''200201010000002'',',
 '    ''200201010000001'',',
 '    ''Profile Manager'',',
-'    ''PROFILE_Manager'',',
+'    ''PROFILE_MANAGER'',',
 '    ''200201010000002'',',
 '    NULL,',
 '    NULL,',
