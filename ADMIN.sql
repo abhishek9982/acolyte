@@ -27,7 +27,7 @@ prompt APPLICATION 117635 - Administration
 -- Application Export:
 --   Application:     117635
 --   Name:            Administration
---   Date and Time:   14:21 Saturday October 14, 2017
+--   Date and Time:   14:41 Sunday October 22, 2017
 --   Exported By:     ABHISHEK9982@GMAIL.COM
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -70,7 +70,7 @@ prompt APPLICATION 117635 - Administration
 --       Plug-ins:               3
 --     Globalization:
 --     Reports:
---   Supporting Objects:  Included (auto-install)
+--   Supporting Objects:  Included
 --     Install scripts:          6
 
 prompt --application/delete_application
@@ -123,7 +123,7 @@ wwv_flow_api.create_flow(
 ,p_auto_time_zone=>'N'
 ,p_default_error_display_loc=>'INLINE_IN_NOTIFICATION'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20170917220928'
+,p_last_upd_yyyymmddhh24miss=>'20171022133821'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -22129,7 +22129,7 @@ wwv_flow_api.create_page(
 ,p_page_is_public_y_n=>'N'
 ,p_cache_mode=>'NOCACHE'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20170807212545'
+,p_last_upd_yyyymmddhh24miss=>'20171022133821'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(133373983693225523182)
@@ -22163,12 +22163,11 @@ wwv_flow_api.create_page_button(
 ,p_button_plug_id=>wwv_flow_api.id(133373984078083523185)
 ,p_button_name=>'Save'
 ,p_button_action=>'SUBMIT'
-,p_button_template_options=>'#DEFAULT#'
+,p_button_template_options=>'#DEFAULT#:t-Button--success'
 ,p_button_template_id=>wwv_flow_api.id(69446343738080895701)
 ,p_button_image_alt=>'Save'
 ,p_button_position=>'BELOW_BOX'
 ,p_icon_css_classes=>'fa-check'
-,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(133373983791913523183)
@@ -49169,7 +49168,7 @@ end;
 /
 prompt --application/end_environment
 begin
-wwv_flow_api.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, true));
+wwv_flow_api.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, false));
 commit;
 end;
 /
