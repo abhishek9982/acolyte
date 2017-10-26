@@ -27,7 +27,7 @@ prompt APPLICATION 38289 - Profiles
 -- Application Export:
 --   Application:     38289
 --   Name:            Profiles
---   Date and Time:   20:28 Sunday October 22, 2017
+--   Date and Time:   15:11 Thursday October 26, 2017
 --   Exported By:     ABHISHEK9982@GMAIL.COM
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -125,7 +125,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'117635'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20171022202626'
+,p_last_upd_yyyymmddhh24miss=>'20171026151120'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -24716,7 +24716,7 @@ wwv_flow_api.create_page(
 ,p_protection_level=>'C'
 ,p_cache_mode=>'NOCACHE'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20170917191448'
+,p_last_upd_yyyymmddhh24miss=>'20171026151120'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(158247293120169174808)
@@ -25252,7 +25252,7 @@ wwv_flow_api.create_page_process(
 ,p_attribute_08=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Dear &P201_FIRST_NAME. &P201_LAST_NAME.,',
 '<br><br>',
-'The username and automatically generated password for your account in Acolyte Applications is as below. ',
+'The username and automatically generated password for your account in <a href="https://apex.oracle.com/pls/apex/f?p=&ADMIN_APPLICATION.">Acolyte Applications</a> is as below. ',
 '<br><br>',
 'Username: &P201_USER_NAME.',
 '<br>',
