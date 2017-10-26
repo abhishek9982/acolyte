@@ -27,7 +27,7 @@ prompt APPLICATION 38289 - Profiles
 -- Application Export:
 --   Application:     38289
 --   Name:            Profiles
---   Date and Time:   15:11 Thursday October 26, 2017
+--   Date and Time:   19:55 Thursday October 26, 2017
 --   Exported By:     ABHISHEK9982@GMAIL.COM
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -42,7 +42,7 @@ prompt APPLICATION 38289 - Profiles
 --     Validations:              2
 --     Processes:               30
 --     Regions:                 19
---     Buttons:                 28
+--     Buttons:                 29
 --     Dynamic Actions:         16
 --   Shared Components:
 --     Logic:
@@ -125,7 +125,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'117635'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20171026151120'
+,p_last_upd_yyyymmddhh24miss=>'20171026194742'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -24716,7 +24716,7 @@ wwv_flow_api.create_page(
 ,p_protection_level=>'C'
 ,p_cache_mode=>'NOCACHE'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20171026151120'
+,p_last_upd_yyyymmddhh24miss=>'20171026194742'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(158247293120169174808)
@@ -24744,6 +24744,19 @@ wwv_flow_api.create_page_plug(
 ,p_attribute_01=>'N'
 ,p_attribute_02=>'TEXT'
 ,p_attribute_03=>'Y'
+);
+wwv_flow_api.create_page_button(
+ p_id=>wwv_flow_api.id(30776698454436730201)
+,p_button_sequence=>10
+,p_button_plug_id=>wwv_flow_api.id(158247293859613174808)
+,p_button_name=>'RESET'
+,p_button_action=>'SUBMIT'
+,p_button_template_options=>'#DEFAULT#:t-Button--iconLeft'
+,p_button_template_id=>wwv_flow_api.id(218172935645743364190)
+,p_button_is_hot=>'Y'
+,p_button_image_alt=>'Reset Password'
+,p_button_position=>'REGION_TEMPLATE_CHANGE'
+,p_icon_css_classes=>'fa-refresh'
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(132701449894240681175)
@@ -25125,8 +25138,8 @@ wwv_flow_api.create_page_computation(
 ,p_computation=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'SELECT DBMS_RANDOM.STRING(''X'',8)',
 'FROM DUAL'))
-,p_compute_when=>'CREATE'
-,p_compute_when_type=>'REQUEST_EQUALS_CONDITION'
+,p_compute_when=>'CREATE,RESET'
+,p_compute_when_type=>'REQUEST_IN_CONDITION'
 );
 wwv_flow_api.create_page_computation(
  p_id=>wwv_flow_api.id(132668657616541437074)
@@ -25134,8 +25147,8 @@ wwv_flow_api.create_page_computation(
 ,p_computation_item=>'P201_ENCRYPT_PASSWORD'
 ,p_computation_type=>'PLSQL_EXPRESSION'
 ,p_computation=>'DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => :P201_USER_NAME || ''/'' || :P201_PASSWORD)'
-,p_compute_when=>'CREATE'
-,p_compute_when_type=>'REQUEST_EQUALS_CONDITION'
+,p_compute_when=>'CREATE,RESET'
+,p_compute_when_type=>'REQUEST_IN_CONDITION'
 );
 wwv_flow_api.create_page_validation(
  p_id=>wwv_flow_api.id(132668657711652437075)
@@ -25210,6 +25223,8 @@ wwv_flow_api.create_page_process(
 ,p_attribute_04=>'USER_ID'
 ,p_attribute_11=>'I:U:D'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_when=>'RESET'
+,p_process_when_type=>'REQUEST_NOT_EQUAL_CONDITION'
 ,p_process_success_message=>'Action Processed.'
 );
 wwv_flow_api.create_page_process(
@@ -25225,7 +25240,8 @@ wwv_flow_api.create_page_process(
 'WHERE USER_ID = :P201_USER_ID;',
 'END;'))
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
-,p_process_when_button_id=>wwv_flow_api.id(132701451164274681176)
+,p_process_when=>'CREATE,RESET'
+,p_process_when_type=>'REQUEST_IN_CONDITION'
 );
 wwv_flow_api.create_page_process(
  p_id=>wwv_flow_api.id(132668657945389437077)
@@ -25265,7 +25281,8 @@ wwv_flow_api.create_page_process(
 'Acolyte Applications Administration'))
 ,p_attribute_10=>'Y'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
-,p_process_when_button_id=>wwv_flow_api.id(132701451164274681176)
+,p_process_when=>'CREATE,RESET'
+,p_process_when_type=>'REQUEST_IN_CONDITION'
 ,p_process_success_message=>'An auto-generated password is sent to registered mail &P201_EMAIL.'
 );
 wwv_flow_api.create_page_process(
@@ -25285,7 +25302,7 @@ wwv_flow_api.create_page_process(
 ,p_process_type=>'NATIVE_CLOSE_WINDOW'
 ,p_process_name=>'Close Dialog'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
-,p_process_when=>'CREATE,SAVE,DELETE'
+,p_process_when=>'CREATE,SAVE,DELETE,RESET'
 ,p_process_when_type=>'REQUEST_IN_CONDITION'
 );
 end;
