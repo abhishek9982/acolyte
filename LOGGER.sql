@@ -27,7 +27,7 @@ prompt APPLICATION 104 - Logger
 -- Application Export:
 --   Application:     104
 --   Name:            Logger
---   Date and Time:   13:39 Sunday October 29, 2017
+--   Date and Time:   14:50 Wednesday November 1, 2017
 --   Exported By:     ADMIN
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -36,10 +36,10 @@ prompt APPLICATION 104 - Logger
 --
 
 -- Application Statistics:
---   Pages:                      4
+--   Pages:                      5
 --     Items:                    5
 --     Processes:                5
---     Regions:                  5
+--     Regions:                  6
 --     Buttons:                  5
 --     Dynamic Actions:          4
 --   Shared Components:
@@ -123,7 +123,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'100'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171029133621'
+,p_last_upd_yyyymmddhh24miss=>'20171031231250'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -164,6 +164,15 @@ wwv_flow_api.create_list_item(
 ,p_list_item_icon=>'fa-code-fork'
 ,p_list_item_disp_cond_type=>'ITEM_IS_NOT_NULL'
 ,p_list_item_disp_condition=>'AD_ROLE_COUNT'
+,p_parent_list_item_id=>wwv_flow_api.id(129775713064893096826)
+,p_list_item_current_type=>'TARGET_PAGE'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(5432357475935523)
+,p_list_item_display_sequence=>40
+,p_list_item_link_text=>'Change Password'
+,p_list_item_link_target=>'f?p=&ADMIN_APPLICATION.:103:&SESSION.::&DEBUG.::::'
+,p_list_item_icon=>'fa-refresh'
 ,p_parent_list_item_id=>wwv_flow_api.id(129775713064893096826)
 ,p_list_item_current_type=>'TARGET_PAGE'
 );
@@ -21197,6 +21206,271 @@ wwv_flow_api.create_page_process(
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_process_when=>'CREATE,SAVE,DELETE'
 ,p_process_when_type=>'REQUEST_IN_CONDITION'
+);
+end;
+/
+prompt --application/pages/page_01000
+begin
+wwv_flow_api.create_page(
+ p_id=>1000
+,p_user_interface_id=>wwv_flow_api.id(329250884657986041703)
+,p_name=>'Logger Logs'
+,p_page_mode=>'MODAL'
+,p_step_title=>'Logger Logs'
+,p_step_sub_title=>'Logger Logs'
+,p_step_sub_title_type=>'TEXT_WITH_SUBSTITUTIONS'
+,p_first_item=>'NO_FIRST_ITEM'
+,p_autocomplete_on_off=>'OFF'
+,p_step_template=>wwv_flow_api.id(218226916937752246167)
+,p_page_template_options=>'#DEFAULT#'
+,p_dialog_chained=>'Y'
+,p_overwrite_navigation_list=>'N'
+,p_page_is_public_y_n=>'N'
+,p_cache_mode=>'NOCACHE'
+,p_last_updated_by=>'ADMIN'
+,p_last_upd_yyyymmddhh24miss=>'20171031231250'
+);
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(5433364245896264)
+,p_plug_name=>'Logger Logs'
+,p_region_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_api.id(218183593408754366761)
+,p_plug_display_sequence=>10
+,p_include_in_reg_disp_sel_yn=>'N'
+,p_plug_display_point=>'BODY'
+,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'select ID,',
+'       LOGGER_LEVEL,',
+'       (SELECT LOG_LEVEL_MEANING FROM LG_LOGGER_LEVELS WHERE LOG_LEVEL = LL.LOGGER_LEVEL) LOG_LEVEL,',
+'       TEXT,',
+'       TIME_STAMP,',
+'       SCOPE,',
+'       MODULE,',
+'       ACTION,',
+'       USER_NAME,',
+'       CLIENT_IDENTIFIER,',
+'       CALL_STACK,',
+'       UNIT_NAME,',
+'       LINE_NO,',
+'       SCN,',
+'       EXTRA,',
+'       SID,',
+'       CLIENT_INFO',
+'  from LOGGER_LOGS LL'))
+,p_plug_source_type=>'NATIVE_IR'
+,p_plug_query_row_template=>1
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+);
+wwv_flow_api.create_worksheet(
+ p_id=>wwv_flow_api.id(5433486236896264)
+,p_name=>'Logger Logs'
+,p_max_row_count=>'1000000'
+,p_max_row_count_message=>'The maximum row count for this report is #MAX_ROW_COUNT# rows.  Please apply a filter to reduce the number of records in your query.'
+,p_no_data_found_message=>'No data found.'
+,p_base_pk1=>'ID'
+,p_show_nulls_as=>'-'
+,p_pagination_type=>'ROWS_X_TO_Y_OF_Z'
+,p_pagination_display_pos=>'BOTTOM_RIGHT'
+,p_show_display_row_count=>'Y'
+,p_report_list_mode=>'TABS'
+,p_download_formats=>'CSV:HTML:EMAIL:XLS:PDF:RTF'
+,p_detail_link_text=>'<img src="#IMAGE_PREFIX#app_ui/img/icons/apex-edit-pencil.png" class="apex-edit-pencil" alt="">'
+,p_allow_hide_extra_columns=>'N'
+,p_owner=>'ADMIN'
+,p_internal_uid=>5433486236896264
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(5433844392896269)
+,p_db_column_name=>'ID'
+,p_display_order=>1
+,p_column_identifier=>'A'
+,p_column_label=>'Id'
+,p_column_type=>'NUMBER'
+,p_heading_alignment=>'RIGHT'
+,p_column_alignment=>'RIGHT'
+,p_tz_dependent=>'N'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(5434269049896270)
+,p_db_column_name=>'LOGGER_LEVEL'
+,p_display_order=>2
+,p_column_identifier=>'B'
+,p_column_label=>'Logger Level'
+,p_column_type=>'NUMBER'
+,p_heading_alignment=>'RIGHT'
+,p_column_alignment=>'RIGHT'
+,p_tz_dependent=>'N'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(5434691069896271)
+,p_db_column_name=>'TEXT'
+,p_display_order=>3
+,p_column_identifier=>'C'
+,p_column_label=>'Text'
+,p_column_type=>'STRING'
+,p_heading_alignment=>'LEFT'
+,p_tz_dependent=>'N'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(5435052709896271)
+,p_db_column_name=>'TIME_STAMP'
+,p_display_order=>4
+,p_column_identifier=>'D'
+,p_column_label=>'Time Stamp'
+,p_column_type=>'DATE'
+,p_heading_alignment=>'LEFT'
+,p_tz_dependent=>'N'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(5435495868896271)
+,p_db_column_name=>'SCOPE'
+,p_display_order=>5
+,p_column_identifier=>'E'
+,p_column_label=>'Scope'
+,p_column_type=>'STRING'
+,p_heading_alignment=>'LEFT'
+,p_tz_dependent=>'N'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(5435887393896271)
+,p_db_column_name=>'MODULE'
+,p_display_order=>6
+,p_column_identifier=>'F'
+,p_column_label=>'Module'
+,p_column_type=>'STRING'
+,p_heading_alignment=>'LEFT'
+,p_tz_dependent=>'N'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(5436261421896271)
+,p_db_column_name=>'ACTION'
+,p_display_order=>7
+,p_column_identifier=>'G'
+,p_column_label=>'Action'
+,p_column_type=>'STRING'
+,p_heading_alignment=>'LEFT'
+,p_tz_dependent=>'N'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(5436697662896271)
+,p_db_column_name=>'USER_NAME'
+,p_display_order=>8
+,p_column_identifier=>'H'
+,p_column_label=>'User Name'
+,p_column_type=>'STRING'
+,p_heading_alignment=>'LEFT'
+,p_tz_dependent=>'N'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(5437059435896271)
+,p_db_column_name=>'CLIENT_IDENTIFIER'
+,p_display_order=>9
+,p_column_identifier=>'I'
+,p_column_label=>'Client Identifier'
+,p_column_type=>'STRING'
+,p_heading_alignment=>'LEFT'
+,p_tz_dependent=>'N'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(5437415963896272)
+,p_db_column_name=>'CALL_STACK'
+,p_display_order=>10
+,p_column_identifier=>'J'
+,p_column_label=>'Call Stack'
+,p_column_type=>'STRING'
+,p_heading_alignment=>'LEFT'
+,p_tz_dependent=>'N'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(5437841294896272)
+,p_db_column_name=>'UNIT_NAME'
+,p_display_order=>11
+,p_column_identifier=>'K'
+,p_column_label=>'Unit Name'
+,p_column_type=>'STRING'
+,p_heading_alignment=>'LEFT'
+,p_tz_dependent=>'N'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(5438280469896272)
+,p_db_column_name=>'LINE_NO'
+,p_display_order=>12
+,p_column_identifier=>'L'
+,p_column_label=>'Line No'
+,p_column_type=>'STRING'
+,p_heading_alignment=>'LEFT'
+,p_tz_dependent=>'N'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(5438656370896272)
+,p_db_column_name=>'SCN'
+,p_display_order=>13
+,p_column_identifier=>'M'
+,p_column_label=>'Scn'
+,p_column_type=>'NUMBER'
+,p_heading_alignment=>'RIGHT'
+,p_column_alignment=>'RIGHT'
+,p_tz_dependent=>'N'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(5439003907896272)
+,p_db_column_name=>'EXTRA'
+,p_display_order=>14
+,p_column_identifier=>'N'
+,p_column_label=>'Extra'
+,p_allow_sorting=>'N'
+,p_allow_ctrl_breaks=>'N'
+,p_allow_aggregations=>'N'
+,p_allow_computations=>'N'
+,p_allow_charting=>'N'
+,p_allow_group_by=>'N'
+,p_allow_pivot=>'N'
+,p_column_type=>'CLOB'
+,p_heading_alignment=>'LEFT'
+,p_tz_dependent=>'N'
+,p_rpt_show_filter_lov=>'N'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(5439487071896273)
+,p_db_column_name=>'SID'
+,p_display_order=>15
+,p_column_identifier=>'O'
+,p_column_label=>'Sid'
+,p_column_type=>'NUMBER'
+,p_heading_alignment=>'RIGHT'
+,p_column_alignment=>'RIGHT'
+,p_tz_dependent=>'N'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(5439829613896273)
+,p_db_column_name=>'CLIENT_INFO'
+,p_display_order=>16
+,p_column_identifier=>'P'
+,p_column_label=>'Client Info'
+,p_column_type=>'STRING'
+,p_heading_alignment=>'LEFT'
+,p_tz_dependent=>'N'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(5414909681087102)
+,p_db_column_name=>'LOG_LEVEL'
+,p_display_order=>26
+,p_column_identifier=>'Q'
+,p_column_label=>'Log Level'
+,p_column_type=>'STRING'
+);
+wwv_flow_api.create_worksheet_rpt(
+ p_id=>wwv_flow_api.id(5441083105948128)
+,p_application_user=>'APXWS_DEFAULT'
+,p_report_seq=>10
+,p_report_alias=>'54411'
+,p_status=>'PUBLIC'
+,p_is_default=>'Y'
+,p_display_rows=>50
+,p_report_columns=>'LOG_LEVEL:TEXT:TIME_STAMP:SCOPE:MODULE:ACTION:USER_NAME:CLIENT_IDENTIFIER:'
+,p_sort_column_1=>'TIME_STAMP'
+,p_sort_direction_1=>'DESC'
+,p_flashback_enabled=>'N'
 );
 end;
 /
