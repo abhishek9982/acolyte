@@ -27,7 +27,7 @@ prompt APPLICATION 103 - Projects
 -- Application Export:
 --   Application:     103
 --   Name:            Projects
---   Date and Time:   20:05 Friday November 3, 2017
+--   Date and Time:   20:17 Friday November 3, 2017
 --   Exported By:     ADMIN
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -125,7 +125,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'100'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171103200418'
+,p_last_upd_yyyymmddhh24miss=>'20171103201747'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>22
@@ -37007,6 +37007,35 @@ wwv_flow_api.create_install_script(
 '    ''200301010000002'',',
 '    ''200101010000003'',',
 '    ''200301010000002'',',
+'    NULL,',
+'    ''Y'',',
+'    to_date(''01-01-03'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-03'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-03'',''DD-MM-RR'')',
+'  );',
+'INSERT',
+'INTO AD_USER_ROLES',
+'  (',
+'    USER_ROLE_ID,',
+'    USER_ID,',
+'    ROLE_ID,',
+'    DEFAULT_ROLE,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200301010000003'',',
+'    ''200101010000003'',',
+'    ''200301010000003'',',
 '    NULL,',
 '    ''Y'',',
 '    to_date(''01-01-03'',''DD-MM-RR''),',
