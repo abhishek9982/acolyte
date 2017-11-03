@@ -27,7 +27,7 @@ prompt APPLICATION 104 - Logger
 -- Application Export:
 --   Application:     104
 --   Name:            Logger
---   Date and Time:   14:50 Wednesday November 1, 2017
+--   Date and Time:   18:41 Friday November 3, 2017
 --   Exported By:     ADMIN
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -123,7 +123,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'100'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171031231250'
+,p_last_upd_yyyymmddhh24miss=>'20171103183619'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -21228,7 +21228,7 @@ wwv_flow_api.create_page(
 ,p_page_is_public_y_n=>'N'
 ,p_cache_mode=>'NOCACHE'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171031231250'
+,p_last_upd_yyyymmddhh24miss=>'20171102194459'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(5433364245896264)
@@ -21274,7 +21274,7 @@ wwv_flow_api.create_worksheet(
 ,p_show_display_row_count=>'Y'
 ,p_report_list_mode=>'TABS'
 ,p_download_formats=>'CSV:HTML:EMAIL:XLS:PDF:RTF'
-,p_detail_link_text=>'<img src="#IMAGE_PREFIX#app_ui/img/icons/apex-edit-pencil.png" class="apex-edit-pencil" alt="">'
+,p_detail_link_text=>'<i class="fa fa-search"></i>'
 ,p_allow_hide_extra_columns=>'N'
 ,p_owner=>'ADMIN'
 ,p_internal_uid=>5433486236896264
@@ -21302,19 +21302,26 @@ wwv_flow_api.create_worksheet_column(
 ,p_tz_dependent=>'N'
 );
 wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(5414909681087102)
+,p_db_column_name=>'LOG_LEVEL'
+,p_display_order=>12
+,p_column_identifier=>'Q'
+,p_column_label=>'Log Level'
+,p_column_type=>'STRING'
+);
+wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(5434691069896271)
 ,p_db_column_name=>'TEXT'
-,p_display_order=>3
+,p_display_order=>22
 ,p_column_identifier=>'C'
 ,p_column_label=>'Text'
 ,p_column_type=>'STRING'
 ,p_heading_alignment=>'LEFT'
-,p_tz_dependent=>'N'
 );
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(5435052709896271)
 ,p_db_column_name=>'TIME_STAMP'
-,p_display_order=>4
+,p_display_order=>32
 ,p_column_identifier=>'D'
 ,p_column_label=>'Time Stamp'
 ,p_column_type=>'DATE'
@@ -21324,98 +21331,89 @@ wwv_flow_api.create_worksheet_column(
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(5435495868896271)
 ,p_db_column_name=>'SCOPE'
-,p_display_order=>5
+,p_display_order=>42
 ,p_column_identifier=>'E'
 ,p_column_label=>'Scope'
 ,p_column_type=>'STRING'
 ,p_heading_alignment=>'LEFT'
-,p_tz_dependent=>'N'
 );
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(5435887393896271)
 ,p_db_column_name=>'MODULE'
-,p_display_order=>6
+,p_display_order=>52
 ,p_column_identifier=>'F'
 ,p_column_label=>'Module'
 ,p_column_type=>'STRING'
 ,p_heading_alignment=>'LEFT'
-,p_tz_dependent=>'N'
 );
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(5436261421896271)
 ,p_db_column_name=>'ACTION'
-,p_display_order=>7
+,p_display_order=>62
 ,p_column_identifier=>'G'
 ,p_column_label=>'Action'
 ,p_column_type=>'STRING'
 ,p_heading_alignment=>'LEFT'
-,p_tz_dependent=>'N'
 );
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(5436697662896271)
 ,p_db_column_name=>'USER_NAME'
-,p_display_order=>8
+,p_display_order=>72
 ,p_column_identifier=>'H'
 ,p_column_label=>'User Name'
 ,p_column_type=>'STRING'
 ,p_heading_alignment=>'LEFT'
-,p_tz_dependent=>'N'
 );
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(5437059435896271)
 ,p_db_column_name=>'CLIENT_IDENTIFIER'
-,p_display_order=>9
+,p_display_order=>82
 ,p_column_identifier=>'I'
 ,p_column_label=>'Client Identifier'
 ,p_column_type=>'STRING'
 ,p_heading_alignment=>'LEFT'
-,p_tz_dependent=>'N'
 );
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(5437415963896272)
 ,p_db_column_name=>'CALL_STACK'
-,p_display_order=>10
+,p_display_order=>92
 ,p_column_identifier=>'J'
 ,p_column_label=>'Call Stack'
 ,p_column_type=>'STRING'
 ,p_heading_alignment=>'LEFT'
-,p_tz_dependent=>'N'
 );
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(5437841294896272)
 ,p_db_column_name=>'UNIT_NAME'
-,p_display_order=>11
+,p_display_order=>102
 ,p_column_identifier=>'K'
 ,p_column_label=>'Unit Name'
 ,p_column_type=>'STRING'
 ,p_heading_alignment=>'LEFT'
-,p_tz_dependent=>'N'
 );
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(5438280469896272)
 ,p_db_column_name=>'LINE_NO'
-,p_display_order=>12
+,p_display_order=>112
 ,p_column_identifier=>'L'
 ,p_column_label=>'Line No'
 ,p_column_type=>'STRING'
 ,p_heading_alignment=>'LEFT'
-,p_tz_dependent=>'N'
 );
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(5438656370896272)
 ,p_db_column_name=>'SCN'
-,p_display_order=>13
+,p_display_order=>122
 ,p_column_identifier=>'M'
 ,p_column_label=>'Scn'
 ,p_column_type=>'NUMBER'
 ,p_heading_alignment=>'RIGHT'
 ,p_column_alignment=>'RIGHT'
-,p_tz_dependent=>'N'
 );
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(5439003907896272)
 ,p_db_column_name=>'EXTRA'
-,p_display_order=>14
+,p_display_order=>132
 ,p_column_identifier=>'N'
 ,p_column_label=>'Extra'
 ,p_allow_sorting=>'N'
@@ -21427,37 +21425,26 @@ wwv_flow_api.create_worksheet_column(
 ,p_allow_pivot=>'N'
 ,p_column_type=>'CLOB'
 ,p_heading_alignment=>'LEFT'
-,p_tz_dependent=>'N'
 ,p_rpt_show_filter_lov=>'N'
 );
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(5439487071896273)
 ,p_db_column_name=>'SID'
-,p_display_order=>15
+,p_display_order=>142
 ,p_column_identifier=>'O'
 ,p_column_label=>'Sid'
 ,p_column_type=>'NUMBER'
 ,p_heading_alignment=>'RIGHT'
 ,p_column_alignment=>'RIGHT'
-,p_tz_dependent=>'N'
 );
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(5439829613896273)
 ,p_db_column_name=>'CLIENT_INFO'
-,p_display_order=>16
+,p_display_order=>152
 ,p_column_identifier=>'P'
 ,p_column_label=>'Client Info'
 ,p_column_type=>'STRING'
 ,p_heading_alignment=>'LEFT'
-,p_tz_dependent=>'N'
-);
-wwv_flow_api.create_worksheet_column(
- p_id=>wwv_flow_api.id(5414909681087102)
-,p_db_column_name=>'LOG_LEVEL'
-,p_display_order=>26
-,p_column_identifier=>'Q'
-,p_column_label=>'Log Level'
-,p_column_type=>'STRING'
 );
 wwv_flow_api.create_worksheet_rpt(
  p_id=>wwv_flow_api.id(5441083105948128)
@@ -28613,7 +28600,7 @@ wwv_flow_api.create_install_script(
 '    ''200501010000001'',',
 '    ''200501010000001'',',
 '    ''Home'',',
-'    ''PG_HOME'',',
+'    ''LG_HOME'',',
 '    ''1'',',
 '    ''1'',',
 '    ''fa-home'',',
@@ -28666,6 +28653,45 @@ wwv_flow_api.create_install_script(
 '    ''200101010000003'',',
 '    to_date(''01-01-05'',''DD-MM-RR'')',
 '  );',
+'INSERT',
+'INTO AD_PAGES',
+'  (',
+'    PAGE_ID,',
+'    APPLICATION_ID,',
+'    PAGE_NAME,',
+'    PAGE,',
+'    APEX_PAGE_ID,',
+'    PAGE_TYPE,',
+'    PAGE_ICON,',
+'    UNIQUE_NAME_COLUMN,',
+'    READ_ONLY,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200501010000003'',',
+'    ''200501010000001'',',
+'    ''Logger Logs'',',
+'    ''LOGGER_LOGS'',',
+'    ''1000'',',
+'    ''2'',',
+'    NULL,',
+'    NULL,',
+'    NULL,',
+'    ''Y'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR'')',
+'  );',
 'REM INSERTING into AD_MENUS',
 'SET DEFINE OFF;',
 'INSERT',
@@ -28688,8 +28714,70 @@ wwv_flow_api.create_install_script(
 '  (',
 '    ''200501010000001'',',
 '    ''200501010000001'',',
+'    ''Logger Administrator'',',
+'    ''LOGGER_ADMINISTRATOR'',',
+'    NULL,',
+'    ''Y'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR'')',
+'  );',
+'INSERT',
+'INTO AD_MENUS',
+'  (',
+'    MENU_ID,',
+'    APPLICATION_ID,',
+'    MENU_NAME,',
+'    MENU,',
+'    MENU_ICON,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200501010000002'',',
+'    ''200501010000001'',',
 '    ''Logger Preferences'',',
 '    ''LOGGER_PREFERENCES'',',
+'    NULL,',
+'    ''Y'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR'')',
+'  );',
+'INSERT',
+'INTO AD_MENUS',
+'  (',
+'    MENU_ID,',
+'    APPLICATION_ID,',
+'    MENU_NAME,',
+'    MENU,',
+'    MENU_ICON,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200501010000003'',',
+'    ''200501010000001'',',
+'    ''Logger Logs'',',
+'    ''LOGGER_LOGS'',',
 '    NULL,',
 '    ''Y'',',
 '    to_date(''01-01-05'',''DD-MM-RR''),',
@@ -28723,8 +28811,107 @@ wwv_flow_api.create_install_script(
 '    ''200501010000001'',',
 '    ''200501010000001'',',
 '    ''10'',',
+'    ''200501010000002'',',
+'    NULL,',
+'    NULL,',
+'    ''Y'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR'')',
+'  );',
+'INSERT',
+'INTO AD_MENU_DETAILS',
+'  (',
+'    MENU_DETAIL_ID,',
+'    MENU_ID,',
+'    SEQUENCE,',
+'    SUB_MENU_ID,',
+'    PAGE_ID,',
+'    READ_ONLY,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200501010000002'',',
+'    ''200501010000001'',',
+'    ''20'',',
+'    ''200501010000003'',',
+'    NULL,',
+'    NULL,',
+'    ''Y'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR'')',
+'  );',
+'INSERT',
+'INTO AD_MENU_DETAILS',
+'  (',
+'    MENU_DETAIL_ID,',
+'    MENU_ID,',
+'    SEQUENCE,',
+'    SUB_MENU_ID,',
+'    PAGE_ID,',
+'    READ_ONLY,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200501010000003'',',
+'    ''200501010000002'',',
+'    ''10'',',
 '    NULL,',
 '    ''200501010000002'',',
+'    NULL,',
+'    ''Y'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR'')',
+'  );',
+'INSERT',
+'INTO AD_MENU_DETAILS',
+'  (',
+'    MENU_DETAIL_ID,',
+'    MENU_ID,',
+'    SEQUENCE,',
+'    SUB_MENU_ID,',
+'    PAGE_ID,',
+'    READ_ONLY,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200501010000004'',',
+'    ''200501010000003'',',
+'    ''10'',',
+'    NULL,',
+'    ''200501010000003'',',
 '    NULL,',
 '    ''Y'',',
 '    to_date(''01-01-05'',''DD-MM-RR''),',
@@ -28773,6 +28960,163 @@ wwv_flow_api.create_install_script(
 '    ''200101010000003'',',
 '    to_date(''01-01-05'',''DD-MM-RR'')',
 '  );',
+'INSERT',
+'INTO AD_ROLES',
+'  (',
+'    ROLE_ID,',
+'    APPLICATION_ID,',
+'    ROLE_NAME,',
+'    ROLE,',
+'    MENU_ID,',
+'    PROCESS_GROUP_ID,',
+'    REPORT_GROUP_ID,',
+'    HOME_PAGE,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200501010000002'',',
+'    ''200501010000001'',',
+'    ''Logger Manager'',',
+'    ''LOGGER_MANAGER'',',
+'    ''200501010000003'',',
+'    NULL,',
+'    NULL,',
+'    ''200501010000001'',',
+'    ''Y'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR'')',
+'  );',
+'INSERT',
+'INTO AD_ROLES',
+'  (',
+'    ROLE_ID,',
+'    APPLICATION_ID,',
+'    ROLE_NAME,',
+'    ROLE,',
+'    MENU_ID,',
+'    PROCESS_GROUP_ID,',
+'    REPORT_GROUP_ID,',
+'    HOME_PAGE,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200501010000003'',',
+'    ''200501010000001'',',
+'    ''Logger'',',
+'    ''LOGGER'',',
+'    ''200501010000003'',',
+'    NULL,',
+'    NULL,',
+'    ''200501010000001'',',
+'    ''Y'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR'')',
+'  );',
+'REM INSERTING into AD_ORGANIZATION_ROLES',
+'SET DEFINE OFF;',
+'INSERT',
+'INTO AD_ORGANIZATION_ROLES',
+'  (',
+'    ORGANIZATION_ROLE_ID,',
+'    ORGANIZATION_ID,',
+'    ROLE_ID,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200501010000001'',',
+'    ''200201010000001'',',
+'    ''200501010000001'',',
+'    ''Y'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR'')',
+'  );',
+'INSERT',
+'INTO AD_ORGANIZATION_ROLES',
+'  (',
+'    ORGANIZATION_ROLE_ID,',
+'    ORGANIZATION_ID,',
+'    ROLE_ID,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200501010000002'',',
+'    ''200201010000001'',',
+'    ''200501010000002'',',
+'    ''Y'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR'')',
+'  );',
+'INSERT',
+'INTO AD_ORGANIZATION_ROLES',
+'  (',
+'    ORGANIZATION_ROLE_ID,',
+'    ORGANIZATION_ID,',
+'    ROLE_ID,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200501010000003'',',
+'    ''200201010000001'',',
+'    ''200501010000003'',',
+'    ''Y'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR'')',
+'  );',
 'REM INSERTING into AD_USER_ROLES',
 'SET DEFINE OFF;',
 'INSERT',
@@ -28795,6 +29139,64 @@ wwv_flow_api.create_install_script(
 '    ''200501010000001'',',
 '    ''200101010000003'',',
 '    ''200501010000001'',',
+'    NULL,',
+'    ''Y'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR'')',
+'  );',
+'INSERT',
+'INTO AD_USER_ROLES',
+'  (',
+'    USER_ROLE_ID,',
+'    USER_ID,',
+'    ROLE_ID,',
+'    DEFAULT_ROLE,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200501010000002'',',
+'    ''200101010000003'',',
+'    ''200501010000002'',',
+'    NULL,',
+'    ''Y'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-05'',''DD-MM-RR'')',
+'  );',
+'INSERT',
+'INTO AD_USER_ROLES',
+'  (',
+'    USER_ROLE_ID,',
+'    USER_ID,',
+'    ROLE_ID,',
+'    DEFAULT_ROLE,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200501010000003'',',
+'    ''200101010000003'',',
+'    ''200501010000003'',',
 '    NULL,',
 '    ''Y'',',
 '    to_date(''01-01-05'',''DD-MM-RR''),',
