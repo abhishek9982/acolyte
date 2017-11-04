@@ -27,7 +27,7 @@ prompt APPLICATION 103 - Projects
 -- Application Export:
 --   Application:     103
 --   Name:            Projects
---   Date and Time:   20:17 Friday November 3, 2017
+--   Date and Time:   00:20 Sunday November 5, 2017
 --   Exported By:     ADMIN
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -125,7 +125,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'100'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171103201747'
+,p_last_upd_yyyymmddhh24miss=>'20171105001933'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>22
@@ -7953,7 +7953,7 @@ wwv_flow_api.create_list_template(
 ,p_theme_id=>42
 ,p_theme_class_id=>4
 ,p_preset_template_options=>'t-Cards--animColorFill:t-Cards--3cols:t-Cards--featured'
-,p_list_template_before_rows=>'<ul class="t-Cards #COMPONENT_CSS_CLASSES#" id=#REGION_TITLE# style="min-height: 100px">'
+,p_list_template_before_rows=>'<ul class="t-Cards #COMPONENT_CSS_CLASSES#" id=#REGION_TITLE# style="min-height: 76px">'
 ,p_list_template_after_rows=>'</ul>'
 ,p_a01_label=>'Description'
 ,p_a02_label=>'Secondary Information'
@@ -24714,6 +24714,7 @@ wwv_flow_api.create_page(
 '.t-Card',
 '{',
 '    margin: 0px !important;',
+'    min-height: 60px;',
 '}',
 '',
 '.t-Body-contentInner',
@@ -24724,6 +24725,7 @@ wwv_flow_api.create_page(
 '#ToDo .t-Card-titleWrap, #Done .t-Card-titleWrap',
 '{',
 '    padding: 8px;',
+'    height: 60px;',
 '}',
 '',
 '#InProgress .t-Card-titleWrap',
@@ -24732,13 +24734,24 @@ wwv_flow_api.create_page(
 '    padding-bottom: 8px;',
 '    padding-left: 8px;',
 '    padding-right: 72px;',
+'    height: 80px;',
+'}',
+'',
+'#InProgress .t-Card-wrap, #InProgress .t-Card',
+'{',
+'    height: 80px;',
+'}',
+'',
+'#ToDo .t-Card-wrap, #ToDo .t-Card, #Done .t-Card-wrap, #Done .t-Card',
+'{',
+'    height: 60px;',
 '}',
 '',
 '#ToDo .t-Card-title, #InProgress .t-Card-title, #Done .t-Card-title',
 '{	',
 '    font-size: 1.1rem;',
 '    line-height: 1.6rem;',
-'    min-width: 60px;',
+'    min-width: 44px;',
 '}',
 '',
 '#ToDo .t-Card-body, #InProgress .t-Card-body, #Done .t-Card-body',
@@ -24752,9 +24765,16 @@ wwv_flow_api.create_page(
 '    overflow: hidden !important;',
 '}',
 '',
-'#ToDo .t-Cards-item, #InProgress .t-Cards-item, #Done .t-Cards-item',
+'#ToDo .t-Cards-item, #Done .t-Cards-item',
 '{',
 '    padding-top: 8px;',
+'    height: 68px;',
+'}',
+'',
+' #InProgress .t-Cards-item',
+'{',
+'    padding-top: 8px;',
+'    height: 88px;',
 '}',
 '',
 '.t-Region-headerItems',
@@ -24822,16 +24842,20 @@ wwv_flow_api.create_page(
 '{',
 '    font-weight: 600;',
 '    font-size: 1.6rem;',
+'}',
+'',
+'#user_stories .t-Card-title, #user_stories .t-Card-desc',
+'{',
+'    font-weight: 600;',
 '}'))
 ,p_step_template=>wwv_flow_api.id(26406501046689319492)
 ,p_page_template_options=>'#DEFAULT#'
-,p_dialog_chained=>'Y'
 ,p_overwrite_navigation_list=>'Y'
 ,p_page_is_public_y_n=>'N'
 ,p_cache_mode=>'NOCACHE'
 ,p_help_text=>'No help is available for this page.'
-,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20171013123738'
+,p_last_updated_by=>'ADMIN'
+,p_last_upd_yyyymmddhh24miss=>'20171105001933'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(26344953790435445119)
