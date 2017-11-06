@@ -27,7 +27,7 @@ prompt APPLICATION 102 - Annotations
 -- Application Export:
 --   Application:     102
 --   Name:            Annotations
---   Date and Time:   23:20 Monday November 6, 2017
+--   Date and Time:   23:52 Monday November 6, 2017
 --   Exported By:     ADMIN
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -38,7 +38,7 @@ prompt APPLICATION 102 - Annotations
 -- Application Statistics:
 --   Pages:                     15
 --     Items:                   79
---     Computations:            24
+--     Computations:            25
 --     Processes:               33
 --     Regions:                 27
 --     Buttons:                 28
@@ -124,7 +124,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'100'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171106232026'
+,p_last_upd_yyyymmddhh24miss=>'20171106235216'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -24638,7 +24638,7 @@ wwv_flow_api.create_page(
 ,p_protection_level=>'C'
 ,p_cache_mode=>'NOCACHE'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171106222733'
+,p_last_upd_yyyymmddhh24miss=>'20171106235216'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(90626312346860405612)
@@ -24936,6 +24936,12 @@ wwv_flow_api.create_page_item(
 ,p_source_type=>'DB_COLUMN'
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_computation(
+ p_id=>wwv_flow_api.id(5416793852087120)
+,p_computation_sequence=>10
+,p_computation_item=>'AN_PAGE_EDIT'
+,p_computation_type=>'STATIC_ASSIGNMENT'
 );
 wwv_flow_api.create_page_computation(
  p_id=>wwv_flow_api.id(90697531069638093025)
