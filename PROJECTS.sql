@@ -27,7 +27,7 @@ prompt APPLICATION 103 - Projects
 -- Application Export:
 --   Application:     103
 --   Name:            Projects
---   Date and Time:   00:20 Sunday November 5, 2017
+--   Date and Time:   23:15 Tuesday November 7, 2017
 --   Exported By:     ADMIN
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -125,7 +125,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'100'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171105001933'
+,p_last_upd_yyyymmddhh24miss=>'20171107231250'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>22
@@ -24855,7 +24855,7 @@ wwv_flow_api.create_page(
 ,p_cache_mode=>'NOCACHE'
 ,p_help_text=>'No help is available for this page.'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171105001933'
+,p_last_upd_yyyymmddhh24miss=>'20171106231602'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(26344953790435445119)
@@ -31001,8 +31001,8 @@ wwv_flow_api.create_page(
 ,p_page_is_public_y_n=>'N'
 ,p_protection_level=>'C'
 ,p_cache_mode=>'NOCACHE'
-,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20171020233229'
+,p_last_updated_by=>'ADMIN'
+,p_last_upd_yyyymmddhh24miss=>'20171107231250'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(26344955680326445138)
@@ -31664,7 +31664,7 @@ wwv_flow_api.create_worksheet_rpt(
 ,p_status=>'PUBLIC'
 ,p_is_default=>'Y'
 ,p_display_rows=>50
-,p_report_columns=>'TASK_SUMMARY:TASK_DESCRIPTION:TASK_STATUS:ASSIGNEE::TASK_POINTS'
+,p_report_columns=>'TASK_SUMMARY:TASK_DESCRIPTION:TASK_STATUS:ASSIGNEE:TASK_POINTS:TASK_DURATION:'
 ,p_sort_column_1=>'TASK_STATUS'
 ,p_sort_direction_1=>'ASC'
 ,p_sort_column_2=>'TASK_SUMMARY'
@@ -32599,30 +32599,29 @@ wwv_flow_api.create_page_process(
 ,p_process_name=>'Get Story Number'
 ,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'BEGIN',
-'    IF',
-'        :p301_story_number IS NULL',
-'    THEN',
-'        SELECT',
-'            "#OWNER#"."PR_STORY_NUMBER_S".nextval',
-'        INTO',
-'            :p301_story_number',
-'        FROM',
-'            sys.dual;',
+'    SELECT',
+'        NVL(MAX(story_number), 0) + 1',
+'    INTO',
+'        :p301_story_number',
+'    FROM',
+'        pr_user_stories pus',
+'    WHERE',
+'        project_id =:p301_project_id;',
 '',
-'        SELECT',
-'            project',
-'            || ''-''',
-'            ||:p301_story_number',
-'        INTO',
-'            :p301_story_number_display',
-'        FROM',
-'            pr_projects',
-'        WHERE',
-'            project_id =:p301_project_id;',
+'    SELECT',
+'        project',
+'        || ''-''',
+'        ||:p301_story_number',
+'    INTO',
+'        :p301_story_number_display',
+'    FROM',
+'        pr_projects',
+'    WHERE',
+'        project_id =:p301_project_id;',
 '',
-'    END IF;',
 'END;'))
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_when_button_id=>wwv_flow_api.id(26694916519770354659)
 );
 wwv_flow_api.create_page_process(
  p_id=>wwv_flow_api.id(26694926136858354716)
@@ -35806,37 +35805,35 @@ wwv_flow_api.create_install_script(
 ,p_sequence=>20
 ,p_script_type=>'INSTALL'
 ,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
-' CREATE SEQUENCE  "PR_ARTIFACTS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
-'',
-' CREATE SEQUENCE  "PR_BOARDS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
-'',
 ' CREATE SEQUENCE  "PR_USER_STORIES_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
 '',
-' CREATE SEQUENCE  "PR_PROJECTS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
-'',
-' CREATE SEQUENCE  "PR_PROJECT_TEAMS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
-'',
-' CREATE SEQUENCE  "PR_SPRINTS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
-'',
-' CREATE SEQUENCE  "PR_TASKS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
-'',
-' CREATE SEQUENCE  "PR_TEAMS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
-'',
-' CREATE SEQUENCE  "PR_TEAM_MEMBERS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
-'',
-' CREATE SEQUENCE  "PR_STORY_COMMENTS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
+' CREATE SEQUENCE  "PR_USER_STORIES_HISTORY_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
 '',
 ' CREATE SEQUENCE  "PR_USER_BOARDS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
 '',
-' CREATE SEQUENCE  "PR_STORY_NUMBER_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 NOCACHE  NOORDER  NOCYCLE ;',
+' CREATE SEQUENCE  "PR_TEAM_MEMBERS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
 '',
-' CREATE SEQUENCE  "PR_STORY_TYPES_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
+' CREATE SEQUENCE  "PR_TEAMS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
 '',
 ' CREATE SEQUENCE  "PR_TASK_TEMPLATES_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
 '',
+' CREATE SEQUENCE  "PR_TASKS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
+'',
 ' CREATE SEQUENCE  "PR_TASKS_HISTORY_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
 '',
-' CREATE SEQUENCE  "PR_USER_STORIES_HISTORY_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
+' CREATE SEQUENCE  "PR_STORY_TYPES_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
+'',
+' CREATE SEQUENCE  "PR_STORY_COMMENTS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
+'',
+' CREATE SEQUENCE  "PR_SPRINTS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
+'',
+' CREATE SEQUENCE  "PR_PROJECT_TEAMS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
+'',
+' CREATE SEQUENCE  "PR_PROJECTS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
+'',
+' CREATE SEQUENCE  "PR_BOARDS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
+'',
+' CREATE SEQUENCE  "PR_ARTIFACTS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
 '',
 ''))
 );
@@ -35901,17 +35898,6 @@ wwv_flow_api.create_install_object(
 ,p_object_owner=>'#OWNER#'
 ,p_object_type=>'SEQUENCE'
 ,p_object_name=>'PR_STORY_COMMENTS_S'
-,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_updated_on=>to_date('20171013130459','YYYYMMDDHH24MISS')
-,p_created_by=>'ABHISHEK9982@GMAIL.COM'
-,p_created_on=>to_date('20171013130459','YYYYMMDDHH24MISS')
-);
-wwv_flow_api.create_install_object(
- p_id=>wwv_flow_api.id(29540696539281447354)
-,p_script_id=>wwv_flow_api.id(29540695274792447349)
-,p_object_owner=>'#OWNER#'
-,p_object_type=>'SEQUENCE'
-,p_object_name=>'PR_STORY_NUMBER_S'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
 ,p_last_updated_on=>to_date('20171013130459','YYYYMMDDHH24MISS')
 ,p_created_by=>'ABHISHEK9982@GMAIL.COM'
@@ -36147,9 +36133,6 @@ wwv_flow_api.create_install_object(
 ,p_created_by=>'ABHISHEK9982@GMAIL.COM'
 ,p_created_on=>to_date('20171013130534','YYYYMMDDHH24MISS')
 );
-end;
-/
-begin
 wwv_flow_api.create_install_object(
  p_id=>wwv_flow_api.id(29541710871370436774)
 ,p_script_id=>wwv_flow_api.id(29541709732785436771)
@@ -36161,6 +36144,9 @@ wwv_flow_api.create_install_object(
 ,p_created_by=>'ABHISHEK9982@GMAIL.COM'
 ,p_created_on=>to_date('20171013130534','YYYYMMDDHH24MISS')
 );
+end;
+/
+begin
 wwv_flow_api.create_install_script(
  p_id=>wwv_flow_api.id(29541772726324440285)
 ,p_install_id=>wwv_flow_api.id(129440730410839546953)
