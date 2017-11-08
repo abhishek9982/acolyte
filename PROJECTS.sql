@@ -27,7 +27,7 @@ prompt APPLICATION 103 - Projects
 -- Application Export:
 --   Application:     103
 --   Name:            Projects
---   Date and Time:   23:12 Wednesday November 8, 2017
+--   Date and Time:   23:38 Wednesday November 8, 2017
 --   Exported By:     ADMIN
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -38,7 +38,7 @@ prompt APPLICATION 103 - Projects
 -- Application Statistics:
 --   Pages:                     22
 --     Items:                  167
---     Computations:            61
+--     Computations:            63
 --     Validations:              1
 --     Processes:               66
 --     Regions:                 64
@@ -125,7 +125,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'100'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171108230910'
+,p_last_upd_yyyymmddhh24miss=>'20171108233014'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>22
@@ -25554,8 +25554,8 @@ wwv_flow_api.create_page(
 ,p_overwrite_navigation_list=>'N'
 ,p_page_is_public_y_n=>'N'
 ,p_cache_mode=>'NOCACHE'
-,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20171009205017'
+,p_last_updated_by=>'ABHISHEK'
+,p_last_upd_yyyymmddhh24miss=>'20171108231816'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(28658298621511788593)
@@ -25713,6 +25713,21 @@ wwv_flow_api.create_worksheet_rpt(
 ,p_break_on=>'0:0:0:0:0:SPRINT_NAME'
 ,p_break_enabled_on=>'0:0:0:0:0:SPRINT_NAME'
 ,p_flashback_enabled=>'N'
+);
+wwv_flow_api.create_worksheet_condition(
+ p_id=>wwv_flow_api.id(5609444442561850)
+,p_report_id=>wwv_flow_api.id(28658349223688813371)
+,p_name=>'Stories Done'
+,p_condition_type=>'HIGHLIGHT'
+,p_allow_delete=>'Y'
+,p_column_name=>'STORY_STATUS'
+,p_operator=>'in'
+,p_expr=>'Resolved, Closed'
+,p_condition_sql=>' (case when ("STORY_STATUS" in (#APXWS_EXPR_VAL1#, #APXWS_EXPR_VAL2#)) then #APXWS_HL_ID# end) '
+,p_condition_display=>'#APXWS_COL_NAME# #APXWS_OP_NAME# ''Resolved, Closed''  '
+,p_enabled=>'Y'
+,p_highlight_sequence=>10
+,p_row_bg_color=>'#99FF99'
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(28494736715700552244)
@@ -31027,7 +31042,7 @@ wwv_flow_api.create_page(
 ,p_protection_level=>'C'
 ,p_cache_mode=>'NOCACHE'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171107231250'
+,p_last_upd_yyyymmddhh24miss=>'20171108233014'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(26344955680326445138)
@@ -32411,6 +32426,74 @@ wwv_flow_api.create_page_computation(
 ,p_computation=>'P301_USER_STORY_ID'
 ,p_compute_when=>'DELETE'
 ,p_compute_when_type=>'REQUEST_NOT_EQUAL_CONDITION'
+);
+wwv_flow_api.create_page_computation(
+ p_id=>wwv_flow_api.id(5416973360087122)
+,p_computation_sequence=>60
+,p_computation_item=>'P301_STORY_POINTS'
+,p_computation_type=>'FUNCTION_BODY'
+,p_computation=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'DECLARE',
+'    ln_story_points   NUMBER;',
+'BEGIN',
+'    SELECT',
+'        SUM(nvl(',
+'            task_points,',
+'            0',
+'        ) )',
+'    INTO',
+'        ln_story_points',
+'    FROM',
+'        pr_tasks',
+'    WHERE',
+'        user_story_id =:p301_user_story_id;',
+'',
+'    IF',
+'        nvl(',
+'            :p301_story_points,',
+'            0',
+'        ) <= ln_story_points',
+'    THEN',
+'        return(ln_story_points);',
+'    ELSE',
+'        return(NVL(:p301_story_points, 0));',
+'    END IF;',
+'',
+'END;'))
+);
+wwv_flow_api.create_page_computation(
+ p_id=>wwv_flow_api.id(5417060332087123)
+,p_computation_sequence=>70
+,p_computation_item=>'P301_STORY_DURATION'
+,p_computation_type=>'FUNCTION_BODY'
+,p_computation=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'DECLARE',
+'    ln_story_duration   NUMBER;',
+'BEGIN',
+'    SELECT',
+'        SUM(nvl(',
+'            task_duration,',
+'            0',
+'        ) )',
+'    INTO',
+'        ln_story_duration',
+'    FROM',
+'        pr_tasks',
+'    WHERE',
+'        user_story_id =:p301_user_story_id;',
+'',
+'    IF',
+'        nvl(',
+'            :p301_story_duration,',
+'            0',
+'        ) <= ln_story_duration',
+'    THEN',
+'        return(ln_story_duration);',
+'    ELSE',
+'        return(NVL(:p301_story_duration,0));',
+'    END IF;',
+'',
+'END;'))
 );
 wwv_flow_api.create_page_computation(
  p_id=>wwv_flow_api.id(26344955793727445139)
