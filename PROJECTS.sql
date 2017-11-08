@@ -27,7 +27,7 @@ prompt APPLICATION 103 - Projects
 -- Application Export:
 --   Application:     103
 --   Name:            Projects
---   Date and Time:   23:15 Tuesday November 7, 2017
+--   Date and Time:   23:12 Wednesday November 8, 2017
 --   Exported By:     ADMIN
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -125,7 +125,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'100'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171107231250'
+,p_last_upd_yyyymmddhh24miss=>'20171108230910'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>22
@@ -8332,6 +8332,21 @@ wwv_flow_api.create_row_template(
 '  <div class="t-Card">',
 '    <a href="#CARD_LINK#" class="t-Card-wrap">',
 '      <div class="t-Card-icon u-color #CARD_COLOR#"><span class="t-Icon fa #CARD_ICON#"><span class="t-Card-initials" role="presentation">#CARD_INITIALS#</span></span></div>',
+'      <div class="t-Card-titleWrap"><h3 class="t-Card-title" style="text-decoration: line-through;">#CARD_TITLE#</h3></div>',
+'      <div class="t-Card-body">',
+'        <div class="t-Card-desc">#CARD_TEXT#</div>',
+'        <div class="t-Card-info"><span class="t-story-points">#CARD_SUBTEXT#</span><span class="t-story-duration" style="float: right;">#CARD_SUBTEXT1#</span></div>',
+'      </div>',
+'      <span class="t-Card-colorFill u-color #CARD_COLOR#"></span>',
+'    </a>',
+'  </div>',
+'</li>'))
+,p_row_template_condition1=>':STORY_STATUS IS NOT NULL'
+,p_row_template2=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'<li class="t-Cards-item #CARD_MODIFIERS#" style="width: 100%">',
+'  <div class="t-Card">',
+'    <a href="#CARD_LINK#" class="t-Card-wrap">',
+'      <div class="t-Card-icon u-color #CARD_COLOR#"><span class="t-Icon fa #CARD_ICON#"><span class="t-Card-initials" role="presentation">#CARD_INITIALS#</span></span></div>',
 '      <div class="t-Card-titleWrap"><h3 class="t-Card-title">#CARD_TITLE#</h3></div>',
 '      <div class="t-Card-body">',
 '        <div class="t-Card-desc">#CARD_TEXT#</div>',
@@ -8341,8 +8356,8 @@ wwv_flow_api.create_row_template(
 '    </a>',
 '  </div>',
 '</li>'))
-,p_row_template_condition1=>':CARD_LINK is not null'
-,p_row_template2=>wwv_flow_string.join(wwv_flow_t_varchar2(
+,p_row_template_condition2=>':CARD_LINK is not null'
+,p_row_template3=>wwv_flow_string.join(wwv_flow_t_varchar2(
 '<li class="t-Cards-item #CARD_MODIFIERS#">',
 '  <div class="t-Card">',
 '    <div class="t-Card-wrap">',
@@ -8362,7 +8377,7 @@ wwv_flow_api.create_row_template(
 '<table class="t-Report-pagination" role="presentation">#PAGINATION#</table>'))
 ,p_row_template_type=>'NAMED_COLUMNS'
 ,p_row_template_display_cond1=>'NOT_CONDITIONAL'
-,p_row_template_display_cond2=>'0'
+,p_row_template_display_cond2=>'NOT_CONDITIONAL'
 ,p_row_template_display_cond3=>'0'
 ,p_row_template_display_cond4=>'NOT_CONDITIONAL'
 ,p_pagination_template=>'<span class="t-Report-paginationText">#TEXT#</span>'
@@ -8385,7 +8400,6 @@ wwv_flow_api.create_row_template(
 ,p_theme_id=>42
 ,p_theme_class_id=>7
 ,p_preset_template_options=>'t-Cards--animColorFill:t-Cards--3cols:t-Cards--featured'
-,p_translate_this_template=>'N'
 );
 wwv_flow_api.create_row_template(
  p_id=>wwv_flow_api.id(214672905767792993920)
@@ -24855,7 +24869,7 @@ wwv_flow_api.create_page(
 ,p_cache_mode=>'NOCACHE'
 ,p_help_text=>'No help is available for this page.'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171106231602'
+,p_last_upd_yyyymmddhh24miss=>'20171108230659'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(26344953790435445119)
@@ -24991,7 +25005,8 @@ wwv_flow_api.create_report_region(
 '  ''Story Points: ''||pus.story_points card_subtext,',
 '  decode(pus.story_duration, null, '''', ''Story Duration: ''||pus.story_duration||'' ''||pp.story_duration_units) card_subtext1,',
 '  ''f?p=&APP_ID.:10:&SESSION.::::P10_USER_STORY_ID:''',
-'  ||pus.user_story_id card_link',
+'  ||pus.user_story_id card_link,',
+'  case when story_status > 80 then ''Y'' else NULL end as story_status',
 'FROM pr_user_stories pus,',
 '  pr_projects pp',
 'WHERE pus.project_id = pp.project_id',
@@ -25055,6 +25070,16 @@ wwv_flow_api.create_report_columns(
 ,p_column_alias=>'CARD_LINK'
 ,p_column_display_sequence=>1
 ,p_column_heading=>'Card link'
+,p_use_as_row_header=>'N'
+,p_derived_column=>'N'
+,p_include_in_export=>'Y'
+);
+wwv_flow_api.create_report_columns(
+ p_id=>wwv_flow_api.id(5416875135087121)
+,p_query_column_id=>6
+,p_column_alias=>'STORY_STATUS'
+,p_column_display_sequence=>6
+,p_column_heading=>'Story status'
 ,p_use_as_row_header=>'N'
 ,p_derived_column=>'N'
 ,p_include_in_export=>'Y'
