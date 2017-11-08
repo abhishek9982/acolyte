@@ -27,7 +27,7 @@ prompt APPLICATION 102 - Annotations
 -- Application Export:
 --   Application:     102
 --   Name:            Annotations
---   Date and Time:   23:52 Monday November 6, 2017
+--   Date and Time:   22:07 Wednesday November 8, 2017
 --   Exported By:     ADMIN
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -124,7 +124,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'100'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171106235216'
+,p_last_upd_yyyymmddhh24miss=>'20171108220516'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -25555,6 +25555,45 @@ wwv_flow_api.create_install_script(
 '    ''200101010000003'',',
 '    to_date(''01-01-04'',''DD-MM-RR'')',
 '  );',
+'INSERT',
+'INTO AD_PAGES',
+'  (',
+'    PAGE_ID,',
+'    APPLICATION_ID,',
+'    PAGE_NAME,',
+'    PAGE,',
+'    APEX_PAGE_ID,',
+'    PAGE_TYPE,',
+'    PAGE_ICON,',
+'    UNIQUE_NAME_COLUMN,',
+'    READ_ONLY,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200401010000004'',',
+'    ''200401010000001'',',
+'    ''Page Templates'',',
+'    ''PAGE_TEMPLATES'',',
+'    ''500'',',
+'    ''2'',',
+'    NULL,',
+'    NULL,',
+'    NULL,',
+'    ''Y'',',
+'    to_date(''01-01-04'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-04'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-04'',''DD-MM-RR'')',
+'  );',
 'REM INSERTING into AD_MENUS',
 'SET DEFINE OFF;',
 'INSERT',
@@ -25614,6 +25653,39 @@ wwv_flow_api.create_install_script(
 '    ''10'',',
 '    NULL,',
 '    ''200401010000003'',',
+'    NULL,',
+'    ''Y'',',
+'    to_date(''01-01-04'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-04'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-04'',''DD-MM-RR'')',
+'  );',
+'INSERT',
+'INTO AD_MENU_DETAILS',
+'  (',
+'    MENU_DETAIL_ID,',
+'    MENU_ID,',
+'    SEQUENCE,',
+'    SUB_MENU_ID,',
+'    PAGE_ID,',
+'    READ_ONLY,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200401010000002'',',
+'    ''200401010000001'',',
+'    ''20'',',
+'    NULL,',
+'    ''200401010000004'',',
 '    NULL,',
 '    ''Y'',',
 '    to_date(''01-01-04'',''DD-MM-RR''),',
