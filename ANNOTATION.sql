@@ -27,7 +27,7 @@ prompt APPLICATION 102 - Annotations
 -- Application Export:
 --   Application:     102
 --   Name:            Annotations
---   Date and Time:   22:07 Wednesday November 8, 2017
+--   Date and Time:   23:58 Thursday November 9, 2017
 --   Exported By:     ADMIN
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -37,12 +37,12 @@ prompt APPLICATION 102 - Annotations
 
 -- Application Statistics:
 --   Pages:                     15
---     Items:                   79
+--     Items:                   80
 --     Computations:            25
 --     Processes:               33
 --     Regions:                 27
 --     Buttons:                 28
---     Dynamic Actions:         20
+--     Dynamic Actions:         21
 --   Shared Components:
 --     Logic:
 --       Items:                141
@@ -70,7 +70,7 @@ prompt APPLICATION 102 - Annotations
 --     Globalization:
 --     Reports:
 --   Supporting Objects:  Included
---     Install scripts:          3
+--     Install scripts:          4
 
 prompt --application/delete_application
 begin
@@ -124,7 +124,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'100'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171108220516'
+,p_last_upd_yyyymmddhh24miss=>'20171109235654'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -149,7 +149,7 @@ wwv_flow_api.create_list(
 '    || '',,''',
 '    || ap1.page_name target,',
 '    ''NO'' is_current,',
-'    ''fa-caret-right'' image',
+'    NVL(page_icon, ''fa-caret-right'') image',
 'FROM',
 '    (',
 '        SELECT',
@@ -157,6 +157,7 @@ wwv_flow_api.create_list(
 '            ap.page_name,',
 '            ap.parent_page,',
 '            ap.page_sequence,',
+'            ap.page_icon,',
 '            apt.apex_page_id',
 '        FROM',
 '            an_pages ap,',
@@ -21936,8 +21937,8 @@ wwv_flow_api.create_page(
 ,p_overwrite_navigation_list=>'N'
 ,p_page_is_public_y_n=>'N'
 ,p_cache_mode=>'NOCACHE'
-,p_last_updated_by=>'ABHISHEK'
-,p_last_upd_yyyymmddhh24miss=>'20171106213409'
+,p_last_updated_by=>'ADMIN'
+,p_last_upd_yyyymmddhh24miss=>'20171109223106'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(90485750168516292983)
@@ -21954,6 +21955,7 @@ wwv_flow_api.create_page_plug(
 '"PAGE_NAME",',
 '(SELECT PAGE_TEMPLATE_NAME FROM AN_PAGE_TEMPLATES WHERE PAGE_TEMPLATE_ID = AP.PAGE_TEMPLATE_ID) "PAGE_TEMPLATE",',
 '(SELECT PAGE_NAME FROM AN_PAGES WHERE PAGE_ID = AP.PARENT_PAGE) "PARENT_PAGE",',
+'''<i class="fa ''||page_icon||''"></i>'' "PAGE_ICON",',
 '"ENABLED",',
 '"DATE_FROM",',
 '"DATE_TO",',
@@ -22085,9 +22087,19 @@ wwv_flow_api.create_worksheet_column(
 ,p_heading_alignment=>'LEFT'
 );
 wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(5417127539087124)
+,p_db_column_name=>'PAGE_ICON'
+,p_display_order=>34
+,p_column_identifier=>'T'
+,p_column_label=>'Page Icon'
+,p_column_type=>'STRING'
+,p_display_text_as=>'WITHOUT_MODIFICATION'
+,p_column_alignment=>'CENTER'
+);
+wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(90224972398372577317)
 ,p_db_column_name=>'CREATED_BY'
-,p_display_order=>34
+,p_display_order=>44
 ,p_column_identifier=>'Q'
 ,p_column_label=>'Created By'
 ,p_column_type=>'STRING'
@@ -22095,7 +22107,7 @@ wwv_flow_api.create_worksheet_column(
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(90224972417340577318)
 ,p_db_column_name=>'UPDATED_BY'
-,p_display_order=>44
+,p_display_order=>54
 ,p_column_identifier=>'R'
 ,p_column_label=>'Updated By'
 ,p_column_type=>'STRING'
@@ -22103,10 +22115,11 @@ wwv_flow_api.create_worksheet_column(
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(5416500250087118)
 ,p_db_column_name=>'PAGE_TEMPLATE'
-,p_display_order=>54
+,p_display_order=>64
 ,p_column_identifier=>'S'
 ,p_column_label=>'Page Template'
 ,p_column_type=>'STRING'
+,p_heading_alignment=>'LEFT'
 );
 wwv_flow_api.create_worksheet_rpt(
  p_id=>wwv_flow_api.id(90486450450446339120)
@@ -22116,7 +22129,7 @@ wwv_flow_api.create_worksheet_rpt(
 ,p_status=>'PUBLIC'
 ,p_is_default=>'Y'
 ,p_display_rows=>50
-,p_report_columns=>'PAGE_SEQUENCE:PAGE_NAME:PAGE_TEMPLATE:PARENT_PAGE:ENABLED:DATE_FROM:DATE_TO:'
+,p_report_columns=>'PAGE_SEQUENCE:PAGE_NAME:PAGE_TEMPLATE:PARENT_PAGE:PAGE_ICON:'
 ,p_sort_column_1=>'PAGE_SEQUENCE'
 ,p_sort_direction_1=>'ASC'
 ,p_flashback_enabled=>'N'
@@ -22206,7 +22219,7 @@ wwv_flow_api.create_page(
 ,p_protection_level=>'C'
 ,p_cache_mode=>'NOCACHE'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171106230912'
+,p_last_upd_yyyymmddhh24miss=>'20171109232323'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(90485737944399292908)
@@ -22300,6 +22313,28 @@ wwv_flow_api.create_page_button(
 ,p_database_action=>'INSERT'
 );
 wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(5417249831087125)
+,p_name=>'P201_PAGE_ICON'
+,p_item_sequence=>90
+,p_item_plug_id=>wwv_flow_api.id(90485737944399292908)
+,p_use_cache_before_default=>'NO'
+,p_prompt=>'Page Icon'
+,p_source=>'PAGE_ICON'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_SELECT_LIST'
+,p_lov=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'SELECT ICON_DISPLAY, ICON_RETURN',
+'FROM AN_PAGE_ICONS'))
+,p_lov_display_null=>'YES'
+,p_cHeight=>1
+,p_tag_attributes=>'style="font-family: ''FontAwesome'', Helvetica;"'
+,p_field_template=>wwv_flow_api.id(308488238413894905637)
+,p_item_template_options=>'#DEFAULT#'
+,p_lov_display_extra=>'YES'
+,p_attribute_01=>'NONE'
+,p_attribute_02=>'N'
+);
+wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(90485741409614292956)
 ,p_name=>'P201_PAGE_ID'
 ,p_item_sequence=>10
@@ -22346,7 +22381,7 @@ wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(90485743066164292958)
 ,p_name=>'P201_PAGE_TEMPLATE_ID'
 ,p_is_required=>true
-,p_item_sequence=>60
+,p_item_sequence=>70
 ,p_item_plug_id=>wwv_flow_api.id(90485737944399292908)
 ,p_use_cache_before_default=>'NO'
 ,p_prompt=>'Page Template'
@@ -22373,7 +22408,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(90485743892050292959)
 ,p_name=>'P201_ENABLED'
-,p_item_sequence=>80
+,p_item_sequence=>100
 ,p_item_plug_id=>wwv_flow_api.id(90485737944399292908)
 ,p_use_cache_before_default=>'NO'
 ,p_prompt=>'Enabled'
@@ -22390,7 +22425,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(90485744263254292960)
 ,p_name=>'P201_DATE_FROM'
-,p_item_sequence=>90
+,p_item_sequence=>110
 ,p_item_plug_id=>wwv_flow_api.id(90485737944399292908)
 ,p_use_cache_before_default=>'NO'
 ,p_prompt=>'Date From'
@@ -22409,7 +22444,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(90485744649844292966)
 ,p_name=>'P201_DATE_TO'
-,p_item_sequence=>100
+,p_item_sequence=>120
 ,p_item_plug_id=>wwv_flow_api.id(90485737944399292908)
 ,p_use_cache_before_default=>'NO'
 ,p_prompt=>'Date To'
@@ -22428,7 +22463,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(90485745031067292966)
 ,p_name=>'P201_CREATED_BY'
-,p_item_sequence=>110
+,p_item_sequence=>130
 ,p_item_plug_id=>wwv_flow_api.id(90485737944399292908)
 ,p_use_cache_before_default=>'NO'
 ,p_source=>'CREATED_BY'
@@ -22439,7 +22474,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(90485745421335292966)
 ,p_name=>'P201_CREATED_ON'
-,p_item_sequence=>120
+,p_item_sequence=>140
 ,p_item_plug_id=>wwv_flow_api.id(90485737944399292908)
 ,p_use_cache_before_default=>'NO'
 ,p_format_mask=>'DD-MON-YYYY HH24:MI:SS'
@@ -22451,7 +22486,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(90485745856385292967)
 ,p_name=>'P201_UPDATED_BY'
-,p_item_sequence=>130
+,p_item_sequence=>150
 ,p_item_plug_id=>wwv_flow_api.id(90485737944399292908)
 ,p_use_cache_before_default=>'NO'
 ,p_source=>'UPDATED_BY'
@@ -22462,7 +22497,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(90485746298784292967)
 ,p_name=>'P201_UPDATED_ON'
-,p_item_sequence=>140
+,p_item_sequence=>160
 ,p_item_plug_id=>wwv_flow_api.id(90485737944399292908)
 ,p_use_cache_before_default=>'NO'
 ,p_format_mask=>'DD-MON-YYYY HH24:MI:SS'
@@ -22491,7 +22526,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(90485747044111292968)
 ,p_name=>'P201_PARENT_PAGE'
-,p_item_sequence=>70
+,p_item_sequence=>80
 ,p_item_plug_id=>wwv_flow_api.id(90485737944399292908)
 ,p_use_cache_before_default=>'NO'
 ,p_prompt=>'Parent Page'
@@ -22516,7 +22551,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(90697531135312093026)
 ,p_name=>'P201_PAGE_CONTENT_HASH'
-,p_item_sequence=>50
+,p_item_sequence=>60
 ,p_item_plug_id=>wwv_flow_api.id(90485737944399292908)
 ,p_use_cache_before_default=>'NO'
 ,p_source=>'PAGE_CONTENT_HASH'
@@ -22582,6 +22617,28 @@ wwv_flow_api.create_page_da_action(
 ,p_execute_on_page_init=>'N'
 ,p_action=>'NATIVE_DIALOG_CANCEL'
 ,p_stop_execution_on_error=>'Y'
+);
+wwv_flow_api.create_page_da_event(
+ p_id=>wwv_flow_api.id(5417327902087126)
+,p_name=>'Page Icons'
+,p_event_sequence=>20
+,p_bind_type=>'bind'
+,p_bind_event_type=>'ready'
+);
+wwv_flow_api.create_page_da_action(
+ p_id=>wwv_flow_api.id(5417416849087127)
+,p_event_id=>wwv_flow_api.id(5417327902087126)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'N'
+,p_action=>'NATIVE_JAVASCRIPT_CODE'
+,p_affected_elements_type=>'ITEM'
+,p_affected_elements=>'P201_PAGE_ICON'
+,p_attribute_01=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'$(''#P201_PAGE_ICON'').find(''option'').each(function(index,element){',
+'$x("P201_PAGE_ICON")[index].innerHTML = $x("P201_PAGE_ICON") [index].innerHTML.replace("&amp;","&");',
+'$x("P201_PAGE_ICON")[index].innerHTML = $x("P201_PAGE_ICON") [index].innerHTML.replace("&amp;","&");',
+'})'))
 );
 wwv_flow_api.create_page_process(
  p_id=>wwv_flow_api.id(90485747804004292968)
@@ -25175,6 +25232,7 @@ wwv_flow_api.create_install_script(
 '	"PAGE_TEMPLATE_ID" NUMBER NOT NULL ENABLE, ',
 '	"PAGE_CONTENTS" CLOB, ',
 '	"PAGE_CONTENT_HASH" NUMBER NOT NULL ENABLE, ',
+'	"PAGE_ICON" VARCHAR2(30), ',
 '	"ENABLED" VARCHAR2(1), ',
 '	"DATE_FROM" DATE, ',
 '	"DATE_TO" DATE, ',
@@ -25183,6 +25241,17 @@ wwv_flow_api.create_install_script(
 '	"UPDATED_BY" NUMBER, ',
 '	"UPDATED_ON" DATE, ',
 '	 CONSTRAINT "AN_PAGES_PK" PRIMARY KEY ("PAGE_ID") ENABLE',
+'   ) ;',
+'',
+'CREATE TABLE "AN_PAGE_COMMENTS" ',
+'   (	"PAGE_COMMENT_ID" NUMBER NOT NULL ENABLE, ',
+'	"PAGE_ID" NUMBER NOT NULL ENABLE, ',
+'	"COMMENTS" VARCHAR2(2000) NOT NULL ENABLE, ',
+'	"CREATED_BY" NUMBER, ',
+'	"CREATED_ON" DATE, ',
+'	"UPDATED_BY" NUMBER, ',
+'	"UPDATED_ON" DATE, ',
+'	 CONSTRAINT "AN_PAGE_COMMENTS_PK" PRIMARY KEY ("PAGE_COMMENT_ID") ENABLE',
 '   ) ;',
 '',
 'CREATE TABLE "AN_PAGE_HISTORY" ',
@@ -25195,17 +25264,6 @@ wwv_flow_api.create_install_script(
 '	"UPDATED_BY" NUMBER, ',
 '	"UPDATED_ON" DATE, ',
 '	 CONSTRAINT "AN_PAGE_HISTORY_PK" PRIMARY KEY ("PAGE_HISTORY_ID") ENABLE',
-'   ) ;',
-'',
-'CREATE TABLE "AN_PAGE_COMMENTS" ',
-'   (	"PAGE_COMMENT_ID" NUMBER NOT NULL ENABLE, ',
-'	"PAGE_ID" NUMBER NOT NULL ENABLE, ',
-'	"COMMENTS" VARCHAR2(2000) NOT NULL ENABLE, ',
-'	"CREATED_BY" NUMBER, ',
-'	"CREATED_ON" DATE, ',
-'	"UPDATED_BY" NUMBER, ',
-'	"UPDATED_ON" DATE, ',
-'	 CONSTRAINT "AN_PAGE_COMMENTS_PK" PRIMARY KEY ("PAGE_COMMENT_ID") ENABLE',
 '   ) ;',
 '',
 'CREATE TABLE "AN_USER_WORKSPACES" ',
@@ -25402,7 +25460,7 @@ wwv_flow_api.create_install_script(
  p_id=>wwv_flow_api.id(90862803457064388230)
 ,p_install_id=>wwv_flow_api.id(90315351184290560232)
 ,p_name=>'Insert Data'
-,p_sequence=>30
+,p_sequence=>40
 ,p_script_type=>'INSTALL'
 ,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'REM INSERTING into AD_APPLICATIONS',
@@ -25980,7 +26038,1594 @@ wwv_flow_api.create_install_script(
 '    ''200101010000003'',',
 '    to_date(''01-01-04'',''DD-MM-RR'')',
 '  );',
-'  '))
+'REM INSERTING into AD_LOOKUPS',
+'SET DEFINE OFF;',
+'INSERT INTO AD_LOOKUPS (',
+'    LOOKUP_ID,',
+'    APPLICATION_ID,',
+'    LOOKUP_NAME,',
+'    LOOKUP,',
+'    LOOKUP_TYPE,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+') VALUES (',
+'    ''200401010000001'',',
+'    ''200401010000001'',',
+'    ''Page Icons'',',
+'    ''PAGE_ICONS'',',
+'    ''3'',',
+'    ''Y'',',
+'    TO_DATE(''01-01-04'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    TO_DATE(''01-01-04'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    TO_DATE(''01-01-04'',''DD-MM-RR'')',
+');',
+'REM INSERTING into AD_LOOKUP_VALUES',
+'SET DEFINE OFF;',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000001'',''200401010000001'',''fa-500px '''
+||',''&amp;#xf26e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000002'',''200401010000001'',''fa-adjust '
+||''',''&amp;#xf042;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000003'',''200401010000001'',''fa-adn '','''
+||'&amp;#xf170;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000004'',''200401010000001'',''fa-align-c'
+||'enter '',''&amp;#xf037;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000005'',''200401010000001'',''fa-align-j'
+||'ustify '',''&amp;#xf039;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000006'',''200401010000001'',''fa-align-l'
+||'eft '',''&amp;#xf036;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000007'',''200401010000001'',''fa-align-r'
+||'ight '',''&amp;#xf038;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000008'',''200401010000001'',''fa-amazon '
+||''',''&amp;#xf270;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000009'',''200401010000001'',''fa-ambulan'
+||'ce '',''&amp;#xf0f9;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000010'',''200401010000001'',''fa-america'
+||'n-sign-language-interpreting '',''&amp;#xf2a3;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000011'',''200401010000001'',''fa-anchor '
+||''',''&amp;#xf13d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000012'',''200401010000001'',''fa-android'
+||' '',''&amp;#xf17b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000013'',''200401010000001'',''fa-angelli'
+||'st '',''&amp;#xf209;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000014'',''200401010000001'',''fa-angle-d'
+||'ouble-down '',''&amp;#xf103;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000015'',''200401010000001'',''fa-angle-d'
+||'ouble-left '',''&amp;#xf100;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000016'',''200401010000001'',''fa-angle-d'
+||'ouble-right '',''&amp;#xf101;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000017'',''200401010000001'',''fa-angle-d'
+||'ouble-up '',''&amp;#xf102;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000018'',''200401010000001'',''fa-angle-d'
+||'own '',''&amp;#xf107;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000019'',''200401010000001'',''fa-angle-l'
+||'eft '',''&amp;#xf104;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000020'',''200401010000001'',''fa-angle-r'
+||'ight '',''&amp;#xf105;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000021'',''200401010000001'',''fa-angle-u'
+||'p '',''&amp;#xf106;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000022'',''200401010000001'',''fa-apple '''
+||',''&amp;#xf179;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000023'',''200401010000001'',''fa-archive'
+||' '',''&amp;#xf187;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000024'',''200401010000001'',''fa-area-ch'
+||'art '',''&amp;#xf1fe;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000025'',''200401010000001'',''fa-arrow-c'
+||'ircle-down '',''&amp;#xf0ab;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000026'',''200401010000001'',''fa-arrow-c'
+||'ircle-left '',''&amp;#xf0a8;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000027'',''200401010000001'',''fa-arrow-c'
+||'ircle-o-down '',''&amp;#xf01a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000028'',''200401010000001'',''fa-arrow-c'
+||'ircle-o-left '',''&amp;#xf190;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000029'',''200401010000001'',''fa-arrow-c'
+||'ircle-o-right '',''&amp;#xf18e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000030'',''200401010000001'',''fa-arrow-c'
+||'ircle-o-up '',''&amp;#xf01b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000031'',''200401010000001'',''fa-arrow-c'
+||'ircle-right '',''&amp;#xf0a9;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000032'',''200401010000001'',''fa-arrow-c'
+||'ircle-up '',''&amp;#xf0aa;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000033'',''200401010000001'',''fa-arrow-d'
+||'own '',''&amp;#xf063;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000034'',''200401010000001'',''fa-arrow-l'
+||'eft '',''&amp;#xf060;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000035'',''200401010000001'',''fa-arrow-r'
+||'ight '',''&amp;#xf061;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000036'',''200401010000001'',''fa-arrow-u'
+||'p '',''&amp;#xf062;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000037'',''200401010000001'',''fa-arrows '
+||''',''&amp;#xf047;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000038'',''200401010000001'',''fa-arrows-'
+||'alt '',''&amp;#xf0b2;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000039'',''200401010000001'',''fa-arrows-'
+||'h '',''&amp;#xf07e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000040'',''200401010000001'',''fa-arrows-'
+||'v '',''&amp;#xf07d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000041'',''200401010000001'',''fa-asl-int'
+||'erpreting  '',''&amp;#xf2a3;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000042'',''200401010000001'',''fa-assisti'
+||'ve-listening-systems'',''&amp;#xf2a2;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000043'',''200401010000001'',''fa-asteris'
+||'k '',''&amp;#xf069;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000044'',''200401010000001'',''fa-at '',''&'
+||'amp;#xf1fa;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2'))
+);
+end;
+/
+begin
+wwv_flow_api.append_to_install_script(
+ p_id=>wwv_flow_api.id(90862803457064388230)
+,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+',ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000045'',''200401010000001'',''fa-audio-description '',''&amp;#xf29e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),nu'
+||'ll,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000046'',''200401010000001'',''fa-automob'
+||'ile  '',''&amp;#xf1b9;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000047'',''200401010000001'',''fa-backwar'
+||'d '',''&amp;#xf04a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000048'',''200401010000001'',''fa-balance'
+||'-scale '',''&amp;#xf24e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000049'',''200401010000001'',''fa-ban '','''
+||'&amp;#xf05e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000050'',''200401010000001'',''fa-bank  '''
+||',''&amp;#xf19c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000051'',''200401010000001'',''fa-bar-cha'
+||'rt '',''&amp;#xf080;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000052'',''200401010000001'',''fa-bar-cha'
+||'rt-o  '',''&amp;#xf080;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000053'',''200401010000001'',''fa-barcode'
+||' '',''&amp;#xf02a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000054'',''200401010000001'',''fa-bars '','
+||'''&amp;#xf0c9;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000055'',''200401010000001'',''fa-battery'
+||'-0  '',''&amp;#xf244;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000056'',''200401010000001'',''fa-battery'
+||'-1  '',''&amp;#xf243;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000057'',''200401010000001'',''fa-battery'
+||'-2  '',''&amp;#xf242;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000058'',''200401010000001'',''fa-battery'
+||'-3  '',''&amp;#xf241;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000059'',''200401010000001'',''fa-battery'
+||'-4  '',''&amp;#xf240;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000060'',''200401010000001'',''fa-battery'
+||'-empty '',''&amp;#xf244;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000061'',''200401010000001'',''fa-battery'
+||'-full '',''&amp;#xf240;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000062'',''200401010000001'',''fa-battery'
+||'-half '',''&amp;#xf242;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000063'',''200401010000001'',''fa-battery'
+||'-quarter '',''&amp;#xf243;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000064'',''200401010000001'',''fa-battery'
+||'-three-quarters '',''&amp;#xf241;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000065'',''200401010000001'',''fa-bed '','''
+||'&amp;#xf236;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000066'',''200401010000001'',''fa-beer '','
+||'''&amp;#xf0fc;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000067'',''200401010000001'',''fa-behance'
+||' '',''&amp;#xf1b4;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000068'',''200401010000001'',''fa-behance'
+||'-square '',''&amp;#xf1b5;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000069'',''200401010000001'',''fa-bell '','
+||'''&amp;#xf0f3;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000070'',''200401010000001'',''fa-bell-o '
+||''',''&amp;#xf0a2;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000071'',''200401010000001'',''fa-bell-sl'
+||'ash '',''&amp;#xf1f6;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000072'',''200401010000001'',''fa-bell-sl'
+||'ash-o '',''&amp;#xf1f7;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000073'',''200401010000001'',''fa-bicycle'
+||' '',''&amp;#xf206;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000074'',''200401010000001'',''fa-binocul'
+||'ars '',''&amp;#xf1e5;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000075'',''200401010000001'',''fa-birthda'
+||'y-cake '',''&amp;#xf1fd;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000076'',''200401010000001'',''fa-bitbuck'
+||'et '',''&amp;#xf171;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000077'',''200401010000001'',''fa-bitbuck'
+||'et-square '',''&amp;#xf172;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000078'',''200401010000001'',''fa-bitcoin'
+||'  '',''&amp;#xf15a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000079'',''200401010000001'',''fa-black-t'
+||'ie '',''&amp;#xf27e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000080'',''200401010000001'',''fa-blind '''
+||',''&amp;#xf29d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000081'',''200401010000001'',''fa-bluetoo'
+||'th '',''&amp;#xf293;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000082'',''200401010000001'',''fa-bluetoo'
+||'th-b '',''&amp;#xf294;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000083'',''200401010000001'',''fa-bold '','
+||'''&amp;#xf032;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000084'',''200401010000001'',''fa-bolt '','
+||'''&amp;#xf0e7;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000085'',''200401010000001'',''fa-bomb '','
+||'''&amp;#xf1e2;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000086'',''200401010000001'',''fa-book '','
+||'''&amp;#xf02d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000087'',''200401010000001'',''fa-bookmar'
+||'k '',''&amp;#xf02e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000088'',''200401010000001'',''fa-bookmar'
+||'k-o '',''&amp;#xf097;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000089'',''200401010000001'',''fa-braille'
+||' '',''&amp;#xf2a1;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000090'',''200401010000001'',''fa-briefca'
+||'se '',''&amp;#xf0b1;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000091'',''200401010000001'',''fa-btc '','''
+||'&amp;#xf15a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000092'',''200401010000001'',''fa-bug '','''
+||'&amp;#xf188;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000093'',''200401010000001'',''fa-buildin'
+||'g '',''&amp;#xf1ad;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000094'',''200401010000001'',''fa-buildin'
+||'g-o '',''&amp;#xf0f7;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000095'',''200401010000001'',''fa-bullhor'
+||'n '',''&amp;#xf0a1;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000096'',''200401010000001'',''fa-bullsey'
+||'e '',''&amp;#xf140;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000097'',''200401010000001'',''fa-bus '','''
+||'&amp;#xf207;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000098'',''200401010000001'',''fa-buysell'
+||'ads '',''&amp;#xf20d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000099'',''200401010000001'',''fa-cab  '','
+||'''&amp;#xf1ba;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000100'',''200401010000001'',''fa-calcula'
+||'tor '',''&amp;#xf1ec;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000101'',''200401010000001'',''fa-calenda'
+||'r '',''&amp;#xf073;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000102'',''200401010000001'',''fa-calenda'
+||'r-check-o '',''&amp;#xf274;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000103'',''200401010000001'',''fa-calenda'
+||'r-minus-o '',''&amp;#xf272;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000104'',''200401010000001'',''fa-calenda'
+||'r-o '',''&amp;#xf133;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000105'',''200401010000001'',''fa-calenda'
+||'r-plus-o '',''&amp;#xf271;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000106'',''200401010000001'',''fa-calenda'
+||'r-times-o '',''&amp;#xf273;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000107'',''200401010000001'',''fa-camera '
+||''',''&amp;#xf030;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000108'',''200401010000001'',''fa-camera-'
+||'retro '',''&amp;#xf083;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000109'',''200401010000001'',''fa-car '','''
+||'&amp;#xf1b9;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000110'',''200401010000001'',''fa-caret-d'
+||'own '',''&amp;#xf0d7;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000111'',''200401010000001'',''fa-caret-l'
+||'eft '',''&amp;#xf0d9;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000112'',''200401010000001'',''fa-caret-r'
+||'ight '',''&amp;#xf0da;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000113'',''200401010000001'',''fa-caret-s'
+||'quare-o-down '',''&amp;#xf150;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD'))
+);
+null;
+end;
+/
+begin
+wwv_flow_api.append_to_install_script(
+ p_id=>wwv_flow_api.id(90862803457064388230)
+,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000114'',''200401010000001'',''fa-caret-s'
+||'quare-o-left '',''&amp;#xf191;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000115'',''200401010000001'',''fa-caret-s'
+||'quare-o-right '',''&amp;#xf152;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000116'',''200401010000001'',''fa-caret-s'
+||'quare-o-up '',''&amp;#xf151;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000117'',''200401010000001'',''fa-caret-u'
+||'p '',''&amp;#xf0d8;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000118'',''200401010000001'',''fa-cart-ar'
+||'row-down '',''&amp;#xf218;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000119'',''200401010000001'',''fa-cart-pl'
+||'us '',''&amp;#xf217;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000120'',''200401010000001'',''fa-cc '',''&'
+||'amp;#xf20a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000121'',''200401010000001'',''fa-cc-amex'
+||' '',''&amp;#xf1f3;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000122'',''200401010000001'',''fa-cc-dine'
+||'rs-club '',''&amp;#xf24c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000123'',''200401010000001'',''fa-cc-disc'
+||'over '',''&amp;#xf1f2;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000124'',''200401010000001'',''fa-cc-jcb '
+||''',''&amp;#xf24b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000125'',''200401010000001'',''fa-cc-mast'
+||'ercard '',''&amp;#xf1f1;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000126'',''200401010000001'',''fa-cc-payp'
+||'al '',''&amp;#xf1f4;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000127'',''200401010000001'',''fa-cc-stri'
+||'pe '',''&amp;#xf1f5;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000128'',''200401010000001'',''fa-cc-visa'
+||' '',''&amp;#xf1f0;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000129'',''200401010000001'',''fa-certifi'
+||'cate '',''&amp;#xf0a3;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000130'',''200401010000001'',''fa-chain  '
+||''',''&amp;#xf0c1;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000131'',''200401010000001'',''fa-chain-b'
+||'roken '',''&amp;#xf127;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000132'',''200401010000001'',''fa-check '''
+||',''&amp;#xf00c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000133'',''200401010000001'',''fa-check-c'
+||'ircle '',''&amp;#xf058;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000134'',''200401010000001'',''fa-check-c'
+||'ircle-o '',''&amp;#xf05d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000135'',''200401010000001'',''fa-check-s'
+||'quare '',''&amp;#xf14a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000136'',''200401010000001'',''fa-check-s'
+||'quare-o '',''&amp;#xf046;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000137'',''200401010000001'',''fa-chevron'
+||'-circle-down '',''&amp;#xf13a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000138'',''200401010000001'',''fa-chevron'
+||'-circle-left '',''&amp;#xf137;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000139'',''200401010000001'',''fa-chevron'
+||'-circle-right '',''&amp;#xf138;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000140'',''200401010000001'',''fa-chevron'
+||'-circle-up '',''&amp;#xf139;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000141'',''200401010000001'',''fa-chevron'
+||'-down '',''&amp;#xf078;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000142'',''200401010000001'',''fa-chevron'
+||'-left '',''&amp;#xf053;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000143'',''200401010000001'',''fa-chevron'
+||'-right '',''&amp;#xf054;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000144'',''200401010000001'',''fa-chevron'
+||'-up '',''&amp;#xf077;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000145'',''200401010000001'',''fa-child '''
+||',''&amp;#xf1ae;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000146'',''200401010000001'',''fa-chrome '
+||''',''&amp;#xf268;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000147'',''200401010000001'',''fa-circle '
+||''',''&amp;#xf111;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000148'',''200401010000001'',''fa-circle-'
+||'o '',''&amp;#xf10c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000149'',''200401010000001'',''fa-circle-'
+||'o-notch '',''&amp;#xf1ce;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000150'',''200401010000001'',''fa-circle-'
+||'thin '',''&amp;#xf1db;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000151'',''200401010000001'',''fa-clipboa'
+||'rd '',''&amp;#xf0ea;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000152'',''200401010000001'',''fa-clock-o'
+||' '',''&amp;#xf017;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000153'',''200401010000001'',''fa-clone '''
+||',''&amp;#xf24d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000154'',''200401010000001'',''fa-close  '
+||''',''&amp;#xf00d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000155'',''200401010000001'',''fa-cloud '''
+||',''&amp;#xf0c2;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000156'',''200401010000001'',''fa-cloud-d'
+||'ownload '',''&amp;#xf0ed;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000157'',''200401010000001'',''fa-cloud-u'
+||'pload '',''&amp;#xf0ee;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000158'',''200401010000001'',''fa-cny  '','
+||'''&amp;#xf157;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000159'',''200401010000001'',''fa-code '','
+||'''&amp;#xf121;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000160'',''200401010000001'',''fa-code-fo'
+||'rk '',''&amp;#xf126;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000161'',''200401010000001'',''fa-codepen'
+||' '',''&amp;#xf1cb;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000162'',''200401010000001'',''fa-codiepi'
+||'e '',''&amp;#xf284;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000163'',''200401010000001'',''fa-coffee '
+||''',''&amp;#xf0f4;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000164'',''200401010000001'',''fa-cog '','''
+||'&amp;#xf013;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000165'',''200401010000001'',''fa-cogs '','
+||'''&amp;#xf085;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000166'',''200401010000001'',''fa-columns'
+||' '',''&amp;#xf0db;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000167'',''200401010000001'',''fa-comment'
+||' '',''&amp;#xf075;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000168'',''200401010000001'',''fa-comment'
+||'-o '',''&amp;#xf0e5;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000169'',''200401010000001'',''fa-comment'
+||'ing '',''&amp;#xf27a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000170'',''200401010000001'',''fa-comment'
+||'ing-o '',''&amp;#xf27b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000171'',''200401010000001'',''fa-comment'
+||'s '',''&amp;#xf086;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000172'',''200401010000001'',''fa-comment'
+||'s-o '',''&amp;#xf0e6;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000173'',''200401010000001'',''fa-compass'
+||' '',''&amp;#xf14e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000174'',''200401010000001'',''fa-compres'
+||'s '',''&amp;#xf066;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000175'',''200401010000001'',''fa-connect'
+||'develop '',''&amp;#xf20e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000176'',''200401010000001'',''fa-contao '
+||''',''&amp;#xf26d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000177'',''200401010000001'',''fa-copy  '''
+||',''&amp;#xf0c5;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000178'',''200401010000001'',''fa-copyrig'
+||'ht '',''&amp;#xf1f9;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000179'',''200401010000001'',''fa-creativ'
+||'e-commons '',''&amp;#xf25e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000180'',''200401010000001'',''fa-credit-'
+||'card '',''&amp;#xf09d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000181'',''200401010000001'',''fa-credit-'
+||'card-alt '',''&amp;#xf283;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000182'',''200401010000001'',''fa-crop '','
+||'''&amp;#xf125;'',null,n'))
+);
+null;
+end;
+/
+begin
+wwv_flow_api.append_to_install_script(
+ p_id=>wwv_flow_api.id(90862803457064388230)
+,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'ull,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000183'',''200401010000001'',''fa-crossha'
+||'irs '',''&amp;#xf05b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000184'',''200401010000001'',''fa-css3 '','
+||'''&amp;#xf13c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000185'',''200401010000001'',''fa-cube '','
+||'''&amp;#xf1b2;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000186'',''200401010000001'',''fa-cubes '''
+||',''&amp;#xf1b3;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000187'',''200401010000001'',''fa-cut  '','
+||'''&amp;#xf0c4;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000188'',''200401010000001'',''fa-cutlery'
+||' '',''&amp;#xf0f5;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000189'',''200401010000001'',''fa-dashboa'
+||'rd  '',''&amp;#xf0e4;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000190'',''200401010000001'',''fa-dashcub'
+||'e '',''&amp;#xf210;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000191'',''200401010000001'',''fa-databas'
+||'e '',''&amp;#xf1c0;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000192'',''200401010000001'',''fa-deaf '','
+||'''&amp;#xf2a4;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000193'',''200401010000001'',''fa-deafnes'
+||'s  '',''&amp;#xf2a4;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000194'',''200401010000001'',''fa-dedent '
+||' '',''&amp;#xf03b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000195'',''200401010000001'',''fa-delicio'
+||'us '',''&amp;#xf1a5;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000196'',''200401010000001'',''fa-desktop'
+||' '',''&amp;#xf108;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000197'',''200401010000001'',''fa-deviant'
+||'art '',''&amp;#xf1bd;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000198'',''200401010000001'',''fa-diamond'
+||' '',''&amp;#xf219;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000199'',''200401010000001'',''fa-digg '','
+||'''&amp;#xf1a6;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000200'',''200401010000001'',''fa-dollar '
+||' '',''&amp;#xf155;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000201'',''200401010000001'',''fa-dot-cir'
+||'cle-o '',''&amp;#xf192;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000202'',''200401010000001'',''fa-downloa'
+||'d '',''&amp;#xf019;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000203'',''200401010000001'',''fa-dribbbl'
+||'e '',''&amp;#xf17d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000204'',''200401010000001'',''fa-dropbox'
+||' '',''&amp;#xf16b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000205'',''200401010000001'',''fa-drupal '
+||''',''&amp;#xf1a9;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000206'',''200401010000001'',''fa-edge '','
+||'''&amp;#xf282;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000207'',''200401010000001'',''fa-edit  '''
+||',''&amp;#xf044;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000208'',''200401010000001'',''fa-eject '''
+||',''&amp;#xf052;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000209'',''200401010000001'',''fa-ellipsi'
+||'s-h '',''&amp;#xf141;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000210'',''200401010000001'',''fa-ellipsi'
+||'s-v '',''&amp;#xf142;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000211'',''200401010000001'',''fa-empire '
+||''',''&amp;#xf1d1;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000212'',''200401010000001'',''fa-envelop'
+||'e '',''&amp;#xf0e0;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000213'',''200401010000001'',''fa-envelop'
+||'e-o '',''&amp;#xf003;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000214'',''200401010000001'',''fa-envelop'
+||'e-square '',''&amp;#xf199;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000215'',''200401010000001'',''fa-envira '
+||''',''&amp;#xf299;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000216'',''200401010000001'',''fa-eraser '
+||''',''&amp;#xf12d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000217'',''200401010000001'',''fa-eur '','''
+||'&amp;#xf153;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000218'',''200401010000001'',''fa-euro  '''
+||',''&amp;#xf153;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000219'',''200401010000001'',''fa-exchang'
+||'e '',''&amp;#xf0ec;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000220'',''200401010000001'',''fa-exclama'
+||'tion '',''&amp;#xf12a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000221'',''200401010000001'',''fa-exclama'
+||'tion-circle '',''&amp;#xf06a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000222'',''200401010000001'',''fa-exclama'
+||'tion-triangle '',''&amp;#xf071;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000223'',''200401010000001'',''fa-expand '
+||''',''&amp;#xf065;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000224'',''200401010000001'',''fa-expedit'
+||'edssl '',''&amp;#xf23e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000225'',''200401010000001'',''fa-externa'
+||'l-link '',''&amp;#xf08e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000226'',''200401010000001'',''fa-externa'
+||'l-link-square '',''&amp;#xf14c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000227'',''200401010000001'',''fa-eye '','''
+||'&amp;#xf06e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000228'',''200401010000001'',''fa-eye-sla'
+||'sh '',''&amp;#xf070;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000229'',''200401010000001'',''fa-eyedrop'
+||'per '',''&amp;#xf1fb;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000230'',''200401010000001'',''facebook? '
+||''',''&amp;#xf09a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000231'',''200401010000001'',''facebook-f'
+||'? '',''&amp;#xf09a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000232'',''200401010000001'',''facebook-o'
+||'fficial? '',''&amp;#xf230;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000233'',''200401010000001'',''facebook-s'
+||'quare? '',''&amp;#xf082;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000234'',''200401010000001'',''fast-backw'
+||'ard? '',''&amp;#xf049;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000235'',''200401010000001'',''fast-forwa'
+||'rd? '',''&amp;#xf050;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000236'',''200401010000001'',''fax? '',''&a'
+||'mp;#xf1ac;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000237'',''200401010000001'',''fa-feed  '''
+||',''&amp;#xf09e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000238'',''200401010000001'',''fa-female '
+||''',''&amp;#xf182;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000239'',''200401010000001'',''fa-fighter'
+||'-jet '',''&amp;#xf0fb;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000240'',''200401010000001'',''fa-file '','
+||'''&amp;#xf15b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000241'',''200401010000001'',''fa-file-ar'
+||'chive-o '',''&amp;#xf1c6;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000242'',''200401010000001'',''fa-file-au'
+||'dio-o '',''&amp;#xf1c7;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000243'',''200401010000001'',''fa-file-co'
+||'de-o '',''&amp;#xf1c9;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000244'',''200401010000001'',''fa-file-ex'
+||'cel-o '',''&amp;#xf1c3;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000245'',''200401010000001'',''fa-file-im'
+||'age-o '',''&amp;#xf1c5;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000246'',''200401010000001'',''fa-file-mo'
+||'vie-o  '',''&amp;#xf1c8;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000247'',''200401010000001'',''fa-file-o '
+||''',''&amp;#xf016;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000248'',''200401010000001'',''fa-file-pd'
+||'f-o '',''&amp;#xf1c1;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000249'',''200401010000001'',''fa-file-ph'
+||'oto-o  '',''&amp;#xf1c5;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000250'',''200401010000001'',''fa-file-pi'
+||'cture-o  '',''&amp;#xf1c5;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''2004'))
+);
+null;
+end;
+/
+begin
+wwv_flow_api.append_to_install_script(
+ p_id=>wwv_flow_api.id(90862803457064388230)
+,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'01010000251'',''200401010000001'',''fa-file-powerpoint-o '',''&amp;#xf1c4;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000252'',''200401010000001'',''fa-file-so'
+||'und-o  '',''&amp;#xf1c7;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000253'',''200401010000001'',''fa-file-te'
+||'xt '',''&amp;#xf15c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000254'',''200401010000001'',''fa-file-te'
+||'xt-o '',''&amp;#xf0f6;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000255'',''200401010000001'',''fa-file-vi'
+||'deo-o '',''&amp;#xf1c8;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000256'',''200401010000001'',''fa-file-wo'
+||'rd-o '',''&amp;#xf1c2;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000257'',''200401010000001'',''fa-file-zi'
+||'p-o  '',''&amp;#xf1c6;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000258'',''200401010000001'',''fa-files-o'
+||' '',''&amp;#xf0c5;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000259'',''200401010000001'',''fa-film '','
+||'''&amp;#xf008;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000260'',''200401010000001'',''fa-filter '
+||''',''&amp;#xf0b0;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000261'',''200401010000001'',''fa-fire '','
+||'''&amp;#xf06d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000262'',''200401010000001'',''fa-fire-ex'
+||'tinguisher '',''&amp;#xf134;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000263'',''200401010000001'',''fa-firefox'
+||' '',''&amp;#xf269;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000264'',''200401010000001'',''fa-flag '','
+||'''&amp;#xf024;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000265'',''200401010000001'',''fa-flag-ch'
+||'eckered '',''&amp;#xf11e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000266'',''200401010000001'',''fa-flag-o '
+||''',''&amp;#xf11d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000267'',''200401010000001'',''fa-flash  '
+||''',''&amp;#xf0e7;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000268'',''200401010000001'',''fa-flask '''
+||',''&amp;#xf0c3;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000269'',''200401010000001'',''fa-flickr '
+||''',''&amp;#xf16e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000270'',''200401010000001'',''fa-floppy-'
+||'o '',''&amp;#xf0c7;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000271'',''200401010000001'',''fa-folder '
+||''',''&amp;#xf07b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000272'',''200401010000001'',''fa-folder-'
+||'o '',''&amp;#xf114;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000273'',''200401010000001'',''fa-folder-'
+||'open '',''&amp;#xf07c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000274'',''200401010000001'',''fa-folder-'
+||'open-o '',''&amp;#xf115;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000275'',''200401010000001'',''fa-font '','
+||'''&amp;#xf031;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000276'',''200401010000001'',''fa-fontico'
+||'ns '',''&amp;#xf280;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000277'',''200401010000001'',''fa-fort-aw'
+||'esome '',''&amp;#xf286;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000278'',''200401010000001'',''fa-forumbe'
+||'e '',''&amp;#xf211;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000279'',''200401010000001'',''fa-forward'
+||' '',''&amp;#xf04e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000280'',''200401010000001'',''fa-foursqu'
+||'are '',''&amp;#xf180;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000281'',''200401010000001'',''fa-frown-o'
+||' '',''&amp;#xf119;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000282'',''200401010000001'',''fa-futbol-'
+||'o '',''&amp;#xf1e3;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000283'',''200401010000001'',''fa-gamepad'
+||' '',''&amp;#xf11b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000284'',''200401010000001'',''fa-gavel '''
+||',''&amp;#xf0e3;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000285'',''200401010000001'',''fa-gbp '','''
+||'&amp;#xf154;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000286'',''200401010000001'',''fa-ge  '','''
+||'&amp;#xf1d1;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000287'',''200401010000001'',''fa-gear  '''
+||',''&amp;#xf013;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000288'',''200401010000001'',''fa-gears  '
+||''',''&amp;#xf085;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000289'',''200401010000001'',''fa-genderl'
+||'ess '',''&amp;#xf22d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000290'',''200401010000001'',''fa-get-poc'
+||'ket '',''&amp;#xf265;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000291'',''200401010000001'',''fa-gg '',''&'
+||'amp;#xf260;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000292'',''200401010000001'',''fa-gg-circ'
+||'le '',''&amp;#xf261;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000293'',''200401010000001'',''fa-gift '','
+||'''&amp;#xf06b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000294'',''200401010000001'',''fa-git '','''
+||'&amp;#xf1d3;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000295'',''200401010000001'',''fa-git-squ'
+||'are '',''&amp;#xf1d2;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000296'',''200401010000001'',''fa-github '
+||''',''&amp;#xf09b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000297'',''200401010000001'',''fa-github-'
+||'alt '',''&amp;#xf113;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000298'',''200401010000001'',''fa-github-'
+||'square '',''&amp;#xf092;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000299'',''200401010000001'',''fa-gitlab '
+||''',''&amp;#xf296;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000300'',''200401010000001'',''fa-gittip '
+||' '',''&amp;#xf184;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000301'',''200401010000001'',''fa-glass '''
+||',''&amp;#xf000;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000302'',''200401010000001'',''fa-glide '''
+||',''&amp;#xf2a5;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000303'',''200401010000001'',''fa-glide-g'
+||' '',''&amp;#xf2a6;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000304'',''200401010000001'',''fa-globe '''
+||',''&amp;#xf0ac;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000305'',''200401010000001'',''fa-google '
+||''',''&amp;#xf1a0;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000306'',''200401010000001'',''fa-google-'
+||'plus '',''&amp;#xf0d5;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000307'',''200401010000001'',''fa-google-'
+||'plus-square '',''&amp;#xf0d4;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000308'',''200401010000001'',''fa-google-'
+||'wallet '',''&amp;#xf1ee;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000309'',''200401010000001'',''fa-graduat'
+||'ion-cap '',''&amp;#xf19d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000310'',''200401010000001'',''fa-gratipa'
+||'y '',''&amp;#xf184;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000311'',''200401010000001'',''fa-group  '
+||''',''&amp;#xf0c0;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000312'',''200401010000001'',''fa-h-squar'
+||'e '',''&amp;#xf0fd;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000313'',''200401010000001'',''fa-hacker-'
+||'news '',''&amp;#xf1d4;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000314'',''200401010000001'',''fa-hand-gr'
+||'ab-o  '',''&amp;#xf255;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000315'',''200401010000001'',''fa-hand-li'
+||'zard-o '',''&amp;#xf258;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000316'',''200401010000001'',''fa-hand-o-'
+||'down '',''&amp;#xf0a7;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000317'',''200401010000001'',''fa-hand-o-'
+||'left '',''&amp;#xf0a5;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000318'',''200401010000001'',''fa-hand-o-'
+||'right '',''&amp;#xf0a4;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000319'',''200401010000001'',''fa-hand-o-'
+||'up '',''&amp;#xf0a6;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY'))
+);
+null;
+end;
+/
+begin
+wwv_flow_api.append_to_install_script(
+ p_id=>wwv_flow_api.id(90862803457064388230)
+,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+',CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000320'',''200401010000001'',''fa-hand-paper-o '',''&amp;#xf256;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_da'
+||'te(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000321'',''200401010000001'',''fa-hand-pe'
+||'ace-o '',''&amp;#xf25b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000322'',''200401010000001'',''fa-hand-po'
+||'inter-o '',''&amp;#xf25a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000323'',''200401010000001'',''fa-hand-ro'
+||'ck-o '',''&amp;#xf255;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000324'',''200401010000001'',''fa-hand-sc'
+||'issors-o '',''&amp;#xf257;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000325'',''200401010000001'',''fa-hand-sp'
+||'ock-o '',''&amp;#xf259;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000326'',''200401010000001'',''fa-hand-st'
+||'op-o  '',''&amp;#xf256;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000327'',''200401010000001'',''fa-hard-of'
+||'-hearing  '',''&amp;#xf2a4;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000328'',''200401010000001'',''fa-hashtag'
+||' '',''&amp;#xf292;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000329'',''200401010000001'',''fa-hdd-o '''
+||',''&amp;#xf0a0;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000330'',''200401010000001'',''fa-header '
+||''',''&amp;#xf1dc;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000331'',''200401010000001'',''fa-headpho'
+||'nes '',''&amp;#xf025;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000332'',''200401010000001'',''fa-heart '''
+||',''&amp;#xf004;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000333'',''200401010000001'',''fa-heart-o'
+||' '',''&amp;#xf08a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000334'',''200401010000001'',''fa-heartbe'
+||'at '',''&amp;#xf21e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000335'',''200401010000001'',''fa-history'
+||' '',''&amp;#xf1da;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000336'',''200401010000001'',''fa-home '','
+||'''&amp;#xf015;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000337'',''200401010000001'',''fa-hospita'
+||'l-o '',''&amp;#xf0f8;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000338'',''200401010000001'',''fa-hotel  '
+||''',''&amp;#xf236;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000339'',''200401010000001'',''fa-hourgla'
+||'ss '',''&amp;#xf254;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000340'',''200401010000001'',''fa-hourgla'
+||'ss-1  '',''&amp;#xf251;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000341'',''200401010000001'',''fa-hourgla'
+||'ss-2  '',''&amp;#xf252;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000342'',''200401010000001'',''fa-hourgla'
+||'ss-3  '',''&amp;#xf253;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000343'',''200401010000001'',''fa-hourgla'
+||'ss-end '',''&amp;#xf253;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000344'',''200401010000001'',''fa-hourgla'
+||'ss-half '',''&amp;#xf252;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000345'',''200401010000001'',''fa-hourgla'
+||'ss-o '',''&amp;#xf250;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000346'',''200401010000001'',''fa-hourgla'
+||'ss-start '',''&amp;#xf251;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000347'',''200401010000001'',''fa-houzz '''
+||',''&amp;#xf27c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000348'',''200401010000001'',''fa-html5 '''
+||',''&amp;#xf13b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000349'',''200401010000001'',''fa-i-curso'
+||'r '',''&amp;#xf246;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000350'',''200401010000001'',''fa-ils '','''
+||'&amp;#xf20b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000351'',''200401010000001'',''fa-image  '
+||''',''&amp;#xf03e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000352'',''200401010000001'',''fa-inbox '''
+||',''&amp;#xf01c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000353'',''200401010000001'',''fa-indent '
+||''',''&amp;#xf03c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000354'',''200401010000001'',''fa-industr'
+||'y '',''&amp;#xf275;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000355'',''200401010000001'',''fa-info '','
+||'''&amp;#xf129;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000356'',''200401010000001'',''fa-info-ci'
+||'rcle '',''&amp;#xf05a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000357'',''200401010000001'',''fa-inr '','''
+||'&amp;#xf156;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000358'',''200401010000001'',''fa-instagr'
+||'am '',''&amp;#xf16d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000359'',''200401010000001'',''fa-institu'
+||'tion  '',''&amp;#xf19c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000360'',''200401010000001'',''fa-interne'
+||'t-explorer '',''&amp;#xf26b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000361'',''200401010000001'',''fa-interse'
+||'x  '',''&amp;#xf224;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000362'',''200401010000001'',''fa-ioxhost'
+||' '',''&amp;#xf208;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000363'',''200401010000001'',''fa-italic '
+||''',''&amp;#xf033;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000364'',''200401010000001'',''fa-joomla '
+||''',''&amp;#xf1aa;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000365'',''200401010000001'',''fa-jpy '','''
+||'&amp;#xf157;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000366'',''200401010000001'',''fa-jsfiddl'
+||'e '',''&amp;#xf1cc;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000367'',''200401010000001'',''fa-key '','''
+||'&amp;#xf084;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000368'',''200401010000001'',''fa-keyboar'
+||'d-o '',''&amp;#xf11c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000369'',''200401010000001'',''fa-krw '','''
+||'&amp;#xf159;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000370'',''200401010000001'',''fa-languag'
+||'e '',''&amp;#xf1ab;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000371'',''200401010000001'',''fa-laptop '
+||''',''&amp;#xf109;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000372'',''200401010000001'',''fa-lastfm '
+||''',''&amp;#xf202;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000373'',''200401010000001'',''fa-lastfm-'
+||'square '',''&amp;#xf203;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000374'',''200401010000001'',''fa-leaf '','
+||'''&amp;#xf06c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000375'',''200401010000001'',''fa-leanpub'
+||' '',''&amp;#xf212;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000376'',''200401010000001'',''fa-legal  '
+||''',''&amp;#xf0e3;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000377'',''200401010000001'',''fa-lemon-o'
+||' '',''&amp;#xf094;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000378'',''200401010000001'',''fa-level-d'
+||'own '',''&amp;#xf149;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000379'',''200401010000001'',''fa-level-u'
+||'p '',''&amp;#xf148;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000380'',''200401010000001'',''fa-life-bo'
+||'uy  '',''&amp;#xf1cd;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000381'',''200401010000001'',''fa-life-bu'
+||'oy  '',''&amp;#xf1cd;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000382'',''200401010000001'',''fa-life-ri'
+||'ng '',''&amp;#xf1cd;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000383'',''200401010000001'',''fa-life-sa'
+||'ver  '',''&amp;#xf1cd;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000384'',''200401010000001'',''fa-lightbu'
+||'lb-o '',''&amp;#xf0eb;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000385'',''200401010000001'',''fa-line-ch'
+||'art '',''&amp;#xf201;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000386'',''200401010000001'',''fa-link '','
+||'''&amp;#xf0c1;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000387'',''200401010000001'',''fa-linkedi'
+||'n '',''&amp;#xf0e1;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000388'',''200401010000001'',''fa-linkedi'
+||'n-square '',''&amp;#xf08c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUT'))
+);
+null;
+end;
+/
+begin
+wwv_flow_api.append_to_install_script(
+ p_id=>wwv_flow_api.id(90862803457064388230)
+,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'E3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000389'',''200401010000001'',''fa-linux '',''&amp;#xf17c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'','
+||'to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000390'',''200401010000001'',''fa-list '','
+||'''&amp;#xf03a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000391'',''200401010000001'',''fa-list-al'
+||'t '',''&amp;#xf022;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000392'',''200401010000001'',''fa-list-ol'
+||' '',''&amp;#xf0cb;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000393'',''200401010000001'',''fa-list-ul'
+||' '',''&amp;#xf0ca;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000394'',''200401010000001'',''fa-locatio'
+||'n-arrow '',''&amp;#xf124;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000395'',''200401010000001'',''fa-lock '','
+||'''&amp;#xf023;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000396'',''200401010000001'',''fa-long-ar'
+||'row-down '',''&amp;#xf175;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000397'',''200401010000001'',''fa-long-ar'
+||'row-left '',''&amp;#xf177;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000398'',''200401010000001'',''fa-long-ar'
+||'row-right '',''&amp;#xf178;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000399'',''200401010000001'',''fa-long-ar'
+||'row-up '',''&amp;#xf176;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000400'',''200401010000001'',''fa-low-vis'
+||'ion '',''&amp;#xf2a8;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000401'',''200401010000001'',''fa-magic '''
+||',''&amp;#xf0d0;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000402'',''200401010000001'',''fa-magnet '
+||''',''&amp;#xf076;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000403'',''200401010000001'',''fa-mail-fo'
+||'rward  '',''&amp;#xf064;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000404'',''200401010000001'',''fa-mail-re'
+||'ply  '',''&amp;#xf112;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000405'',''200401010000001'',''fa-mail-re'
+||'ply-all  '',''&amp;#xf122;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000406'',''200401010000001'',''fa-male '','
+||'''&amp;#xf183;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000407'',''200401010000001'',''fa-map '','''
+||'&amp;#xf279;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000408'',''200401010000001'',''fa-map-mar'
+||'ker '',''&amp;#xf041;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000409'',''200401010000001'',''fa-map-o '''
+||',''&amp;#xf278;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000410'',''200401010000001'',''fa-map-pin'
+||' '',''&amp;#xf276;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000411'',''200401010000001'',''fa-map-sig'
+||'ns '',''&amp;#xf277;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000412'',''200401010000001'',''fa-mars '','
+||'''&amp;#xf222;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000413'',''200401010000001'',''fa-mars-do'
+||'uble '',''&amp;#xf227;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000414'',''200401010000001'',''fa-mars-st'
+||'roke '',''&amp;#xf229;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000415'',''200401010000001'',''fa-mars-st'
+||'roke-h '',''&amp;#xf22b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000416'',''200401010000001'',''fa-mars-st'
+||'roke-v '',''&amp;#xf22a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000417'',''200401010000001'',''fa-maxcdn '
+||''',''&amp;#xf136;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000418'',''200401010000001'',''fa-meanpat'
+||'h '',''&amp;#xf20c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000419'',''200401010000001'',''fa-medium '
+||''',''&amp;#xf23a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000420'',''200401010000001'',''fa-medkit '
+||''',''&amp;#xf0fa;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000421'',''200401010000001'',''fa-meh-o '''
+||',''&amp;#xf11a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000422'',''200401010000001'',''fa-mercury'
+||' '',''&amp;#xf223;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000423'',''200401010000001'',''fa-microph'
+||'one '',''&amp;#xf130;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000424'',''200401010000001'',''fa-microph'
+||'one-slash '',''&amp;#xf131;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000425'',''200401010000001'',''fa-minus '''
+||',''&amp;#xf068;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000426'',''200401010000001'',''fa-minus-c'
+||'ircle '',''&amp;#xf056;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000427'',''200401010000001'',''fa-minus-s'
+||'quare '',''&amp;#xf146;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000428'',''200401010000001'',''fa-minus-s'
+||'quare-o '',''&amp;#xf147;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000429'',''200401010000001'',''fa-mixclou'
+||'d '',''&amp;#xf289;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000430'',''200401010000001'',''fa-mobile '
+||''',''&amp;#xf10b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000431'',''200401010000001'',''fa-mobile-'
+||'phone  '',''&amp;#xf10b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000432'',''200401010000001'',''fa-modx '','
+||'''&amp;#xf285;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000433'',''200401010000001'',''fa-money '''
+||',''&amp;#xf0d6;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000434'',''200401010000001'',''fa-moon-o '
+||''',''&amp;#xf186;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000435'',''200401010000001'',''fa-mortar-'
+||'board  '',''&amp;#xf19d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000436'',''200401010000001'',''fa-motorcy'
+||'cle '',''&amp;#xf21c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000437'',''200401010000001'',''fa-mouse-p'
+||'ointer '',''&amp;#xf245;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000438'',''200401010000001'',''fa-music '''
+||',''&amp;#xf001;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000439'',''200401010000001'',''fa-navicon'
+||'  '',''&amp;#xf0c9;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000440'',''200401010000001'',''fa-neuter '
+||''',''&amp;#xf22c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000441'',''200401010000001'',''fa-newspap'
+||'er-o '',''&amp;#xf1ea;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000442'',''200401010000001'',''fa-object-'
+||'group '',''&amp;#xf247;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000443'',''200401010000001'',''fa-object-'
+||'ungroup '',''&amp;#xf248;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000444'',''200401010000001'',''fa-odnokla'
+||'ssniki '',''&amp;#xf263;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000445'',''200401010000001'',''fa-odnokla'
+||'ssniki-square '',''&amp;#xf264;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000446'',''200401010000001'',''fa-opencar'
+||'t '',''&amp;#xf23d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000447'',''200401010000001'',''fa-openid '
+||''',''&amp;#xf19b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000448'',''200401010000001'',''fa-opera '''
+||',''&amp;#xf26a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000449'',''200401010000001'',''fa-optin-m'
+||'onster '',''&amp;#xf23c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000450'',''200401010000001'',''fa-outdent'
+||' '',''&amp;#xf03b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000451'',''200401010000001'',''fa-pagelin'
+||'es '',''&amp;#xf18c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000452'',''200401010000001'',''fa-paint-b'
+||'rush '',''&amp;#xf1fc;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000453'',''200401010000001'',''fa-paper-p'
+||'lane '',''&amp;#xf1d8;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000454'',''200401010000001'',''fa-paper-p'
+||'lane-o '',''&amp;#xf1d9;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000455'',''200401010000001'',''fa-papercl'
+||'ip '',''&amp;#xf0c6;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000456'',''200401010000001'',''fa-paragra'
+||'ph '',''&amp;#xf1dd;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000457'',''200401010000001'',''fa-paste  '
+||''',''&amp;#xf0ea;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''))'))
+);
+null;
+end;
+/
+begin
+wwv_flow_api.append_to_install_script(
+ p_id=>wwv_flow_api.id(90862803457064388230)
+,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+';',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000458'',''200401010000001'',''fa-pause '''
+||',''&amp;#xf04c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000459'',''200401010000001'',''fa-pause-c'
+||'ircle '',''&amp;#xf28b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000460'',''200401010000001'',''fa-pause-c'
+||'ircle-o '',''&amp;#xf28c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000461'',''200401010000001'',''fa-paw '','''
+||'&amp;#xf1b0;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000462'',''200401010000001'',''fa-paypal '
+||''',''&amp;#xf1ed;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000463'',''200401010000001'',''fa-pencil '
+||''',''&amp;#xf040;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000464'',''200401010000001'',''fa-pencil-'
+||'square '',''&amp;#xf14b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000465'',''200401010000001'',''fa-pencil-'
+||'square-o '',''&amp;#xf044;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000466'',''200401010000001'',''fa-percent'
+||' '',''&amp;#xf295;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000467'',''200401010000001'',''fa-phone '''
+||',''&amp;#xf095;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000468'',''200401010000001'',''fa-phone-s'
+||'quare '',''&amp;#xf098;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000469'',''200401010000001'',''fa-photo  '
+||''',''&amp;#xf03e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000470'',''200401010000001'',''fa-picture'
+||'-o '',''&amp;#xf03e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000471'',''200401010000001'',''fa-pie-cha'
+||'rt '',''&amp;#xf200;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000472'',''200401010000001'',''fa-pied-pi'
+||'per '',''&amp;#xf1a7;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000473'',''200401010000001'',''fa-pied-pi'
+||'per-alt '',''&amp;#xf1a8;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000474'',''200401010000001'',''fa-pintere'
+||'st '',''&amp;#xf0d2;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000475'',''200401010000001'',''fa-pintere'
+||'st-p '',''&amp;#xf231;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000476'',''200401010000001'',''fa-pintere'
+||'st-square '',''&amp;#xf0d3;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000477'',''200401010000001'',''fa-plane '''
+||',''&amp;#xf072;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000478'',''200401010000001'',''fa-play '','
+||'''&amp;#xf04b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000479'',''200401010000001'',''fa-play-ci'
+||'rcle '',''&amp;#xf144;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000480'',''200401010000001'',''fa-play-ci'
+||'rcle-o '',''&amp;#xf01d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000481'',''200401010000001'',''fa-plug '','
+||'''&amp;#xf1e6;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000482'',''200401010000001'',''fa-plus '','
+||'''&amp;#xf067;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000483'',''200401010000001'',''fa-plus-ci'
+||'rcle '',''&amp;#xf055;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000484'',''200401010000001'',''fa-plus-sq'
+||'uare '',''&amp;#xf0fe;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000485'',''200401010000001'',''fa-plus-sq'
+||'uare-o '',''&amp;#xf196;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000486'',''200401010000001'',''fa-power-o'
+||'ff '',''&amp;#xf011;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000487'',''200401010000001'',''fa-print '''
+||',''&amp;#xf02f;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000488'',''200401010000001'',''fa-product'
+||'-hunt '',''&amp;#xf288;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000489'',''200401010000001'',''fa-puzzle-'
+||'piece '',''&amp;#xf12e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000490'',''200401010000001'',''fa-qq '',''&'
+||'amp;#xf1d6;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000491'',''200401010000001'',''fa-qrcode '
+||''',''&amp;#xf029;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000492'',''200401010000001'',''fa-questio'
+||'n '',''&amp;#xf128;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000493'',''200401010000001'',''fa-questio'
+||'n-circle '',''&amp;#xf059;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000494'',''200401010000001'',''fa-questio'
+||'n-circle-o '',''&amp;#xf29c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000495'',''200401010000001'',''fa-quote-l'
+||'eft '',''&amp;#xf10d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000496'',''200401010000001'',''fa-quote-r'
+||'ight '',''&amp;#xf10e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000497'',''200401010000001'',''fa-ra  '','''
+||'&amp;#xf1d0;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000498'',''200401010000001'',''fa-random '
+||''',''&amp;#xf074;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000499'',''200401010000001'',''fa-rebel '''
+||',''&amp;#xf1d0;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000500'',''200401010000001'',''fa-recycle'
+||' '',''&amp;#xf1b8;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000501'',''200401010000001'',''fa-reddit '
+||''',''&amp;#xf1a1;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000502'',''200401010000001'',''fa-reddit-'
+||'alien '',''&amp;#xf281;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000503'',''200401010000001'',''fa-reddit-'
+||'square '',''&amp;#xf1a2;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000504'',''200401010000001'',''fa-refresh'
+||' '',''&amp;#xf021;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000505'',''200401010000001'',''fa-registe'
+||'red '',''&amp;#xf25d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000506'',''200401010000001'',''fa-remove '
+||' '',''&amp;#xf00d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000507'',''200401010000001'',''fa-renren '
+||''',''&amp;#xf18b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000508'',''200401010000001'',''fa-reorder'
+||'  '',''&amp;#xf0c9;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000509'',''200401010000001'',''fa-repeat '
+||''',''&amp;#xf01e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000510'',''200401010000001'',''fa-reply '''
+||',''&amp;#xf112;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000511'',''200401010000001'',''fa-reply-a'
+||'ll '',''&amp;#xf122;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000512'',''200401010000001'',''fa-retweet'
+||' '',''&amp;#xf079;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000513'',''200401010000001'',''fa-rmb  '','
+||'''&amp;#xf157;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000514'',''200401010000001'',''fa-road '','
+||'''&amp;#xf018;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000515'',''200401010000001'',''fa-rocket '
+||''',''&amp;#xf135;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000516'',''200401010000001'',''fa-rotate-'
+||'left  '',''&amp;#xf0e2;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000517'',''200401010000001'',''fa-rotate-'
+||'right  '',''&amp;#xf01e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000518'',''200401010000001'',''fa-rouble '
+||' '',''&amp;#xf158;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000519'',''200401010000001'',''fa-rss '','''
+||'&amp;#xf09e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000520'',''200401010000001'',''fa-rss-squ'
+||'are '',''&amp;#xf143;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000521'',''200401010000001'',''fa-rub '','''
+||'&amp;#xf158;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000522'',''200401010000001'',''fa-ruble  '
+||''',''&amp;#xf158;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000523'',''200401010000001'',''fa-rupee  '
+||''',''&amp;#xf156;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000524'',''200401010000001'',''fari? '',''&'
+||'amp;#xf267;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000525'',''200401010000001'',''fa-save  '''
+||',''&amp;#xf0c7;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000526'',''200401010000001'',''fa-scissor'
+||'s '',''&amp;#xf0c4;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''20010101000000'))
+);
+null;
+end;
+/
+begin
+wwv_flow_api.append_to_install_script(
+ p_id=>wwv_flow_api.id(90862803457064388230)
+,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'3'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000527'',''200401010000001'',''fa-scribd '
+||''',''&amp;#xf28a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000528'',''200401010000001'',''fa-search '
+||''',''&amp;#xf002;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000529'',''200401010000001'',''fa-search-'
+||'minus '',''&amp;#xf010;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000530'',''200401010000001'',''fa-search-'
+||'plus '',''&amp;#xf00e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000531'',''200401010000001'',''fa-sellsy '
+||''',''&amp;#xf213;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000532'',''200401010000001'',''fa-send  '''
+||',''&amp;#xf1d8;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000533'',''200401010000001'',''fa-send-o '
+||' '',''&amp;#xf1d9;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000534'',''200401010000001'',''fa-server '
+||''',''&amp;#xf233;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000535'',''200401010000001'',''fa-share '''
+||',''&amp;#xf064;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000536'',''200401010000001'',''fa-share-a'
+||'lt '',''&amp;#xf1e0;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000537'',''200401010000001'',''fa-share-a'
+||'lt-square '',''&amp;#xf1e1;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000538'',''200401010000001'',''fa-share-s'
+||'quare '',''&amp;#xf14d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000539'',''200401010000001'',''fa-share-s'
+||'quare-o '',''&amp;#xf045;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000540'',''200401010000001'',''fa-shekel '
+||' '',''&amp;#xf20b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000541'',''200401010000001'',''fa-sheqel '
+||' '',''&amp;#xf20b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000542'',''200401010000001'',''fa-shield '
+||''',''&amp;#xf132;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000543'',''200401010000001'',''fa-ship '','
+||'''&amp;#xf21a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000544'',''200401010000001'',''fa-shirtsi'
+||'nbulk '',''&amp;#xf214;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000545'',''200401010000001'',''fa-shoppin'
+||'g-bag '',''&amp;#xf290;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000546'',''200401010000001'',''fa-shoppin'
+||'g-basket '',''&amp;#xf291;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000547'',''200401010000001'',''fa-shoppin'
+||'g-cart '',''&amp;#xf07a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000548'',''200401010000001'',''fa-sign-in'
+||' '',''&amp;#xf090;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000549'',''200401010000001'',''fa-sign-la'
+||'nguage '',''&amp;#xf2a7;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000550'',''200401010000001'',''fa-sign-ou'
+||'t '',''&amp;#xf08b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000551'',''200401010000001'',''fa-signal '
+||''',''&amp;#xf012;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000552'',''200401010000001'',''fa-signing'
+||'  '',''&amp;#xf2a7;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000553'',''200401010000001'',''fa-simplyb'
+||'uilt '',''&amp;#xf215;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000554'',''200401010000001'',''fa-sitemap'
+||' '',''&amp;#xf0e8;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000555'',''200401010000001'',''fa-skyatla'
+||'s '',''&amp;#xf216;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000556'',''200401010000001'',''fa-skype '''
+||',''&amp;#xf17e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000557'',''200401010000001'',''fa-slack '''
+||',''&amp;#xf198;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000558'',''200401010000001'',''fa-sliders'
+||' '',''&amp;#xf1de;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000559'',''200401010000001'',''fa-slidesh'
+||'are '',''&amp;#xf1e7;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000560'',''200401010000001'',''fa-smile-o'
+||' '',''&amp;#xf118;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000561'',''200401010000001'',''fa-snapcha'
+||'t '',''&amp;#xf2ab;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000562'',''200401010000001'',''fa-snapcha'
+||'t-ghost '',''&amp;#xf2ac;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000563'',''200401010000001'',''fa-snapcha'
+||'t-square '',''&amp;#xf2ad;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000564'',''200401010000001'',''fa-soccer-'
+||'ball-o  '',''&amp;#xf1e3;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000565'',''200401010000001'',''fa-sort '','
+||'''&amp;#xf0dc;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000566'',''200401010000001'',''fa-sort-al'
+||'pha-asc '',''&amp;#xf15d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000567'',''200401010000001'',''fa-sort-al'
+||'pha-desc '',''&amp;#xf15e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000568'',''200401010000001'',''fa-sort-am'
+||'ount-asc '',''&amp;#xf160;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000569'',''200401010000001'',''fa-sort-am'
+||'ount-desc '',''&amp;#xf161;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000570'',''200401010000001'',''fa-sort-as'
+||'c '',''&amp;#xf0de;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000571'',''200401010000001'',''fa-sort-de'
+||'sc '',''&amp;#xf0dd;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000572'',''200401010000001'',''fa-sort-do'
+||'wn  '',''&amp;#xf0dd;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000573'',''200401010000001'',''fa-sort-nu'
+||'meric-asc '',''&amp;#xf162;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000574'',''200401010000001'',''fa-sort-nu'
+||'meric-desc '',''&amp;#xf163;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000575'',''200401010000001'',''fa-sort-up'
+||'  '',''&amp;#xf0de;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000576'',''200401010000001'',''fa-soundcl'
+||'oud '',''&amp;#xf1be;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000577'',''200401010000001'',''fa-space-s'
+||'huttle '',''&amp;#xf197;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000578'',''200401010000001'',''fa-spinner'
+||' '',''&amp;#xf110;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000579'',''200401010000001'',''fa-spoon '''
+||',''&amp;#xf1b1;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000580'',''200401010000001'',''fa-spotify'
+||' '',''&amp;#xf1bc;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000581'',''200401010000001'',''fa-square '
+||''',''&amp;#xf0c8;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000582'',''200401010000001'',''fa-square-'
+||'o '',''&amp;#xf096;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000583'',''200401010000001'',''fa-stack-e'
+||'xchange '',''&amp;#xf18d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000584'',''200401010000001'',''fa-stack-o'
+||'verflow '',''&amp;#xf16c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000585'',''200401010000001'',''fa-star '','
+||'''&amp;#xf005;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000586'',''200401010000001'',''fa-star-ha'
+||'lf '',''&amp;#xf089;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000587'',''200401010000001'',''fa-star-ha'
+||'lf-empty  '',''&amp;#xf123;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000588'',''200401010000001'',''fa-star-ha'
+||'lf-full  '',''&amp;#xf123;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000589'',''200401010000001'',''fa-star-ha'
+||'lf-o '',''&amp;#xf123;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000590'',''200401010000001'',''fa-star-o '
+||''',''&amp;#xf006;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000591'',''200401010000001'',''fa-steam '''
+||',''&amp;#xf1b6;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000592'',''200401010000001'',''fa-steam-s'
+||'quare '',''&amp;#xf1b7;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000593'',''200401010000001'',''fa-step-ba'
+||'ckward '',''&amp;#xf048;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000594'',''200401010000001'',''fa-step-fo'
+||'rward '',''&amp;#xf051;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000595'',''200401010000001'',''fa-stethos'
+||'cope '',''&amp;#'))
+);
+null;
+end;
+/
+begin
+wwv_flow_api.append_to_install_script(
+ p_id=>wwv_flow_api.id(90862803457064388230)
+,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'xf0f1;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000596'',''200401010000001'',''fa-sticky-'
+||'note '',''&amp;#xf249;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000597'',''200401010000001'',''fa-sticky-'
+||'note-o '',''&amp;#xf24a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000598'',''200401010000001'',''fa-stop '','
+||'''&amp;#xf04d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000599'',''200401010000001'',''fa-stop-ci'
+||'rcle '',''&amp;#xf28d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000600'',''200401010000001'',''fa-stop-ci'
+||'rcle-o '',''&amp;#xf28e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000601'',''200401010000001'',''fa-street-'
+||'view '',''&amp;#xf21d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000602'',''200401010000001'',''fa-striket'
+||'hrough '',''&amp;#xf0cc;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000603'',''200401010000001'',''fa-stumble'
+||'upon '',''&amp;#xf1a4;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000604'',''200401010000001'',''fa-stumble'
+||'upon-circle '',''&amp;#xf1a3;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000605'',''200401010000001'',''fa-subscri'
+||'pt '',''&amp;#xf12c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000606'',''200401010000001'',''fa-subway '
+||''',''&amp;#xf239;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000607'',''200401010000001'',''fa-suitcas'
+||'e '',''&amp;#xf0f2;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000608'',''200401010000001'',''fa-sun-o '''
+||',''&amp;#xf185;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000609'',''200401010000001'',''fa-supersc'
+||'ript '',''&amp;#xf12b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000610'',''200401010000001'',''fa-support'
+||'  '',''&amp;#xf1cd;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000611'',''200401010000001'',''fa-table '''
+||',''&amp;#xf0ce;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000612'',''200401010000001'',''fa-tablet '
+||''',''&amp;#xf10a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000613'',''200401010000001'',''fa-tachome'
+||'ter '',''&amp;#xf0e4;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000614'',''200401010000001'',''fa-tag '','''
+||'&amp;#xf02b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000615'',''200401010000001'',''fa-tags '','
+||'''&amp;#xf02c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000616'',''200401010000001'',''fa-tasks '''
+||',''&amp;#xf0ae;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000617'',''200401010000001'',''fa-taxi '','
+||'''&amp;#xf1ba;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000618'',''200401010000001'',''fa-televis'
+||'ion '',''&amp;#xf26c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000619'',''200401010000001'',''fa-tencent'
+||'-weibo '',''&amp;#xf1d5;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000620'',''200401010000001'',''fa-termina'
+||'l '',''&amp;#xf120;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000621'',''200401010000001'',''fa-text-he'
+||'ight '',''&amp;#xf034;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000622'',''200401010000001'',''fa-text-wi'
+||'dth '',''&amp;#xf035;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000623'',''200401010000001'',''fa-th '',''&'
+||'amp;#xf00a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000624'',''200401010000001'',''fa-th-larg'
+||'e '',''&amp;#xf009;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000625'',''200401010000001'',''fa-th-list'
+||' '',''&amp;#xf00b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000626'',''200401010000001'',''fa-thumb-t'
+||'ack '',''&amp;#xf08d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000627'',''200401010000001'',''fa-thumbs-'
+||'down '',''&amp;#xf165;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000628'',''200401010000001'',''fa-thumbs-'
+||'o-down '',''&amp;#xf088;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000629'',''200401010000001'',''fa-thumbs-'
+||'o-up '',''&amp;#xf087;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000630'',''200401010000001'',''fa-thumbs-'
+||'up '',''&amp;#xf164;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000631'',''200401010000001'',''fa-ticket '
+||''',''&amp;#xf145;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000632'',''200401010000001'',''fa-times '''
+||',''&amp;#xf00d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000633'',''200401010000001'',''fa-times-c'
+||'ircle '',''&amp;#xf057;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000634'',''200401010000001'',''fa-times-c'
+||'ircle-o '',''&amp;#xf05c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000635'',''200401010000001'',''fa-tint '','
+||'''&amp;#xf043;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000636'',''200401010000001'',''fa-toggle-'
+||'down  '',''&amp;#xf150;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000637'',''200401010000001'',''fa-toggle-'
+||'left  '',''&amp;#xf191;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000638'',''200401010000001'',''fa-toggle-'
+||'off '',''&amp;#xf204;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000639'',''200401010000001'',''fa-toggle-'
+||'on '',''&amp;#xf205;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000640'',''200401010000001'',''fa-toggle-'
+||'right  '',''&amp;#xf152;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000641'',''200401010000001'',''fa-toggle-'
+||'up  '',''&amp;#xf151;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000642'',''200401010000001'',''fa-tradema'
+||'rk '',''&amp;#xf25c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000643'',''200401010000001'',''fa-train '''
+||',''&amp;#xf238;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000644'',''200401010000001'',''fa-transge'
+||'nder '',''&amp;#xf224;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000645'',''200401010000001'',''fa-transge'
+||'nder-alt '',''&amp;#xf225;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000646'',''200401010000001'',''fa-trash '''
+||',''&amp;#xf1f8;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000647'',''200401010000001'',''fa-trash-o'
+||' '',''&amp;#xf014;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000648'',''200401010000001'',''fa-tree '','
+||'''&amp;#xf1bb;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000649'',''200401010000001'',''fa-trello '
+||''',''&amp;#xf181;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000650'',''200401010000001'',''fa-tripadv'
+||'isor '',''&amp;#xf262;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000651'',''200401010000001'',''fa-trophy '
+||''',''&amp;#xf091;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000652'',''200401010000001'',''fa-truck '''
+||',''&amp;#xf0d1;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000653'',''200401010000001'',''fa-try '','''
+||'&amp;#xf195;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000654'',''200401010000001'',''fa-tty '','''
+||'&amp;#xf1e4;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000655'',''200401010000001'',''fa-tumblr '
+||''',''&amp;#xf173;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000656'',''200401010000001'',''fa-tumblr-'
+||'square '',''&amp;#xf174;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000657'',''200401010000001'',''fa-turkish'
+||'-lira  '',''&amp;#xf195;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000658'',''200401010000001'',''fa-tv  '','''
+||'&amp;#xf26c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000659'',''200401010000001'',''fa-twitch '
+||''',''&amp;#xf1e8;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000660'',''200401010000001'',''fa-twitter'
+||' '',''&amp;#xf099;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000661'',''200401010000001'',''fa-twitter'
+||'-square '',''&amp;#xf081;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000662'',''200401010000001'',''fa-umbrell'
+||'a '',''&amp;#xf0e9;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000663'',''200401010000001'',''fa-underli'
+||'ne '',''&amp;#xf0cd;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values '))
+);
+null;
+end;
+/
+begin
+wwv_flow_api.append_to_install_script(
+ p_id=>wwv_flow_api.id(90862803457064388230)
+,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'(''200401010000664'',''200401010000001'',''fa-undo '',''&amp;#xf0e2;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000665'',''200401010000001'',''fa-univers'
+||'al-access '',''&amp;#xf29a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000666'',''200401010000001'',''fa-univers'
+||'ity '',''&amp;#xf19c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000667'',''200401010000001'',''fa-unlink '
+||' '',''&amp;#xf127;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000668'',''200401010000001'',''fa-unlock '
+||''',''&amp;#xf09c;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000669'',''200401010000001'',''fa-unlock-'
+||'alt '',''&amp;#xf13e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000670'',''200401010000001'',''fa-unsorte'
+||'d  '',''&amp;#xf0dc;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000671'',''200401010000001'',''fa-upload '
+||''',''&amp;#xf093;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000672'',''200401010000001'',''fa-usb '','''
+||'&amp;#xf287;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000673'',''200401010000001'',''fa-usd '','''
+||'&amp;#xf155;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000674'',''200401010000001'',''fa-user '','
+||'''&amp;#xf007;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000675'',''200401010000001'',''fa-user-md'
+||' '',''&amp;#xf0f0;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000676'',''200401010000001'',''fa-user-pl'
+||'us '',''&amp;#xf234;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000677'',''200401010000001'',''fa-user-se'
+||'cret '',''&amp;#xf21b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000678'',''200401010000001'',''fa-user-ti'
+||'mes '',''&amp;#xf235;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000679'',''200401010000001'',''fa-users '''
+||',''&amp;#xf0c0;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000680'',''200401010000001'',''fa-venus '''
+||',''&amp;#xf221;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000681'',''200401010000001'',''fa-venus-d'
+||'ouble '',''&amp;#xf226;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000682'',''200401010000001'',''fa-venus-m'
+||'ars '',''&amp;#xf228;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000683'',''200401010000001'',''fa-viacoin'
+||' '',''&amp;#xf237;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000684'',''200401010000001'',''fa-viadeo '
+||''',''&amp;#xf2a9;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000685'',''200401010000001'',''fa-viadeo-'
+||'square '',''&amp;#xf2aa;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000686'',''200401010000001'',''fa-video-c'
+||'amera '',''&amp;#xf03d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000687'',''200401010000001'',''fa-vimeo '''
+||',''&amp;#xf27d;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000688'',''200401010000001'',''fa-vimeo-s'
+||'quare '',''&amp;#xf194;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000689'',''200401010000001'',''fa-vine '','
+||'''&amp;#xf1ca;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000690'',''200401010000001'',''fa-vk '',''&'
+||'amp;#xf189;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000691'',''200401010000001'',''fa-volume-'
+||'control-phone '',''&amp;#xf2a0;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000692'',''200401010000001'',''fa-volume-'
+||'down '',''&amp;#xf027;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000693'',''200401010000001'',''fa-volume-'
+||'off '',''&amp;#xf026;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000694'',''200401010000001'',''fa-volume-'
+||'up '',''&amp;#xf028;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000695'',''200401010000001'',''fa-warning'
+||'  '',''&amp;#xf071;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000696'',''200401010000001'',''fa-wechat '
+||' '',''&amp;#xf1d7;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000697'',''200401010000001'',''fa-weibo '''
+||',''&amp;#xf18a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000698'',''200401010000001'',''fa-weixin '
+||''',''&amp;#xf1d7;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000699'',''200401010000001'',''fa-whatsap'
+||'p '',''&amp;#xf232;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000700'',''200401010000001'',''fa-wheelch'
+||'air '',''&amp;#xf193;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000701'',''200401010000001'',''fa-wheelch'
+||'air-alt '',''&amp;#xf29b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000702'',''200401010000001'',''fa-wifi '','
+||'''&amp;#xf1eb;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000703'',''200401010000001'',''fa-wikiped'
+||'ia-w '',''&amp;#xf266;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000704'',''200401010000001'',''fa-windows'
+||' '',''&amp;#xf17a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000705'',''200401010000001'',''fa-won  '','
+||'''&amp;#xf159;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000706'',''200401010000001'',''fa-wordpre'
+||'ss '',''&amp;#xf19a;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000707'',''200401010000001'',''fa-wpbegin'
+||'ner '',''&amp;#xf297;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000708'',''200401010000001'',''fa-wpforms'
+||' '',''&amp;#xf298;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000709'',''200401010000001'',''fa-wrench '
+||''',''&amp;#xf0ad;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000710'',''200401010000001'',''fa-xing '','
+||'''&amp;#xf168;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000711'',''200401010000001'',''fa-xing-sq'
+||'uare '',''&amp;#xf169;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000712'',''200401010000001'',''fa-y-combi'
+||'nator '',''&amp;#xf23b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000713'',''200401010000001'',''fa-y-combi'
+||'nator-square '',''&amp;#xf1d4;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000714'',''200401010000001'',''fa-yahoo '''
+||',''&amp;#xf19e;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000715'',''200401010000001'',''fa-yc  '','''
+||'&amp;#xf23b;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000716'',''200401010000001'',''fa-yc-squa'
+||'re  '',''&amp;#xf1d4;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000717'',''200401010000001'',''fa-yelp '','
+||'''&amp;#xf1e9;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000718'',''200401010000001'',''fa-yen  '','
+||'''&amp;#xf157;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000719'',''200401010000001'',''fa-youtube'
+||' '',''&amp;#xf167;'',null,null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+''))
+);
+wwv_flow_api.create_install_script(
+ p_id=>wwv_flow_api.id(5624420420433138)
+,p_install_id=>wwv_flow_api.id(90315351184290560232)
+,p_name=>'Create Views'
+,p_sequence=>50
+,p_script_type=>'INSTALL'
+,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'CREATE OR REPLACE FORCE VIEW "AN_PAGE_ICONS" ("ICON_DISPLAY", "ICON_RETURN") AS ',
+'  SELECT meaning||'' ''||code icon_display,',
+'    code icon_return',
+'  FROM ad_lookups al,',
+'    ad_lookup_values alv',
+'  WHERE al.lookup_id = alv.lookup_id',
+'  AND alv.enabled    = ''Y''',
+'  AND sysdate BETWEEN NVL(alv.date_from, sysdate) AND NVL(alv.date_to, sysdate)',
+'  AND al.lookup = ''PAGE_ICONS''',
+'  ORDER BY code;',
+'',
+''))
+);
+wwv_flow_api.create_install_object(
+ p_id=>wwv_flow_api.id(5624573463433139)
+,p_script_id=>wwv_flow_api.id(5624420420433138)
+,p_object_owner=>'#OWNER#'
+,p_object_type=>'VIEW'
+,p_object_name=>'AN_PAGE_ICONS'
+,p_last_updated_by=>'ADMIN'
+,p_last_updated_on=>to_date('20171109235654','YYYYMMDDHH24MISS')
+,p_created_by=>'ADMIN'
+,p_created_on=>to_date('20171109235654','YYYYMMDDHH24MISS')
 );
 end;
 /
