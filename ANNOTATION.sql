@@ -27,7 +27,7 @@ prompt APPLICATION 102 - Annotations
 -- Application Export:
 --   Application:     102
 --   Name:            Annotations
---   Date and Time:   20:39 Friday November 10, 2017
+--   Date and Time:   22:22 Friday November 10, 2017
 --   Exported By:     ADMIN
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -39,9 +39,9 @@ prompt APPLICATION 102 - Annotations
 --   Pages:                     15
 --     Items:                   80
 --     Computations:            25
---     Processes:               33
+--     Processes:               34
 --     Regions:                 28
---     Buttons:                 28
+--     Buttons:                 29
 --     Dynamic Actions:         21
 --   Shared Components:
 --     Logic:
@@ -124,7 +124,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'100'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171110203224'
+,p_last_upd_yyyymmddhh24miss=>'20171110220938'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -21963,7 +21963,7 @@ wwv_flow_api.create_page(
 ,p_page_is_public_y_n=>'N'
 ,p_cache_mode=>'NOCACHE'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171110203224'
+,p_last_upd_yyyymmddhh24miss=>'20171110220938'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(90485750168516292983)
@@ -22180,6 +22180,18 @@ wwv_flow_api.create_page_button(
 ,p_icon_css_classes=>'fa-plus'
 ,p_grid_new_grid=>false
 );
+wwv_flow_api.create_page_button(
+ p_id=>wwv_flow_api.id(5641494387148204)
+,p_button_sequence=>40
+,p_button_plug_id=>wwv_flow_api.id(90485750168516292983)
+,p_button_name=>'RESEQUENCE'
+,p_button_action=>'SUBMIT'
+,p_button_template_options=>'#DEFAULT#:t-Button--warning:t-Button--iconLeft'
+,p_button_template_id=>wwv_flow_api.id(308488239013771905638)
+,p_button_image_alt=>'Resequence'
+,p_button_position=>'RIGHT_OF_IR_SEARCH_BAR'
+,p_icon_css_classes=>'fa-sort-amount-asc'
+);
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(90224972145133577315)
 ,p_name=>'P200_WORKSPACE_ID'
@@ -22227,6 +22239,45 @@ wwv_flow_api.create_page_da_action(
 ,p_affected_elements_type=>'REGION'
 ,p_affected_region_id=>wwv_flow_api.id(90485750168516292983)
 ,p_stop_execution_on_error=>'Y'
+);
+wwv_flow_api.create_page_process(
+ p_id=>wwv_flow_api.id(5641540882148205)
+,p_process_sequence=>10
+,p_process_point=>'AFTER_SUBMIT'
+,p_process_type=>'NATIVE_PLSQL'
+,p_process_name=>'Resequence Pages'
+,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'DECLARE',
+'    CURSOR cur_pages IS SELECT',
+'        ap.page_id',
+'                        FROM',
+'        an_pages ap',
+'    WHERE',
+'        ap.workspace_id =:p10_workspace_id',
+'    START WITH',
+'        parent_page IS NULL',
+'    CONNECT BY',
+'        PRIOR page_id = parent_page',
+'    ORDER SIBLINGS BY',
+'        page_sequence;',
+'',
+'    ln_sequence   NUMBER;',
+'BEGIN',
+'    ln_sequence   := 10;',
+'    FOR rec_pages IN cur_pages LOOP',
+'        UPDATE an_pages',
+'            SET',
+'                page_sequence = ln_sequence',
+'        WHERE',
+'            page_id = rec_pages.page_id;',
+'    ln_sequence   := ln_sequence + 10;',
+'    ',
+'    END LOOP;',
+'',
+'    COMMIT;',
+'END;'))
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_when_button_id=>wwv_flow_api.id(5641494387148204)
 );
 end;
 /
