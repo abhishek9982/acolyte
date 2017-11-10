@@ -27,7 +27,7 @@ prompt APPLICATION 102 - Annotations
 -- Application Export:
 --   Application:     102
 --   Name:            Annotations
---   Date and Time:   14:54 Friday November 10, 2017
+--   Date and Time:   20:39 Friday November 10, 2017
 --   Exported By:     ADMIN
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -124,7 +124,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'100'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171110144623'
+,p_last_upd_yyyymmddhh24miss=>'20171110203224'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -21963,7 +21963,7 @@ wwv_flow_api.create_page(
 ,p_page_is_public_y_n=>'N'
 ,p_cache_mode=>'NOCACHE'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171109223106'
+,p_last_upd_yyyymmddhh24miss=>'20171110203224'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(90485750168516292983)
@@ -21977,7 +21977,7 @@ wwv_flow_api.create_page_plug(
 'select "PAGE_ID", ',
 '"WORKSPACE_ID",',
 '"PAGE_SEQUENCE",',
-'"PAGE_NAME",',
+'lpad(''.'', level * 2 - 2, ''.'')||PAGE_NAME "PAGE_NAME",',
 '(SELECT PAGE_TEMPLATE_NAME FROM AN_PAGE_TEMPLATES WHERE PAGE_TEMPLATE_ID = AP.PAGE_TEMPLATE_ID) "PAGE_TEMPLATE",',
 '(SELECT PAGE_NAME FROM AN_PAGES WHERE PAGE_ID = AP.PARENT_PAGE) "PARENT_PAGE",',
 '''<i class="fa ''||page_icon||''"></i>'' "PAGE_ICON",',
@@ -21990,6 +21990,12 @@ wwv_flow_api.create_page_plug(
 '"UPDATED_ON"',
 'from "#OWNER#"."AN_PAGES" AP ',
 'where WORKSPACE_ID = :P200_WORKSPACE_ID',
+'START WITH',
+'    parent_page IS NULL',
+'CONNECT BY',
+'    PRIOR page_id = parent_page',
+'ORDER SIBLINGS BY',
+'    page_sequence',
 '  ',
 ''))
 ,p_plug_source_type=>'NATIVE_IR'
@@ -22244,7 +22250,7 @@ wwv_flow_api.create_page(
 ,p_protection_level=>'C'
 ,p_cache_mode=>'NOCACHE'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171109232323'
+,p_last_upd_yyyymmddhh24miss=>'20171110201102'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(90485737944399292908)
@@ -22559,12 +22565,33 @@ wwv_flow_api.create_page_item(
 ,p_source_type=>'DB_COLUMN'
 ,p_display_as=>'NATIVE_SELECT_LIST'
 ,p_lov=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'SELECT PAGE_NAME, PAGE_ID',
-'FROM AN_PAGES',
-'WHERE WORKSPACE_ID = :P201_WORKSPACE_ID',
-'AND PAGE_ID <> NVL(:P201_PAGE_ID, 0)',
-'AND ENABLED = ''Y''',
-'AND SYSDATE BETWEEN NVL(DATE_FROM, SYSDATE) AND NVL(DATE_TO, SYSDATE)'))
+'SELECT',
+'    lpad(',
+'        ''.'',',
+'        level * 2 - 2,',
+'        ''.''',
+'    )',
+'    || page_name page_name,',
+'    ap.page_id',
+'FROM',
+'    an_pages ap',
+'WHERE',
+'    ap.workspace_id =:p10_workspace_id',
+'    AND page_id <> NVL(:P201_PAGE_ID, 0)',
+'    AND   ap.enabled = ''Y''',
+'    AND   SYSDATE BETWEEN nvl(',
+'        ap.date_from,',
+'        SYSDATE',
+'    ) AND nvl(',
+'        ap.date_to,',
+'        SYSDATE',
+'    )',
+'START WITH',
+'    parent_page IS NULL',
+'CONNECT BY',
+'    PRIOR page_id = parent_page',
+'ORDER SIBLINGS BY',
+'    page_sequence'))
 ,p_lov_display_null=>'YES'
 ,p_cHeight=>1
 ,p_field_template=>wwv_flow_api.id(308488238413894905637)
