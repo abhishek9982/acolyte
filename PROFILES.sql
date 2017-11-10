@@ -27,7 +27,7 @@ prompt APPLICATION 101 - Profiles
 -- Application Export:
 --   Application:     101
 --   Name:            Profiles
---   Date and Time:   19:51 Friday November 3, 2017
+--   Date and Time:   14:54 Friday November 10, 2017
 --   Exported By:     ADMIN
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -41,7 +41,7 @@ prompt APPLICATION 101 - Profiles
 --     Computations:            27
 --     Validations:              2
 --     Processes:               30
---     Regions:                 19
+--     Regions:                 20
 --     Buttons:                 29
 --     Dynamic Actions:         16
 --   Shared Components:
@@ -125,7 +125,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'100'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171103195035'
+,p_last_upd_yyyymmddhh24miss=>'20171110140150'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -20691,11 +20691,32 @@ wwv_flow_api.create_page(
 ,p_cache_mode=>'NOCACHE'
 ,p_help_text=>'No help is available for this page.'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171103185150'
+,p_last_upd_yyyymmddhh24miss=>'20171110140150'
+);
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(5641185800148201)
+,p_plug_name=>'Manager Badges'
+,p_region_template_options=>'t-Region--noPadding:js-showMaximizeButton:t-Region--removeHeader:t-Region--scrollBody'
+,p_escape_on_http_output=>'Y'
+,p_plug_template=>wwv_flow_api.id(218178234006361593465)
+,p_plug_display_sequence=>50
+,p_include_in_reg_disp_sel_yn=>'Y'
+,p_plug_display_point=>'REGION_POSITION_03'
+,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'SELECT ''Users'' AS LABEL, COUNT(*) AS VALUE, 2 AS PK_ID FROM AD_USERS',
+'WHERE ORGANIZATION_ID = (SELECT ORGANIZATION_ID FROM AD_USERS WHERE USER_ID = :AD_USER_ID)'))
+,p_plug_source_type=>'PLUGIN_COM.ORACLE.APEX.BADGE_LIST'
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_plug_required_role=>'!'||wwv_flow_api.id(132694116008182665553)
+,p_attribute_02=>'VALUE'
+,p_attribute_05=>'1'
+,p_attribute_07=>'BOX'
+,p_attribute_08=>'Y'
+,p_attribute_09=>'LABEL'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(124843182405667998132)
-,p_plug_name=>'Badges'
+,p_plug_name=>'Admin Badges'
 ,p_region_template_options=>'t-Region--noPadding:js-showMaximizeButton:t-Region--removeHeader:t-Region--scrollBody'
 ,p_escape_on_http_output=>'Y'
 ,p_plug_template=>wwv_flow_api.id(218178234006361593465)
@@ -20709,6 +20730,7 @@ wwv_flow_api.create_page_plug(
 ,p_plug_source_type=>'PLUGIN_COM.ORACLE.APEX.BADGE_LIST'
 ,p_plug_query_row_template=>1
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_plug_required_role=>wwv_flow_api.id(132694116008182665553)
 ,p_attribute_02=>'VALUE'
 ,p_attribute_05=>'1'
 ,p_attribute_07=>'BOX'

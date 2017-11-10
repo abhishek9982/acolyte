@@ -27,7 +27,7 @@ prompt APPLICATION 104 - Logger
 -- Application Export:
 --   Application:     104
 --   Name:            Logger
---   Date and Time:   23:33 Friday November 3, 2017
+--   Date and Time:   14:55 Friday November 10, 2017
 --   Exported By:     ADMIN
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -40,7 +40,7 @@ prompt APPLICATION 104 - Logger
 --     Items:                    6
 --     Computations:             1
 --     Processes:                5
---     Regions:                  7
+--     Regions:                  8
 --     Buttons:                  5
 --     Dynamic Actions:          4
 --   Shared Components:
@@ -124,7 +124,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'100'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171103225909'
+,p_last_upd_yyyymmddhh24miss=>'20171110143605'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -20689,11 +20689,36 @@ wwv_flow_api.create_page(
 ,p_cache_mode=>'NOCACHE'
 ,p_help_text=>'No help is available for this page.'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171028131521'
+,p_last_upd_yyyymmddhh24miss=>'20171110143605'
+);
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(5641330203148203)
+,p_plug_name=>'Manager Badges'
+,p_region_template_options=>'t-Region--noPadding:js-showMaximizeButton:t-Region--removeHeader:t-Region--scrollBody'
+,p_escape_on_http_output=>'Y'
+,p_plug_template=>wwv_flow_api.id(218183594489818366761)
+,p_plug_display_sequence=>50
+,p_include_in_reg_disp_sel_yn=>'Y'
+,p_plug_display_point=>'REGION_POSITION_03'
+,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'SELECT ''Logs'' AS LABEL, COUNT(*) AS VALUE, 2 AS PK_ID FROM LOGGER_LOGS LL',
+'WHERE EXISTS',
+'  (SELECT 1 FROM AD_USERS AU',
+'  WHERE AU.USER_NAME = LL.USER_NAME',
+'  AND AU.ORGANIZATION_ID = (SELECT ORGANIZATION_ID FROM AD_USERS WHERE USER_ID = :AD_USER_ID))',
+''))
+,p_plug_source_type=>'PLUGIN_COM.ORACLE.APEX.BADGE_LIST'
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_plug_required_role=>'!'||wwv_flow_api.id(132699476491639438849)
+,p_attribute_02=>'VALUE'
+,p_attribute_05=>'1'
+,p_attribute_07=>'BOX'
+,p_attribute_08=>'Y'
+,p_attribute_09=>'LABEL'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(124848542889124771428)
-,p_plug_name=>'Badges'
+,p_plug_name=>'Admin Badges'
 ,p_region_template_options=>'t-Region--noPadding:js-showMaximizeButton:t-Region--removeHeader:t-Region--scrollBody'
 ,p_escape_on_http_output=>'Y'
 ,p_plug_template=>wwv_flow_api.id(218183594489818366761)
@@ -20706,6 +20731,7 @@ wwv_flow_api.create_page_plug(
 ,p_plug_source_type=>'PLUGIN_COM.ORACLE.APEX.BADGE_LIST'
 ,p_plug_query_row_template=>1
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_plug_required_role=>wwv_flow_api.id(132699476491639438849)
 ,p_attribute_02=>'VALUE'
 ,p_attribute_05=>'1'
 ,p_attribute_07=>'BOX'
@@ -21239,7 +21265,7 @@ wwv_flow_api.create_page(
 ,p_page_is_public_y_n=>'N'
 ,p_cache_mode=>'NOCACHE'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171103225909'
+,p_last_upd_yyyymmddhh24miss=>'20171110141307'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(5415060694087103)
@@ -21265,7 +21291,7 @@ wwv_flow_api.create_page_plug(
 ,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'select ID,',
 '       LOGGER_LEVEL,',
-'       (SELECT LOG_LEVEL_MEANING FROM LG_LOGGER_LEVELS WHERE LOG_LEVEL = LL.LOGGER_LEVEL) LOG_LEVEL,',
+'       (SELECT LOG_LEVEL_MEANING FROM LG_LOGGER_LEVELS WHERE LOG_LEVEL = TO_CHAR(LL.LOGGER_LEVEL)) LOG_LEVEL,',
 '       TEXT,',
 '       TIME_STAMP,',
 '       SCOPE,',

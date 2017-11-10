@@ -27,7 +27,7 @@ prompt APPLICATION 103 - Projects
 -- Application Export:
 --   Application:     103
 --   Name:            Projects
---   Date and Time:   23:38 Wednesday November 8, 2017
+--   Date and Time:   14:54 Friday November 10, 2017
 --   Exported By:     ADMIN
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -125,7 +125,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'100'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171108233014'
+,p_last_upd_yyyymmddhh24miss=>'20171110140941'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>22
@@ -24587,11 +24587,11 @@ wwv_flow_api.create_page(
 ,p_cache_mode=>'NOCACHE'
 ,p_help_text=>'No help is available for this page.'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171103192223'
+,p_last_upd_yyyymmddhh24miss=>'20171110140941'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(26120648666468671042)
-,p_plug_name=>'Badges'
+,p_plug_name=>'Manager Badges'
 ,p_region_template_options=>'t-Region--noPadding:js-showMaximizeButton:t-Region--removeHeader:t-Region--scrollBody'
 ,p_escape_on_http_output=>'Y'
 ,p_plug_template=>wwv_flow_api.id(214672894528876993914)
@@ -24616,7 +24616,7 @@ wwv_flow_api.create_page_plug(
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(121337842928183398581)
-,p_plug_name=>'Badges'
+,p_plug_name=>'Admin Badges'
 ,p_region_template_options=>'t-Region--noPadding:js-showMaximizeButton:t-Region--removeHeader:t-Region--scrollBody'
 ,p_escape_on_http_output=>'Y'
 ,p_plug_template=>wwv_flow_api.id(214672894528876993914)
