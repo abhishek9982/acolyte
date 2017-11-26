@@ -27,7 +27,7 @@ prompt APPLICATION 101 - Profiles
 -- Application Export:
 --   Application:     101
 --   Name:            Profiles
---   Date and Time:   14:54 Friday November 10, 2017
+--   Date and Time:   22:06 Sunday November 26, 2017
 --   Exported By:     ADMIN
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -70,7 +70,7 @@ prompt APPLICATION 101 - Profiles
 --       Plug-ins:               3
 --     Globalization:
 --     Reports:
---   Supporting Objects:  Included
+--   Supporting Objects:  Included (auto-install)
 --     Install scripts:          5
 
 prompt --application/delete_application
@@ -106,6 +106,9 @@ wwv_flow_api.create_flow(
 ,p_timestamp_tz_format=>'DD-MON-YYYY HH24.MI.SSXFF TZR'
 ,p_direction_right_to_left=>'N'
 ,p_flow_image_prefix => nvl(wwv_flow_application_install.get_image_prefix,'')
+,p_documentation_banner=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'AA-1004: Correct value of side badges',
+'AA-1020: Update Application Comments with Stories Completed'))
 ,p_authentication=>'PLUGIN'
 ,p_authentication_id=>wwv_flow_api.id(329342594997466367322)
 ,p_application_tab_set=>0
@@ -27027,7 +27030,7 @@ end;
 /
 prompt --application/end_environment
 begin
-wwv_flow_api.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, false));
+wwv_flow_api.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, true));
 commit;
 end;
 /

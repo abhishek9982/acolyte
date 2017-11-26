@@ -27,7 +27,7 @@ prompt APPLICATION 102 - Annotations
 -- Application Export:
 --   Application:     102
 --   Name:            Annotations
---   Date and Time:   22:22 Friday November 10, 2017
+--   Date and Time:   22:06 Sunday November 26, 2017
 --   Exported By:     ADMIN
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -69,7 +69,7 @@ prompt APPLICATION 102 - Annotations
 --       Plug-ins:               3
 --     Globalization:
 --     Reports:
---   Supporting Objects:  Included
+--   Supporting Objects:  Included (auto-install)
 --     Install scripts:          4
 
 prompt --application/delete_application
@@ -105,6 +105,13 @@ wwv_flow_api.create_flow(
 ,p_timestamp_tz_format=>'DD-MON-YYYY HH24.MI.SSXFF TZR'
 ,p_direction_right_to_left=>'N'
 ,p_flow_image_prefix => nvl(wwv_flow_application_install.get_image_prefix,'')
+,p_documentation_banner=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'AA-1003: Use Page Templates while defining pages',
+'AA-1005: Implement Page Icons in Annotation Application Pages',
+'AA-1004: Correct value of side badges',
+'AA-1008: Parent Field in Annotation Define Pages to showing pages in hierarchical order',
+'AA-1009: Add Resequence Button in Pages Report',
+'AA-1020: Update Application Comments with Stories Completed'))
 ,p_authentication=>'PLUGIN'
 ,p_authentication_id=>wwv_flow_api.id(419652554427191679464)
 ,p_application_tab_set=>0
@@ -27744,7 +27751,7 @@ end;
 /
 prompt --application/end_environment
 begin
-wwv_flow_api.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, false));
+wwv_flow_api.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, true));
 commit;
 end;
 /
