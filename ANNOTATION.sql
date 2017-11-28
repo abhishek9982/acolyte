@@ -27,7 +27,7 @@ prompt APPLICATION 102 - Annotations
 -- Application Export:
 --   Application:     102
 --   Name:            Annotations
---   Date and Time:   22:06 Sunday November 26, 2017
+--   Date and Time:   23:22 Sunday November 26, 2017
 --   Exported By:     ADMIN
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -69,7 +69,7 @@ prompt APPLICATION 102 - Annotations
 --       Plug-ins:               3
 --     Globalization:
 --     Reports:
---   Supporting Objects:  Included (auto-install)
+--   Supporting Objects:  Included
 --     Install scripts:          4
 
 prompt --application/delete_application
@@ -131,7 +131,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'100'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171110220938'
+,p_last_upd_yyyymmddhh24miss=>'20171126232209'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -25279,10 +25279,12 @@ wwv_flow_api.create_install(
 'DROP TABLE AN_PAGE_COMMENTS;',
 'DROP TABLE AN_PAGES;',
 'DROP TABLE AN_USER_WORKSPACES;',
+'DROP TABLE AN_PAGE_TEMPLATES;',
 'DROP TABLE AN_WORKSPACES;',
 'DROP SEQUENCE AN_PAGES_S;',
 'DROP SEQUENCE AN_PAGE_COMMENTS_S;',
 'DROP SEQUENCE AN_PAGE_HISTORY_S;',
+'DROP SEQUENCE AN_PAGE_TEMPLATES_S;',
 'DROP SEQUENCE AN_WORKSPACES_S;',
 'DROP SEQUENCE AN_USER_WORKSPACES_S;',
 ''))
@@ -27751,7 +27753,7 @@ end;
 /
 prompt --application/end_environment
 begin
-wwv_flow_api.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, true));
+wwv_flow_api.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, false));
 commit;
 end;
 /
