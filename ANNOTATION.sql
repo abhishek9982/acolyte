@@ -27,7 +27,7 @@ prompt APPLICATION 102 - Annotations
 -- Application Export:
 --   Application:     102
 --   Name:            Annotations
---   Date and Time:   23:22 Sunday November 26, 2017
+--   Date and Time:   23:44 Wednesday December 13, 2017
 --   Exported By:     ADMIN
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -36,13 +36,14 @@ prompt APPLICATION 102 - Annotations
 --
 
 -- Application Statistics:
---   Pages:                     15
---     Items:                   80
---     Computations:            25
---     Processes:               34
---     Regions:                 28
---     Buttons:                 29
---     Dynamic Actions:         21
+--   Pages:                     16
+--     Items:                   97
+--     Computations:            28
+--     Validations:              1
+--     Processes:               40
+--     Regions:                 30
+--     Buttons:                 35
+--     Dynamic Actions:         24
 --   Shared Components:
 --     Logic:
 --       Items:                141
@@ -70,7 +71,7 @@ prompt APPLICATION 102 - Annotations
 --     Globalization:
 --     Reports:
 --   Supporting Objects:  Included
---     Install scripts:          4
+--     Install scripts:          5
 
 prompt --application/delete_application
 begin
@@ -111,7 +112,8 @@ wwv_flow_api.create_flow(
 'AA-1004: Correct value of side badges',
 'AA-1008: Parent Field in Annotation Define Pages to showing pages in hierarchical order',
 'AA-1009: Add Resequence Button in Pages Report',
-'AA-1020: Update Application Comments with Stories Completed'))
+'AA-1020: Update Application Comments with Stories Completed',
+'AA-1022: Create Table Page Template'))
 ,p_authentication=>'PLUGIN'
 ,p_authentication_id=>wwv_flow_api.id(419652554427191679464)
 ,p_application_tab_set=>0
@@ -131,7 +133,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'100'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171126232209'
+,p_last_upd_yyyymmddhh24miss=>'20171213233947'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -22308,7 +22310,7 @@ wwv_flow_api.create_page(
 ,p_protection_level=>'C'
 ,p_cache_mode=>'NOCACHE'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20171110201102'
+,p_last_upd_yyyymmddhh24miss=>'20171213232123'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(90485737944399292908)
@@ -22404,7 +22406,7 @@ wwv_flow_api.create_page_button(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(5417249831087125)
 ,p_name=>'P201_PAGE_ICON'
-,p_item_sequence=>90
+,p_item_sequence=>100
 ,p_item_plug_id=>wwv_flow_api.id(90485737944399292908)
 ,p_use_cache_before_default=>'NO'
 ,p_prompt=>'Page Icon'
@@ -22418,6 +22420,45 @@ wwv_flow_api.create_page_item(
 ,p_cHeight=>1
 ,p_tag_attributes=>'style="font-family: ''FontAwesome'', Helvetica;"'
 ,p_field_template=>wwv_flow_api.id(308488238413894905637)
+,p_item_template_options=>'#DEFAULT#'
+,p_lov_display_extra=>'YES'
+,p_attribute_01=>'NONE'
+,p_attribute_02=>'N'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(5418271338087135)
+,p_name=>'P201_PAGE_CONTENTS'
+,p_item_sequence=>50
+,p_item_plug_id=>wwv_flow_api.id(90485737944399292908)
+,p_use_cache_before_default=>'NO'
+,p_source=>'PAGE_CONTENTS'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(5418464985087137)
+,p_name=>'P201_ATTRIBUTE1'
+,p_item_sequence=>80
+,p_item_plug_id=>wwv_flow_api.id(90485737944399292908)
+,p_use_cache_before_default=>'NO'
+,p_prompt=>'Table Name'
+,p_source=>'ATTRIBUTE1'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_SELECT_LIST'
+,p_lov=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'SELECT TABLE_NAME D, TABLE_NAME R',
+'FROM USER_TABLES',
+'WHERE :P201_PAGE_TEMPLATE_ID = 200401010000002',
+'ORDER BY 1'))
+,p_lov_display_null=>'YES'
+,p_lov_cascade_parent_items=>'P201_PAGE_TEMPLATE_ID'
+,p_ajax_items_to_submit=>'P201_PAGE_TEMPLATE_ID'
+,p_ajax_optimize_refresh=>'N'
+,p_cHeight=>1
+,p_read_only_when=>'P201_PAGE_ID'
+,p_read_only_when_type=>'ITEM_IS_NOT_NULL'
+,p_field_template=>wwv_flow_api.id(308488238627327905637)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_lov_display_extra=>'YES'
 ,p_attribute_01=>'NONE'
@@ -22497,7 +22538,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(90485743892050292959)
 ,p_name=>'P201_ENABLED'
-,p_item_sequence=>100
+,p_item_sequence=>110
 ,p_item_plug_id=>wwv_flow_api.id(90485737944399292908)
 ,p_use_cache_before_default=>'NO'
 ,p_prompt=>'Enabled'
@@ -22514,7 +22555,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(90485744263254292960)
 ,p_name=>'P201_DATE_FROM'
-,p_item_sequence=>110
+,p_item_sequence=>120
 ,p_item_plug_id=>wwv_flow_api.id(90485737944399292908)
 ,p_use_cache_before_default=>'NO'
 ,p_prompt=>'Date From'
@@ -22533,7 +22574,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(90485744649844292966)
 ,p_name=>'P201_DATE_TO'
-,p_item_sequence=>120
+,p_item_sequence=>130
 ,p_item_plug_id=>wwv_flow_api.id(90485737944399292908)
 ,p_use_cache_before_default=>'NO'
 ,p_prompt=>'Date To'
@@ -22552,7 +22593,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(90485745031067292966)
 ,p_name=>'P201_CREATED_BY'
-,p_item_sequence=>130
+,p_item_sequence=>140
 ,p_item_plug_id=>wwv_flow_api.id(90485737944399292908)
 ,p_use_cache_before_default=>'NO'
 ,p_source=>'CREATED_BY'
@@ -22563,7 +22604,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(90485745421335292966)
 ,p_name=>'P201_CREATED_ON'
-,p_item_sequence=>140
+,p_item_sequence=>150
 ,p_item_plug_id=>wwv_flow_api.id(90485737944399292908)
 ,p_use_cache_before_default=>'NO'
 ,p_format_mask=>'DD-MON-YYYY HH24:MI:SS'
@@ -22575,7 +22616,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(90485745856385292967)
 ,p_name=>'P201_UPDATED_BY'
-,p_item_sequence=>150
+,p_item_sequence=>160
 ,p_item_plug_id=>wwv_flow_api.id(90485737944399292908)
 ,p_use_cache_before_default=>'NO'
 ,p_source=>'UPDATED_BY'
@@ -22586,7 +22627,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(90485746298784292967)
 ,p_name=>'P201_UPDATED_ON'
-,p_item_sequence=>160
+,p_item_sequence=>170
 ,p_item_plug_id=>wwv_flow_api.id(90485737944399292908)
 ,p_use_cache_before_default=>'NO'
 ,p_format_mask=>'DD-MON-YYYY HH24:MI:SS'
@@ -22615,7 +22656,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(90485747044111292968)
 ,p_name=>'P201_PARENT_PAGE'
-,p_item_sequence=>80
+,p_item_sequence=>90
 ,p_item_plug_id=>wwv_flow_api.id(90485737944399292908)
 ,p_use_cache_before_default=>'NO'
 ,p_prompt=>'Parent Page'
@@ -22710,6 +22751,20 @@ wwv_flow_api.create_page_computation(
 ,p_compute_when=>'CREATE'
 ,p_compute_when_type=>'REQUEST_EQUALS_CONDITION'
 );
+wwv_flow_api.create_page_validation(
+ p_id=>wwv_flow_api.id(5419075354087143)
+,p_validation_name=>'Table Name Not Null'
+,p_validation_sequence=>10
+,p_validation=>'P201_ATTRIBUTE1'
+,p_validation_type=>'ITEM_NOT_NULL'
+,p_error_message=>'Table Name must have some value'
+,p_always_execute=>'N'
+,p_validation_condition=>'P201_PAGE_TEMPLATE_ID'
+,p_validation_condition2=>'200401010000002'
+,p_validation_condition_type=>'VAL_OF_ITEM_IN_COND_EQ_COND2'
+,p_associated_item=>wwv_flow_api.id(5418464985087137)
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+);
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(90485739181122292909)
 ,p_name=>'Cancel Dialog'
@@ -22749,6 +22804,51 @@ wwv_flow_api.create_page_da_action(
 '$x("P201_PAGE_ICON")[index].innerHTML = $x("P201_PAGE_ICON") [index].innerHTML.replace("&amp;","&");',
 '$x("P201_PAGE_ICON")[index].innerHTML = $x("P201_PAGE_ICON") [index].innerHTML.replace("&amp;","&");',
 '})'))
+);
+wwv_flow_api.create_page_da_action(
+ p_id=>wwv_flow_api.id(5418887157087141)
+,p_event_id=>wwv_flow_api.id(5417327902087126)
+,p_event_result=>'TRUE'
+,p_action_sequence=>20
+,p_execute_on_page_init=>'Y'
+,p_action=>'NATIVE_HIDE'
+,p_affected_elements_type=>'ITEM'
+,p_affected_elements=>'P201_ATTRIBUTE1'
+,p_attribute_01=>'N'
+);
+wwv_flow_api.create_page_da_event(
+ p_id=>wwv_flow_api.id(5418586763087138)
+,p_name=>'Template Change'
+,p_event_sequence=>30
+,p_triggering_element_type=>'ITEM'
+,p_triggering_element=>'P201_PAGE_TEMPLATE_ID'
+,p_condition_element=>'P201_PAGE_TEMPLATE_ID'
+,p_triggering_condition_type=>'EQUALS'
+,p_triggering_expression=>'200401010000002'
+,p_bind_type=>'bind'
+,p_bind_event_type=>'change'
+);
+wwv_flow_api.create_page_da_action(
+ p_id=>wwv_flow_api.id(5418631371087139)
+,p_event_id=>wwv_flow_api.id(5418586763087138)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'Y'
+,p_action=>'NATIVE_SHOW'
+,p_affected_elements_type=>'ITEM'
+,p_affected_elements=>'P201_ATTRIBUTE1'
+,p_attribute_01=>'N'
+);
+wwv_flow_api.create_page_da_action(
+ p_id=>wwv_flow_api.id(5418917944087142)
+,p_event_id=>wwv_flow_api.id(5418586763087138)
+,p_event_result=>'FALSE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'Y'
+,p_action=>'NATIVE_HIDE'
+,p_affected_elements_type=>'ITEM'
+,p_affected_elements=>'P201_ATTRIBUTE1'
+,p_attribute_01=>'N'
 );
 wwv_flow_api.create_page_process(
  p_id=>wwv_flow_api.id(90485747804004292968)
@@ -22799,10 +22899,42 @@ wwv_flow_api.create_page_process(
 ,p_process_type=>'NATIVE_PLSQL'
 ,p_process_name=>'Update Page Contents'
 ,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'DECLARE',
+'    lc_clob   CLOB;',
 'BEGIN',
-'UPDATE AN_PAGES',
-'SET PAGE_CONTENTS = (SELECT PAGE_TEMPLATE_CLOB FROM AN_PAGE_TEMPLATES WHERE PAGE_TEMPLATE_ID = :P201_PAGE_TEMPLATE_ID)',
-'WHERE PAGE_ID = :P201_PAGE_ID;',
+'    IF',
+'        :p201_page_template_id = 200401010000002',
+'    THEN',
+'        SELECT',
+'            an_pages_pkg.an_table_page_clob(',
+'                :p201_page_id',
+'            )',
+'        INTO',
+'            lc_clob',
+'        FROM',
+'            dual;',
+'',
+'        UPDATE an_pages',
+'            SET',
+'                page_contents = lc_clob',
+'        WHERE',
+'            page_id =:p201_page_id;',
+'',
+'    ELSE',
+'        UPDATE an_pages',
+'            SET',
+'                page_contents = (',
+'                    SELECT',
+'                        page_template_clob',
+'                    FROM',
+'                        an_page_templates',
+'                    WHERE',
+'                        page_template_id =:p201_page_template_id',
+'                )',
+'        WHERE',
+'            page_id =:p201_page_id;',
+'',
+'    END IF;',
 'END;'))
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_process_when_button_id=>wwv_flow_api.id(90485738373938292908)
@@ -25269,6 +25401,558 @@ wwv_flow_api.create_page_process(
 );
 end;
 /
+prompt --application/pages/page_01010
+begin
+wwv_flow_api.create_page(
+ p_id=>1010
+,p_user_interface_id=>wwv_flow_api.id(419555483604254580549)
+,p_name=>'Table Page'
+,p_page_mode=>'MODAL'
+,p_step_title=>'Table Page'
+,p_step_sub_title=>'Table Page'
+,p_step_sub_title_type=>'TEXT_WITH_SUBSTITUTIONS'
+,p_first_item=>'NO_FIRST_ITEM'
+,p_autocomplete_on_off=>'OFF'
+,p_group_id=>wwv_flow_api.id(5580583727596163)
+,p_javascript_code=>'var htmldb_delete_message=''"DELETE_CONFIRM_MSG"'';'
+,p_javascript_code_onload=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'CKEDITOR.addCss(''table.tablepage a:link {color: #666; font-weight: bold; text-decoration:none;}''+',
+'                ''table.tablepage a:visited {color: #999999; font-weight:bold; text-decoration:none;}''+',
+'                ''table.tablepage a:active, table.tablepage a:hover {color: #bd5a35; text-decoration:underline;}''+',
+'                ''table.tablepage {font-family:Arial, Helvetica, sans-serif; color:#666; font-size:12px; text-shadow: 1px 1px 0px #fff; background:#eaebec; margin:20px; border:#ccc 1px solid; -moz-border-radius:3px; -webkit-border-radius:3px; border-r'
+||'adius:3px; -moz-box-shadow: 0 1px 2px #d1d1d1; -webkit-box-shadow: 0 1px 2px #d1d1d1; box-shadow: 0 1px 2px #d1d1d1;}''+',
+'                ''table.tablepage th {padding:21px 25px 22px 25px; border-top:1px solid #fafafa; border-bottom:1px solid #e0e0e0; border-left:1px solid #e0e0e0; background: #ededed; background: -webkit-gradient(linear, left top, left bottom, from(#ede'
+||'ded), to(#ebebeb)); background: -moz-linear-gradient(top,  #ededed,  #ebebeb);}''+',
+'                ''table.tablepage th:first-child {text-align: left; padding-left:20px;}''+',
+'                ''table.tablepage tr:first-child th:first-child {-moz-border-radius-topleft:3px; -webkit-border-top-left-radius:3px; border-top-left-radius:3px;}''+',
+'                ''table.tablepage tr:first-child th:last-child {-moz-border-radius-topright:3px; -webkit-border-top-right-radius:3px; border-top-right-radius:3px;}''+',
+'                ''table.tablepage tr {text-align: center; padding-left:20px;}''+',
+'                ''table.tablepage td:first-child {text-align: left; padding-left:20px; border-left: 0;}''+',
+'                ''table.tablepage td {padding:18px; border-top: 1px solid #ffffff; border-bottom:1px solid #e0e0e0; border-left: 1px solid #e0e0e0; background: #fafafa; background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#faf'
+||'afa)); background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);}''+',
+'                ''table.tablepage tr.even td {background: #f6f6f6; background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6)); background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);}''+',
+'                ''table.tablepage tr:last-child td {border-bottom:0;}''+',
+'                ''table.tablepage tr:last-child td:first-child {-moz-border-radius-bottomleft:3px; -webkit-border-bottom-left-radius:3px; border-bottom-left-radius:3px;}''+',
+'                ''table.tablepage tr:last-child td:last-child {-moz-border-radius-bottomright:3px; -webkit-border-bottom-right-radius:3px; border-bottom-right-radius:3px;}''+',
+'                ''table.tablepage tr:hover td {background: #f2f2f2; background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));	background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);}'');'))
+,p_inline_css=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'.t-Dialog-body,',
+'.t-Form-inputContainer',
+'{',
+'    padding: 0!important;',
+'}',
+'',
+'.cke_1,',
+'.cke_inner',
+'{',
+'    width: 100%!important;',
+'    height: 100%!important;',
+'}',
+'',
+'.cke_bottom',
+'{',
+'    display: none!important;',
+'}',
+'',
+'.container,',
+'.container > .row,',
+'.container > .row > .col-12,',
+'.container > .row > .col-12 > div,',
+'.t-Form-inputContainer,',
+'.t-Form-inputContainer > div,',
+'.t-Dialog-body,',
+'.cke_contents',
+'{',
+'    height: 100%!important;',
+'}',
+'',
+'#P1010_PAGE_CONTENTS_DISPLAY',
+'{',
+'    width: 100%;',
+'    height: 100%;',
+'}',
+'',
+'.row, #P1010_PAGE_CONTENTS_CONTAINER',
+'{',
+'    margin-left: 0px;',
+'    margin-right: 0px;',
+'}',
+'',
+'.col-12',
+'{',
+'    padding: 0px;',
+'}',
+'',
+'.cke_toolbar_break',
+'{',
+'    clear: none!important;',
+'}',
+''))
+,p_step_template=>wwv_flow_api.id(308531515884020785013)
+,p_page_template_options=>'#DEFAULT#'
+,p_dialog_chained=>'Y'
+,p_overwrite_navigation_list=>'N'
+,p_page_is_public_y_n=>'N'
+,p_protection_level=>'C'
+,p_cache_mode=>'NOCACHE'
+,p_last_updated_by=>'ADMIN'
+,p_last_upd_yyyymmddhh24miss=>'20171211202758'
+);
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(90632664365806929559)
+,p_plug_name=>'Blank Page'
+,p_region_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_api.id(308488172299064905596)
+,p_plug_display_sequence=>10
+,p_include_in_reg_disp_sel_yn=>'N'
+,p_plug_display_point=>'BODY'
+,p_plug_query_row_template=>1
+,p_attribute_01=>'N'
+,p_attribute_02=>'TEXT'
+,p_attribute_03=>'Y'
+);
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(90632665076678929560)
+,p_plug_name=>'Buttons'
+,p_region_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_api.id(308488173339786905596)
+,p_plug_display_sequence=>40
+,p_include_in_reg_disp_sel_yn=>'N'
+,p_plug_display_point=>'REGION_POSITION_03'
+,p_plug_query_row_template=>1
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_attribute_01=>'N'
+,p_attribute_02=>'TEXT'
+,p_attribute_03=>'Y'
+);
+wwv_flow_api.create_page_button(
+ p_id=>wwv_flow_api.id(6360627895523965)
+,p_button_sequence=>10
+,p_button_plug_id=>wwv_flow_api.id(90632665076678929560)
+,p_button_name=>'COMMENTS'
+,p_button_action=>'REDIRECT_PAGE'
+,p_button_template_options=>'#DEFAULT#:t-Button--primary:t-Button--iconLeft'
+,p_button_template_id=>wwv_flow_api.id(308488239013771905638)
+,p_button_image_alt=>'Comments'
+,p_button_position=>'REGION_TEMPLATE_CHANGE'
+,p_button_redirect_url=>'f?p=&APP_ID.:300:&SESSION.::&DEBUG.:RP:P300_PAGE_ID:&P1010_PAGE_ID.'
+,p_icon_css_classes=>'fa-comment'
+);
+wwv_flow_api.create_page_button(
+ p_id=>wwv_flow_api.id(6361029311523965)
+,p_button_sequence=>20
+,p_button_plug_id=>wwv_flow_api.id(90632665076678929560)
+,p_button_name=>'REVISIONS'
+,p_button_action=>'REDIRECT_PAGE'
+,p_button_template_options=>'#DEFAULT#:t-Button--primary:t-Button--iconLeft'
+,p_button_template_id=>wwv_flow_api.id(308488239013771905638)
+,p_button_image_alt=>'Revisions'
+,p_button_position=>'REGION_TEMPLATE_CHANGE'
+,p_button_redirect_url=>'f?p=&APP_ID.:400:&SESSION.::&DEBUG.:RP:P400_PAGE_ID:&P1010_PAGE_ID.'
+,p_icon_css_classes=>'fa-history'
+);
+wwv_flow_api.create_page_button(
+ p_id=>wwv_flow_api.id(6360214219523965)
+,p_button_sequence=>30
+,p_button_plug_id=>wwv_flow_api.id(90632665076678929560)
+,p_button_name=>'CANCEL'
+,p_button_action=>'DEFINED_BY_DA'
+,p_button_template_options=>'#DEFAULT#'
+,p_button_template_id=>wwv_flow_api.id(308488238869798905637)
+,p_button_image_alt=>'Cancel'
+,p_button_position=>'REGION_TEMPLATE_CLOSE'
+,p_warn_on_unsaved_changes=>null
+,p_button_condition_type=>'NEVER'
+);
+wwv_flow_api.create_page_button(
+ p_id=>wwv_flow_api.id(6359007687523964)
+,p_button_sequence=>40
+,p_button_plug_id=>wwv_flow_api.id(90632665076678929560)
+,p_button_name=>'DELETE'
+,p_button_action=>'REDIRECT_URL'
+,p_button_template_options=>'#DEFAULT#:t-Button--danger'
+,p_button_template_id=>wwv_flow_api.id(308488238818446905637)
+,p_button_image_alt=>'Delete'
+,p_button_position=>'REGION_TEMPLATE_DELETE'
+,p_button_redirect_url=>'javascript:apex.confirm(htmldb_delete_message,''DELETE'');'
+,p_button_execute_validations=>'N'
+,p_button_condition=>'P1010_PAGE_ID'
+,p_button_condition_type=>'ITEM_IS_NOT_NULL'
+,p_icon_css_classes=>'fa-close'
+,p_database_action=>'DELETE'
+);
+wwv_flow_api.create_page_button(
+ p_id=>wwv_flow_api.id(6359460092523965)
+,p_button_sequence=>50
+,p_button_plug_id=>wwv_flow_api.id(90632665076678929560)
+,p_button_name=>'SAVE'
+,p_button_action=>'SUBMIT'
+,p_button_template_options=>'#DEFAULT#:t-Button--success'
+,p_button_template_id=>wwv_flow_api.id(308488238818446905637)
+,p_button_image_alt=>'Apply Changes'
+,p_button_position=>'REGION_TEMPLATE_NEXT'
+,p_button_condition=>':AN_PAGE_EDIT IS NOT NULL'
+,p_button_condition_type=>'PLSQL_EXPRESSION'
+,p_icon_css_classes=>'fa-check'
+,p_database_action=>'UPDATE'
+);
+wwv_flow_api.create_page_button(
+ p_id=>wwv_flow_api.id(6359826947523965)
+,p_button_sequence=>60
+,p_button_plug_id=>wwv_flow_api.id(90632665076678929560)
+,p_button_name=>'EDIT'
+,p_button_action=>'REDIRECT_PAGE'
+,p_button_template_options=>'#DEFAULT#:t-Button--warning'
+,p_button_template_id=>wwv_flow_api.id(308488238818446905637)
+,p_button_image_alt=>'Edit'
+,p_button_position=>'REGION_TEMPLATE_NEXT'
+,p_button_redirect_url=>'f?p=&APP_ID.:1010:&SESSION.::&DEBUG.:RP:AN_PAGE_EDIT:1'
+,p_button_condition=>'AN_PAGE_EDIT'
+,p_button_condition_type=>'ITEM_IS_NULL'
+,p_icon_css_classes=>'fa-pencil'
+,p_database_action=>'INSERT'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(6352726755523959)
+,p_name=>'P1010_PAGE_ID'
+,p_item_sequence=>30
+,p_item_plug_id=>wwv_flow_api.id(90632664365806929559)
+,p_use_cache_before_default=>'NO'
+,p_source=>'PAGE_ID'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_protection_level=>'S'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(6353125883523961)
+,p_name=>'P1010_WORKSPACE_ID'
+,p_item_sequence=>40
+,p_item_plug_id=>wwv_flow_api.id(90632664365806929559)
+,p_use_cache_before_default=>'NO'
+,p_source=>'WORKSPACE_ID'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(6353503850523961)
+,p_name=>'P1010_PAGE_NAME'
+,p_item_sequence=>50
+,p_item_plug_id=>wwv_flow_api.id(90632664365806929559)
+,p_use_cache_before_default=>'NO'
+,p_source=>'PAGE_NAME'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(6353920282523961)
+,p_name=>'P1010_PAGE_TEMPLATE_ID'
+,p_item_sequence=>70
+,p_item_plug_id=>wwv_flow_api.id(90632664365806929559)
+,p_use_cache_before_default=>'NO'
+,p_source=>'PAGE_TEMPLATE_ID'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(6354336375523961)
+,p_name=>'P1010_PAGE_CONTENTS'
+,p_item_sequence=>90
+,p_item_plug_id=>wwv_flow_api.id(90632664365806929559)
+,p_use_cache_before_default=>'NO'
+,p_prompt=>'Page Contents'
+,p_source=>'PAGE_CONTENTS'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_RICH_TEXT_EDITOR'
+,p_cMaxlength=>255
+,p_cHeight=>20
+,p_grid_label_column_span=>0
+,p_field_template=>wwv_flow_api.id(308488238310755905637)
+,p_item_template_options=>'#DEFAULT#'
+,p_attribute_02=>'Full'
+,p_attribute_03=>'Y'
+,p_attribute_04=>'moono'
+,p_attribute_05=>'top'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(6354766385523961)
+,p_name=>'P1010_PAGE_CONTENT_HASH'
+,p_item_sequence=>100
+,p_item_plug_id=>wwv_flow_api.id(90632664365806929559)
+,p_use_cache_before_default=>'NO'
+,p_source=>'PAGE_CONTENT_HASH'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(6355130667523962)
+,p_name=>'P1010_ENABLED'
+,p_item_sequence=>110
+,p_item_plug_id=>wwv_flow_api.id(90632664365806929559)
+,p_use_cache_before_default=>'NO'
+,p_source=>'ENABLED'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(6355524845523962)
+,p_name=>'P1010_DATE_FROM'
+,p_item_sequence=>120
+,p_item_plug_id=>wwv_flow_api.id(90632664365806929559)
+,p_use_cache_before_default=>'NO'
+,p_format_mask=>'DD-MON-YYYY HH24:MI:SS'
+,p_source=>'DATE_FROM'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(6355928810523962)
+,p_name=>'P1010_DATE_TO'
+,p_item_sequence=>130
+,p_item_plug_id=>wwv_flow_api.id(90632664365806929559)
+,p_use_cache_before_default=>'NO'
+,p_format_mask=>'DD-MON-YYYY HH24:MI:SS'
+,p_source=>'DATE_TO'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(6356351582523962)
+,p_name=>'P1010_CREATED_BY'
+,p_item_sequence=>140
+,p_item_plug_id=>wwv_flow_api.id(90632664365806929559)
+,p_use_cache_before_default=>'NO'
+,p_source=>'CREATED_BY'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(6356730467523962)
+,p_name=>'P1010_CREATED_ON'
+,p_item_sequence=>150
+,p_item_plug_id=>wwv_flow_api.id(90632664365806929559)
+,p_use_cache_before_default=>'NO'
+,p_format_mask=>'DD-MON-YYYY HH24:MI:SS'
+,p_source=>'CREATED_ON'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(6357129601523962)
+,p_name=>'P1010_UPDATED_BY'
+,p_item_sequence=>160
+,p_item_plug_id=>wwv_flow_api.id(90632664365806929559)
+,p_use_cache_before_default=>'NO'
+,p_source=>'UPDATED_BY'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(6357582020523962)
+,p_name=>'P1010_UPDATED_ON'
+,p_item_sequence=>170
+,p_item_plug_id=>wwv_flow_api.id(90632664365806929559)
+,p_use_cache_before_default=>'NO'
+,p_format_mask=>'DD-MON-YYYY HH24:MI:SS'
+,p_source=>'UPDATED_ON'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(6357949129523963)
+,p_name=>'P1010_PAGE_SEQUENCE'
+,p_item_sequence=>180
+,p_item_plug_id=>wwv_flow_api.id(90632664365806929559)
+,p_use_cache_before_default=>'NO'
+,p_source=>'PAGE_SEQUENCE'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(6358378095523963)
+,p_name=>'P1010_PARENT_PAGE'
+,p_item_sequence=>190
+,p_item_plug_id=>wwv_flow_api.id(90632664365806929559)
+,p_use_cache_before_default=>'NO'
+,p_source=>'PARENT_PAGE'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_computation(
+ p_id=>wwv_flow_api.id(6361538245523972)
+,p_computation_sequence=>10
+,p_computation_item=>'AN_PAGE_EDIT'
+,p_computation_type=>'STATIC_ASSIGNMENT'
+);
+wwv_flow_api.create_page_computation(
+ p_id=>wwv_flow_api.id(6362346073523973)
+,p_computation_sequence=>30
+,p_computation_item=>'P1010_UPDATED_BY'
+,p_computation_type=>'ITEM_VALUE'
+,p_computation=>'AD_USER_ID'
+);
+wwv_flow_api.create_page_computation(
+ p_id=>wwv_flow_api.id(6362719761523973)
+,p_computation_sequence=>40
+,p_computation_item=>'P1010_UPDATED_ON'
+,p_computation_type=>'PLSQL_EXPRESSION'
+,p_computation=>'SYSDATE'
+);
+wwv_flow_api.create_page_da_event(
+ p_id=>wwv_flow_api.id(6365468497523974)
+,p_name=>'Cancel Dialog'
+,p_event_sequence=>10
+,p_triggering_element_type=>'BUTTON'
+,p_triggering_button_id=>wwv_flow_api.id(6360214219523965)
+,p_bind_type=>'bind'
+,p_bind_event_type=>'click'
+);
+wwv_flow_api.create_page_da_action(
+ p_id=>wwv_flow_api.id(6365980011523975)
+,p_event_id=>wwv_flow_api.id(6365468497523974)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'N'
+,p_action=>'NATIVE_DIALOG_CANCEL'
+,p_stop_execution_on_error=>'Y'
+);
+wwv_flow_api.create_page_da_event(
+ p_id=>wwv_flow_api.id(6366388103523975)
+,p_name=>'Page Load'
+,p_event_sequence=>20
+,p_bind_type=>'bind'
+,p_bind_event_type=>'ready'
+,p_display_when_type=>'ITEM_IS_NULL'
+,p_display_when_cond=>'AN_PAGE_EDIT'
+);
+wwv_flow_api.create_page_da_action(
+ p_id=>wwv_flow_api.id(6366877594523976)
+,p_event_id=>wwv_flow_api.id(6366388103523975)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'N'
+,p_action=>'NATIVE_JAVASCRIPT_CODE'
+,p_attribute_01=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'$(document).ready(function () {',
+'  CKEDITOR.instances.P1010_PAGE_CONTENTS.config.readOnly = true;',
+'});'))
+,p_stop_execution_on_error=>'Y'
+);
+wwv_flow_api.create_page_process(
+ p_id=>wwv_flow_api.id(6363023372523973)
+,p_process_sequence=>10
+,p_process_point=>'AFTER_HEADER'
+,p_process_type=>'NATIVE_FORM_FETCH'
+,p_process_name=>'Fetch Row from AN_PAGES'
+,p_attribute_02=>'AN_PAGES'
+,p_attribute_03=>'P1010_PAGE_ID'
+,p_attribute_04=>'PAGE_ID'
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+);
+wwv_flow_api.create_page_process(
+ p_id=>wwv_flow_api.id(6363432591523974)
+,p_process_sequence=>10
+,p_process_point=>'AFTER_SUBMIT'
+,p_process_type=>'NATIVE_PLSQL'
+,p_process_name=>'Get PK'
+,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'begin ',
+'    if :P1010_PAGE_ID is null then',
+'        select "#OWNER#"."AN_PAGES_S".nextval',
+'          into :P1010_PAGE_ID',
+'          from sys.dual;',
+'    end if;',
+'end;'))
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_when_type=>'NEVER'
+);
+wwv_flow_api.create_page_process(
+ p_id=>wwv_flow_api.id(6363879487523974)
+,p_process_sequence=>30
+,p_process_point=>'AFTER_SUBMIT'
+,p_process_type=>'NATIVE_FORM_PROCESS'
+,p_process_name=>'Process Row of AN_PAGES'
+,p_attribute_02=>'AN_PAGES'
+,p_attribute_03=>'P1010_PAGE_ID'
+,p_attribute_04=>'PAGE_ID'
+,p_attribute_11=>'I:U:D'
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_success_message=>'Changes saved'
+);
+wwv_flow_api.create_page_process(
+ p_id=>wwv_flow_api.id(6365011844523974)
+,p_process_sequence=>40
+,p_process_point=>'AFTER_SUBMIT'
+,p_process_type=>'NATIVE_PLSQL'
+,p_process_name=>'Insert History'
+,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'BEGIN',
+'    UPDATE an_pages',
+'    SET page_content_hash = NVL(ora_hash_clob(page_contents), 0)',
+'    WHERE page_id = :p1010_page_id;',
+'    ',
+'    INSERT INTO an_page_history',
+'        SELECT',
+'            TO_CHAR(',
+'                SYSDATE,',
+'                ''YYYYMMDD''',
+'            )',
+'            || lpad(',
+'                an_page_history_s.NEXTVAL,',
+'                7,',
+'                0',
+'            ),',
+'            :p1010_page_id,',
+'            page_contents,',
+'            page_content_hash,',
+'            :p1010_created_by,',
+'            :p1010_created_on,',
+'            :p1010_updated_by,',
+'            :p1010_updated_on',
+'        FROM',
+'            an_pages',
+'        WHERE',
+'            ora_hash_clob(nvl(page_contents, 0)) <> :p1010_page_content_hash',
+'            and page_id = :p1010_page_id;',
+'',
+'    COMMIT;',
+'END;'))
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+);
+wwv_flow_api.create_page_process(
+ p_id=>wwv_flow_api.id(6364246701523974)
+,p_process_sequence=>50
+,p_process_point=>'AFTER_SUBMIT'
+,p_process_type=>'NATIVE_SESSION_STATE'
+,p_process_name=>'reset page'
+,p_attribute_01=>'CLEAR_CACHE_CURRENT_PAGE'
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_when_button_id=>wwv_flow_api.id(6359007687523964)
+);
+wwv_flow_api.create_page_process(
+ p_id=>wwv_flow_api.id(6364652584523974)
+,p_process_sequence=>60
+,p_process_point=>'AFTER_SUBMIT'
+,p_process_type=>'NATIVE_CLOSE_WINDOW'
+,p_process_name=>'Close Dialog'
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_when_button_id=>wwv_flow_api.id(6359007687523964)
+);
+end;
+/
 prompt --application/deployment/definition
 begin
 wwv_flow_api.create_install(
@@ -25345,6 +26029,11 @@ wwv_flow_api.create_install_script(
 '	"PAGE_CONTENTS" CLOB, ',
 '	"PAGE_CONTENT_HASH" NUMBER NOT NULL ENABLE, ',
 '	"PAGE_ICON" VARCHAR2(30), ',
+'    "ATTRIBUTE1" VARCHAR2(2000), ',
+'	"ATTRIBUTE2" VARCHAR2(2000), ',
+'	"ATTRIBUTE3" VARCHAR2(2000), ',
+'	"ATTRIBUTE4" VARCHAR2(2000), ',
+'	"ATTRIBUTE5" VARCHAR2(2000), ',
 '	"ENABLED" VARCHAR2(1), ',
 '	"DATE_FROM" DATE, ',
 '	"DATE_TO" DATE, ',
@@ -25575,6 +26264,74 @@ wwv_flow_api.create_install_script(
 ,p_sequence=>40
 ,p_script_type=>'INSTALL'
 ,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'REM INSERTING into AN_PAGE_TEMPLATES',
+'SET DEFINE OFF;',
+'INSERT',
+'INTO AN_PAGE_TEMPLATES',
+'  (',
+'    PAGE_TEMPLATE_ID,',
+'    ORGANIZATION_ID,',
+'    WORKSPACE_ID,',
+'    PAGE_TEMPLATE_NAME,',
+'    PAGE_TEMPLATE,',
+'    APEX_PAGE_ID,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200401010000001'',',
+'    NULL,',
+'    NULL,',
+'    ''Blank Page'',',
+'    ''BLANK_PAGE'',',
+'    ''1000'',',
+'    ''Y'',',
+'    to_date(''01-01-04'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-04'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-04'',''DD-MM-RR'')',
+'  );',
+'INSERT',
+'INTO AN_PAGE_TEMPLATES',
+'  (',
+'    PAGE_TEMPLATE_ID,',
+'    ORGANIZATION_ID,',
+'    WORKSPACE_ID,',
+'    PAGE_TEMPLATE_NAME,',
+'    PAGE_TEMPLATE,',
+'    APEX_PAGE_ID,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200401010000002'',',
+'    NULL,',
+'    NULL,',
+'    ''Table Page'',',
+'    ''TABLE_PAGE'',',
+'    ''1010'',',
+'    ''Y'',',
+'    to_date(''01-01-04'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-04'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-04'',''DD-MM-RR'')',
+'  );',
 'REM INSERTING into AD_APPLICATIONS',
 'SET DEFINE OFF;',
 'INSERT',
@@ -26263,13 +27020,7 @@ wwv_flow_api.create_install_script(
 ||'rows-v '',''&amp;#xf07d;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000041'',''200401010000001'',''41'',''fa-as'
 ||'l-interpreting  '',''&amp;#xf2a3;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000042'',''200401010000001'',''42'',''fa-as'
-||'sistive-listening-systems'',''&amp;#xf2a2;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000043'',''200401010000001'',''43'',''fa-as'
-||'terisk '',''&amp;#xf069;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000044'',''200401010000001'',''44'',''fa-at'
-||' '',''&amp;#xf1fa;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUT'))
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''2'))
 );
 end;
 /
@@ -26277,8 +27028,13 @@ begin
 wwv_flow_api.append_to_install_script(
  p_id=>wwv_flow_api.id(90862803457064388230)
 ,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'E3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000045'',''200401010000001'',''45'',''fa-audio-description '',''&amp;#xf29e;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''20010'
-||'1010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'00401010000042'',''200401010000001'',''42'',''fa-assistive-listening-systems'',''&amp;#xf2a2;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000043'',''200401010000001'',''43'',''fa-as'
+||'terisk '',''&amp;#xf069;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000044'',''200401010000001'',''44'',''fa-at'
+||' '',''&amp;#xf1fa;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000045'',''200401010000001'',''45'',''fa-au'
+||'dio-description '',''&amp;#xf29e;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000046'',''200401010000001'',''46'',''fa-au'
 ||'tomobile  '',''&amp;#xf1b9;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000047'',''200401010000001'',''47'',''fa-ba'
@@ -26409,12 +27165,7 @@ wwv_flow_api.append_to_install_script(
 ||'ar '',''&amp;#xf1b9;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000110'',''200401010000001'',''110'',''fa-c'
 ||'aret-down '',''&amp;#xf0d7;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000111'',''200401010000001'',''111'',''fa-c'
-||'aret-left '',''&amp;#xf0d9;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000112'',''200401010000001'',''112'',''fa-c'
-||'aret-right '',''&amp;#xf0da;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000113'',''200401010000001'',''113'',''fa-c'
-||'aret-square-o-down '',''&amp;#xf150;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'))
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRI'))
 );
 null;
 end;
@@ -26423,7 +27174,12 @@ begin
 wwv_flow_api.append_to_install_script(
  p_id=>wwv_flow_api.id(90862803457064388230)
 ,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
-''',''DD-MM-RR''));',
+'BUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000111'',''200401010000001'',''111'',''fa-caret-left '',''&amp;#xf0d9;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''20010101'
+||'0000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000112'',''200401010000001'',''112'',''fa-c'
+||'aret-right '',''&amp;#xf0da;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000113'',''200401010000001'',''113'',''fa-c'
+||'aret-square-o-down '',''&amp;#xf150;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000114'',''200401010000001'',''114'',''fa-c'
 ||'aret-square-o-left '',''&amp;#xf191;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000115'',''200401010000001'',''115'',''fa-c'
@@ -26555,12 +27311,7 @@ wwv_flow_api.append_to_install_script(
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000178'',''200401010000001'',''178'',''fa-c'
 ||'opyright '',''&amp;#xf1f9;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000179'',''200401010000001'',''179'',''fa-c'
-||'reative-commons '',''&amp;#xf25e;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000180'',''200401010000001'',''180'',''fa-c'
-||'redit-card '',''&amp;#xf09d;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000181'',''200401010000001'',''181'',''fa-c'
-||'redit-card-alt '',''&amp;#xf283;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) val'))
+||'reative-commons '',''&amp;#xf25e;'',null,null,null,null,''Y'',to_dat'))
 );
 null;
 end;
@@ -26569,7 +27320,13 @@ begin
 wwv_flow_api.append_to_install_script(
  p_id=>wwv_flow_api.id(90862803457064388230)
 ,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'ues (''200401010000182'',''200401010000001'',''182'',''fa-crop '',''&amp;#xf125;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'e(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000180'',''200401010000001'',''180'',''fa-c'
+||'redit-card '',''&amp;#xf09d;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000181'',''200401010000001'',''181'',''fa-c'
+||'redit-card-alt '',''&amp;#xf283;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000182'',''200401010000001'',''182'',''fa-c'
+||'rop '',''&amp;#xf125;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000183'',''200401010000001'',''183'',''fa-c'
 ||'rosshairs '',''&amp;#xf05b;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000184'',''200401010000001'',''184'',''fa-c'
@@ -26700,13 +27457,7 @@ wwv_flow_api.append_to_install_script(
 ||'ile-movie-o  '',''&amp;#xf1c8;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000247'',''200401010000001'',''247'',''fa-f'
 ||'ile-o '',''&amp;#xf016;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000248'',''200401010000001'',''248'',''fa-f'
-||'ile-pdf-o '',''&amp;#xf1c1;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000249'',''200401010000001'',''249'',''fa-f'
-||'ile-photo-o  '',''&amp;#xf1c5;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000250'',''200401010000001'',''250'',''fa-f'
-||'ile-picture-o  '',''&amp;#xf1c5;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANI'))
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDAT'))
 );
 null;
 end;
@@ -26715,8 +27466,14 @@ begin
 wwv_flow_api.append_to_install_script(
  p_id=>wwv_flow_api.id(90862803457064388230)
 ,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'NG,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000251'',''200401010000001'',''251'',''fa-file-powerpoint-o '',''&amp;#xf1c4;'',null,null,null,null,''Y'',to_date('
-||'''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'ED_BY,UPDATED_ON) values (''200401010000248'',''200401010000001'',''248'',''fa-file-pdf-o '',''&amp;#xf1c1;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-'
+||'MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000249'',''200401010000001'',''249'',''fa-f'
+||'ile-photo-o  '',''&amp;#xf1c5;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000250'',''200401010000001'',''250'',''fa-f'
+||'ile-picture-o  '',''&amp;#xf1c5;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000251'',''200401010000001'',''251'',''fa-f'
+||'ile-powerpoint-o '',''&amp;#xf1c4;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000252'',''200401010000001'',''252'',''fa-f'
 ||'ile-sound-o  '',''&amp;#xf1c7;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000253'',''200401010000001'',''253'',''fa-f'
@@ -26847,12 +27604,7 @@ wwv_flow_api.append_to_install_script(
 ||'and-lizard-o '',''&amp;#xf258;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000316'',''200401010000001'',''316'',''fa-h'
 ||'and-o-down '',''&amp;#xf0a7;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000317'',''200401010000001'',''317'',''fa-h'
-||'and-o-left '',''&amp;#xf0a5;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000318'',''200401010000001'',''318'',''fa-h'
-||'and-o-right '',''&amp;#xf0a4;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000319'',''200401010000001'',''319'',''fa-h'
-||'and-o-up '',''&amp;#xf0a6;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),'''))
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_I'))
 );
 null;
 end;
@@ -26861,7 +27613,12 @@ begin
 wwv_flow_api.append_to_install_script(
  p_id=>wwv_flow_api.id(90862803457064388230)
 ,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'D,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000317'',''200401010000001'',''317'',''fa-hand-o-left '',''&amp;#xf0a5;'',null,null,null,null,''Y'',to'
+||'_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000318'',''200401010000001'',''318'',''fa-h'
+||'and-o-right '',''&amp;#xf0a4;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000319'',''200401010000001'',''319'',''fa-h'
+||'and-o-up '',''&amp;#xf0a6;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000320'',''200401010000001'',''320'',''fa-h'
 ||'and-paper-o '',''&amp;#xf256;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000321'',''200401010000001'',''321'',''fa-h'
@@ -26993,13 +27750,7 @@ wwv_flow_api.append_to_install_script(
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000384'',''200401010000001'',''384'',''fa-l'
 ||'ightbulb-o '',''&amp;#xf0eb;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000385'',''200401010000001'',''385'',''fa-l'
-||'ine-chart '',''&amp;#xf201;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000386'',''200401010000001'',''386'',''fa-l'
-||'ink '',''&amp;#xf0c1;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000387'',''200401010000001'',''387'',''fa-l'
-||'inkedin '',''&amp;#xf0e1;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000388'',''200401010000001'',''388'',''fa-l'
-||'inkedin-squa'))
+||'ine-chart '',''&amp;#xf201;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to'))
 );
 null;
 end;
@@ -27008,7 +27759,13 @@ begin
 wwv_flow_api.append_to_install_script(
  p_id=>wwv_flow_api.id(90862803457064388230)
 ,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'re '',''&amp;#xf08c;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000386'',''200401010000001'',''386'',''fa-l'
+||'ink '',''&amp;#xf0c1;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000387'',''200401010000001'',''387'',''fa-l'
+||'inkedin '',''&amp;#xf0e1;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000388'',''200401010000001'',''388'',''fa-l'
+||'inkedin-square '',''&amp;#xf08c;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000389'',''200401010000001'',''389'',''fa-l'
 ||'inux '',''&amp;#xf17c;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000390'',''200401010000001'',''390'',''fa-l'
@@ -27139,13 +27896,7 @@ wwv_flow_api.append_to_install_script(
 ||'aint-brush '',''&amp;#xf1fc;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000453'',''200401010000001'',''453'',''fa-p'
 ||'aper-plane '',''&amp;#xf1d8;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000454'',''200401010000001'',''454'',''fa-p'
-||'aper-plane-o '',''&amp;#xf1d9;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000455'',''200401010000001'',''455'',''fa-p'
-||'aperclip '',''&amp;#xf0c6;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000456'',''200401010000001'',''456'',''fa-p'
-||'aragraph '',''&amp;#xf1dd;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,AT'))
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPD'))
 );
 null;
 end;
@@ -27154,8 +27905,14 @@ begin
 wwv_flow_api.append_to_install_script(
  p_id=>wwv_flow_api.id(90862803457064388230)
 ,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'TRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000457'',''200401010000001'',''457'',''fa-paste  '',''&amp;#xf0ea;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null'
-||',''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'ATED_ON) values (''200401010000454'',''200401010000001'',''454'',''fa-paper-plane-o '',''&amp;#xf1d9;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR'''
+||'));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000455'',''200401010000001'',''455'',''fa-p'
+||'aperclip '',''&amp;#xf0c6;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000456'',''200401010000001'',''456'',''fa-p'
+||'aragraph '',''&amp;#xf1dd;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000457'',''200401010000001'',''457'',''fa-p'
+||'aste  '',''&amp;#xf0ea;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000458'',''200401010000001'',''458'',''fa-p'
 ||'ause '',''&amp;#xf04c;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000459'',''200401010000001'',''459'',''fa-p'
@@ -27286,12 +28043,7 @@ wwv_flow_api.append_to_install_script(
 ||'ub '',''&amp;#xf158;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000522'',''200401010000001'',''522'',''fa-r'
 ||'uble  '',''&amp;#xf158;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000523'',''200401010000001'',''523'',''fa-r'
-||'upee  '',''&amp;#xf156;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000524'',''200401010000001'',''524'',''fari'
-||'? '',''&amp;#xf267;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000525'',''200401010000001'',''525'',''fa-s'
-||'ave  '',''&amp;#xf0c7;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-'))
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANIN'))
 );
 null;
 end;
@@ -27300,7 +28052,12 @@ begin
 wwv_flow_api.append_to_install_script(
  p_id=>wwv_flow_api.id(90862803457064388230)
 ,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'04'',''DD-MM-RR''));',
+'G,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000523'',''200401010000001'',''523'',''fa-rupee  '',''&amp;#xf156;'',null,null,null,null,''Y'',to_date(''01-01-04'','''
+||'DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000524'',''200401010000001'',''524'',''fari'
+||'? '',''&amp;#xf267;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000525'',''200401010000001'',''525'',''fa-s'
+||'ave  '',''&amp;#xf0c7;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000526'',''200401010000001'',''526'',''fa-s'
 ||'cissors '',''&amp;#xf0c4;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000527'',''200401010000001'',''527'',''fa-s'
@@ -27432,12 +28189,7 @@ wwv_flow_api.append_to_install_script(
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000590'',''200401010000001'',''590'',''fa-s'
 ||'tar-o '',''&amp;#xf006;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000591'',''200401010000001'',''591'',''fa-s'
-||'team '',''&amp;#xf1b6;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000592'',''200401010000001'',''592'',''fa-s'
-||'team-square '',''&amp;#xf1b7;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000593'',''200401010000001'',''593'',''fa-s'
-||'tep-backward '',''&amp;#xf048;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''20040101000059'))
+||'team '',''&amp;#xf1b6;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM'))
 );
 null;
 end;
@@ -27446,7 +28198,13 @@ begin
 wwv_flow_api.append_to_install_script(
  p_id=>wwv_flow_api.id(90862803457064388230)
 ,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'4'',''200401010000001'',''594'',''fa-step-forward '',''&amp;#xf051;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000592'',''200401010000001'',''592'',''fa-s'
+||'team-square '',''&amp;#xf1b7;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000593'',''200401010000001'',''593'',''fa-s'
+||'tep-backward '',''&amp;#xf048;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000594'',''200401010000001'',''594'',''fa-s'
+||'tep-forward '',''&amp;#xf051;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000595'',''200401010000001'',''595'',''fa-s'
 ||'tethoscope '',''&amp;#xf0f1;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000596'',''200401010000001'',''596'',''fa-s'
@@ -27577,13 +28335,7 @@ wwv_flow_api.append_to_install_script(
 ||'v  '',''&amp;#xf26c;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000659'',''200401010000001'',''659'',''fa-t'
 ||'witch '',''&amp;#xf1e8;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000660'',''200401010000001'',''660'',''fa-t'
-||'witter '',''&amp;#xf099;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000661'',''200401010000001'',''661'',''fa-t'
-||'witter-square '',''&amp;#xf081;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000662'',''200401010000001'',''662'',''fa-u'
-||'mbrella '',''&amp;#xf0e9;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
-'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTR'))
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPD'))
 );
 null;
 end;
@@ -27592,8 +28344,13 @@ begin
 wwv_flow_api.append_to_install_script(
  p_id=>wwv_flow_api.id(90862803457064388230)
 ,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'IBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000663'',''200401010000001'',''663'',''fa-underline '',''&amp;#xf0cd;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),nul'
-||'l,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'ATED_ON) values (''200401010000660'',''200401010000001'',''660'',''fa-twitter '',''&amp;#xf099;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000661'',''200401010000001'',''661'',''fa-t'
+||'witter-square '',''&amp;#xf081;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000662'',''200401010000001'',''662'',''fa-u'
+||'mbrella '',''&amp;#xf0e9;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
+'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000663'',''200401010000001'',''663'',''fa-u'
+||'nderline '',''&amp;#xf0cd;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000664'',''200401010000001'',''664'',''fa-u'
 ||'ndo '',''&amp;#xf0e2;'',null,null,null,null,''Y'',to_date(''01-01-04'',''DD-MM-RR''),null,''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''),''200101010000003'',to_date(''01-01-04'',''DD-MM-RR''));',
 'Insert into AD_LOOKUP_VALUES (LOOKUP_VALUE_ID,LOOKUP_ID,CODE,MEANING,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ENABLED,DATE_FROM,DATE_TO,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON) values (''200401010000665'',''200401010000001'',''665'',''fa-u'
@@ -27739,6 +28496,215 @@ wwv_flow_api.create_install_object(
 ,p_created_by=>'ADMIN'
 ,p_created_on=>to_date('20171109235654','YYYYMMDDHH24MISS')
 );
+wwv_flow_api.create_install_script(
+ p_id=>wwv_flow_api.id(6424081382905762)
+,p_install_id=>wwv_flow_api.id(90315351184290560232)
+,p_name=>'Create Packages'
+,p_sequence=>60
+,p_script_type=>'INSTALL'
+,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'CREATE OR REPLACE PACKAGE "AN_PAGES_PKG" AS',
+'  /* ***************************************************************************',
+'  -- ------------------------------------------------------------------------',
+'  -- Package Name        : AN_PAGES_PKG',
+'  -- Company             : Acolyte',
+'  -- Author              : Abhishek Arora',
+'  -- ------------------------------------------------------------------------',
+'  -- Description...',
+'  -- This package contians the code related to annotation pages.',
+'  -- ------------------------------------------------------------------------',
+'  -- Revision History...',
+'  -- -----------  ---------------  ------------------------------------------',
+'  -- Date         Author           Change',
+'  -- -----------  ---------------  ------------------------------------------',
+'  -- 10-DEC-2017  Abhishek         Created Package',
+'  -- ------------------------------------------------------------------------',
+'  *************************************************************************** */',
+'    FUNCTION an_table_page_clob (',
+'        p_page_id NUMBER',
+'    ) RETURN CLOB;',
+'',
+'END an_pages_pkg;',
+'/',
+'',
+'',
+'CREATE OR REPLACE PACKAGE BODY "AN_PAGES_PKG" AS',
+'  /* ***************************************************************************',
+'  -- ------------------------------------------------------------------------',
+'  -- Function Name       : AN_TABLE_PAGE_CLOB',
+'  -- ------------------------------------------------------------------------',
+'  -- Description...',
+'  -- This function returns CLOB to be inserted in Table Template Page',
+'  -- ------------------------------------------------------------------------',
+'  -- Parameters...',
+'  -- ---------------  -----  ------------------------------------------------',
+'  -- Paramter Name    Type   Description',
+'  -- ---------------  -----  ------------------------------------------------',
+'  -- P_PAGE_ID        IN     Page ID',
+'  -- ---------------  -----  ------------------------------------------------',
+'  *************************************************************************** */',
+'',
+'    FUNCTION an_table_page_clob (',
+'        p_page_id NUMBER',
+'    ) RETURN CLOB AS',
+'',
+'        CURSOR cur_page IS SELECT',
+'            upper(attribute1) table_name',
+'                           FROM',
+'            an_pages',
+'                           WHERE',
+'            page_id = p_page_id;',
+'',
+'        CURSOR cur_columns (',
+'            p_table_name VARCHAR2',
+'        ) IS SELECT',
+'            column_id,',
+'            column_name,',
+'            data_type',
+'            || DECODE(',
+'                data_type,',
+'                ''VARCHAR2'',',
+'                ''(''',
+'                || data_length',
+'                || '')'',',
+'                ''''',
+'            ) data_type,',
+'            nullable,',
+'            data_default,',
+'            (',
+'                SELECT',
+'                    comments',
+'                FROM',
+'                    user_col_comments ucc',
+'                WHERE',
+'                    ucc.table_name = utc.table_name',
+'                    AND   ucc.column_name = utc.column_name',
+'            ) comments',
+'             FROM',
+'            user_tab_cols utc',
+'             WHERE',
+'            table_name = p_table_name',
+'        ORDER BY',
+'            column_id;',
+'',
+'        lc_clob       CLOB;',
+'        lv_comments   VARCHAR2(4000);',
+'    BEGIN',
+'        FOR rec_page IN cur_page LOOP',
+'            lc_clob   := ''<h1 style="margin-left:40px"><span style="color:#999999">Table: </span><span style="color:#888888"><strong><span style="background-color:#ffffff">''',
+'            || rec_page.table_name',
+'            || ''</span></strong></span></h1>'';',
+'            SELECT',
+'                nvl(',
+'                    comments,',
+'                    ''''',
+'                )',
+'            INTO',
+'                lv_comments',
+'            FROM',
+'                user_tab_comments',
+'            WHERE',
+'                table_name = rec_page.table_name;',
+'',
+'            lc_clob   := lc_clob',
+'            || ''<p style="margin-left:40px"><span style="font-size:14px"><span style="color:#999999">''',
+'            || lv_comments',
+'            || ''</span></span></p>'';',
+'            lc_clob   := lc_clob',
+'            || ''<p style="margin-left:40px"></p>'';',
+'            lc_clob   := lc_clob',
+'            || ''<p style="margin-left:40px"><span style="color:#888888"><u><span style="font-size:18px">Columns</span></u></span></p>''',
+';',
+'            lc_clob   := lc_clob',
+'            || ''<table border="1" class="tablepage" style="width:98%">'';',
+'            lc_clob   := lc_clob',
+'            || ''<thead>'';',
+'            lc_clob   := lc_clob',
+'            || ''<tr>'';',
+'            lc_clob   := lc_clob',
+'            || ''<th scope="col" style="text-align:center; width:5%">ID</th>'';',
+'            lc_clob   := lc_clob',
+'            || ''<th scope="col" style="width:5%">Key</th>'';',
+'            lc_clob   := lc_clob',
+'            || ''<th scope="col" style="text-align:left; width:25%">Column Name</th>'';',
+'            lc_clob   := lc_clob',
+'            || ''<th scope="col" style="text-align:left; width:15%">Data Type</th>'';',
+'            lc_clob   := lc_clob',
+'            || ''<th scope="col" style="width:5%">Nullable</th>'';',
+'            lc_clob   := lc_clob',
+'            || ''<th scope="col" style="text-align:left; width:10%">Default</th>'';',
+'            lc_clob   := lc_clob',
+'            || ''<th scope="col" style="width:35%">Comments</th>'';',
+'            lc_clob   := lc_clob',
+'            || ''</tr>'';',
+'            lc_clob   := lc_clob',
+'            || ''</thead>'';',
+'            lc_clob   := lc_clob',
+'            || ''<tbody>'';',
+'            FOR rec_columns IN cur_columns(rec_page.table_name) LOOP',
+'                lc_clob   := lc_clob',
+'                || ''<tr>'';',
+'                lc_clob   := lc_clob',
+'                || ''<td style="text-align:center">''',
+'                || rec_columns.column_id',
+'                || ''</td>'';',
+'                lc_clob   := lc_clob',
+'                || ''<td></td>'';',
+'                lc_clob   := lc_clob',
+'                || ''<td style="text-align:left">''',
+'                || rec_columns.column_name',
+'                || ''</td>'';',
+'                lc_clob   := lc_clob',
+'                || ''<td style="text-align:left">''',
+'                || rec_columns.data_type',
+'                || ''</td>'';',
+'                lc_clob   := lc_clob',
+'                || ''<td>''',
+'                || rec_columns.nullable',
+'                || ''</td>'';',
+'                lc_clob   := lc_clob',
+'                || ''<td style="text-align:left">''',
+'                || rec_columns.data_default',
+'                || ''</td>'';',
+'                lc_clob   := lc_clob',
+'                || ''<td style="text-align:left">''',
+'                || rec_columns.comments',
+'                || ''</td>'';',
+'                lc_clob   := lc_clob',
+'                || ''</tr>'';',
+'            END LOOP;',
+'',
+'            lc_clob   := lc_clob',
+'            || ''</tbody>'';',
+'            lc_clob   := lc_clob',
+'            || ''</table>'';',
+'            lc_clob   := lc_clob',
+'            || ''<p></p>'';',
+'        END LOOP;',
+'',
+'        RETURN lc_clob;',
+'    END an_table_page_clob;',
+'',
+'END an_pages_pkg;',
+'/',
+'',
+''))
+);
+end;
+/
+begin
+wwv_flow_api.create_install_object(
+ p_id=>wwv_flow_api.id(6424171248905764)
+,p_script_id=>wwv_flow_api.id(6424081382905762)
+,p_object_owner=>'#OWNER#'
+,p_object_type=>'PACKAGE'
+,p_object_name=>'AN_PAGES_PKG'
+,p_last_updated_by=>'ADMIN'
+,p_last_updated_on=>to_date('20171213233947','YYYYMMDDHH24MISS')
+,p_created_by=>'ADMIN'
+,p_created_on=>to_date('20171213233947','YYYYMMDDHH24MISS')
+);
+null;
 end;
 /
 prompt --application/deployment/checks
