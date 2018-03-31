@@ -27,7 +27,7 @@ prompt APPLICATION 112 - Scheduler
 -- Application Export:
 --   Application:     112
 --   Name:            Scheduler
---   Date and Time:   23:04 Wednesday March 21, 2018
+--   Date and Time:   17:52 Saturday March 31, 2018
 --   Exported By:     ADMIN
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -37,8 +37,8 @@ prompt APPLICATION 112 - Scheduler
 
 -- Application Statistics:
 --   Pages:                     16
---     Items:                  274
---     Computations:            22
+--     Items:                  276
+--     Computations:            23
 --     Validations:             24
 --     Processes:               42
 --     Regions:                 60
@@ -128,7 +128,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'107'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20180321230347'
+,p_last_upd_yyyymmddhh24miss=>'20180329225957'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -20857,7 +20857,7 @@ wwv_flow_api.create_page(
 ,p_page_is_public_y_n=>'N'
 ,p_cache_mode=>'NOCACHE'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20180128124644'
+,p_last_upd_yyyymmddhh24miss=>'20180329211521'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(6526094116933301)
@@ -20918,6 +20918,7 @@ wwv_flow_api.create_page_plug(
 '                )',
 '        END',
 '    ) "PROCEDURE",',
+'    (SELECT PROGRAM_TYPE_MEANING FROM SH_SCHEDULER_PROGRAM_TYPES WHERE PROGRAM_TYPE = SP.PROGRAM_TYPE) "PROGRAM_TYPE",',
 '    "DESCRIPTION",',
 '    "ENABLED",',
 '    "DATE_FROM",',
@@ -21011,9 +21012,18 @@ wwv_flow_api.create_worksheet_column(
 ,p_tz_dependent=>'N'
 );
 wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(7481238692593601)
+,p_db_column_name=>'PROGRAM_TYPE'
+,p_display_order=>15
+,p_column_identifier=>'X'
+,p_column_label=>'Program type'
+,p_column_type=>'STRING'
+,p_security_scheme=>wwv_flow_api.id(132707098689005805014)
+);
+wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(6528921071933305)
 ,p_db_column_name=>'DESCRIPTION'
-,p_display_order=>7
+,p_display_order=>25
 ,p_column_identifier=>'G'
 ,p_column_label=>'Description'
 ,p_column_type=>'STRING'
@@ -21022,17 +21032,16 @@ wwv_flow_api.create_worksheet_column(
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(6529361551933305)
 ,p_db_column_name=>'ENABLED'
-,p_display_order=>8
+,p_display_order=>35
 ,p_column_identifier=>'H'
 ,p_column_label=>'Enabled'
 ,p_column_type=>'STRING'
 ,p_heading_alignment=>'LEFT'
-,p_tz_dependent=>'N'
 );
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(6529738551933306)
 ,p_db_column_name=>'DATE_FROM'
-,p_display_order=>9
+,p_display_order=>45
 ,p_column_identifier=>'I'
 ,p_column_label=>'Date From'
 ,p_column_type=>'DATE'
@@ -21042,7 +21051,7 @@ wwv_flow_api.create_worksheet_column(
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(6530196479933306)
 ,p_db_column_name=>'DATE_TO'
-,p_display_order=>10
+,p_display_order=>55
 ,p_column_identifier=>'J'
 ,p_column_label=>'Date To'
 ,p_column_type=>'DATE'
@@ -21052,7 +21061,7 @@ wwv_flow_api.create_worksheet_column(
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(6530994516933307)
 ,p_db_column_name=>'CREATED_ON'
-,p_display_order=>12
+,p_display_order=>65
 ,p_column_identifier=>'L'
 ,p_column_label=>'Created On'
 ,p_column_type=>'DATE'
@@ -21062,7 +21071,7 @@ wwv_flow_api.create_worksheet_column(
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(6531778803933307)
 ,p_db_column_name=>'UPDATED_ON'
-,p_display_order=>14
+,p_display_order=>75
 ,p_column_identifier=>'N'
 ,p_column_label=>'Updated On'
 ,p_column_type=>'DATE'
@@ -21072,7 +21081,7 @@ wwv_flow_api.create_worksheet_column(
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(5419425000087147)
 ,p_db_column_name=>'CREATED_BY'
-,p_display_order=>34
+,p_display_order=>85
 ,p_column_identifier=>'P'
 ,p_column_label=>'Created By'
 ,p_column_type=>'STRING'
@@ -21081,7 +21090,7 @@ wwv_flow_api.create_worksheet_column(
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(5419599219087148)
 ,p_db_column_name=>'UPDATED_BY'
-,p_display_order=>44
+,p_display_order=>95
 ,p_column_identifier=>'Q'
 ,p_column_label=>'Updated By'
 ,p_column_type=>'STRING'
@@ -21090,7 +21099,7 @@ wwv_flow_api.create_worksheet_column(
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(6705810957597908)
 ,p_db_column_name=>'PROCEDURE'
-,p_display_order=>64
+,p_display_order=>105
 ,p_column_identifier=>'U'
 ,p_column_label=>'Procedure'
 ,p_column_type=>'STRING'
@@ -21098,7 +21107,7 @@ wwv_flow_api.create_worksheet_column(
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(6706860087597918)
 ,p_db_column_name=>'ORGANIZATION_ID'
-,p_display_order=>74
+,p_display_order=>115
 ,p_column_identifier=>'V'
 ,p_column_label=>'Organization'
 ,p_column_type=>'STRING'
@@ -21108,7 +21117,7 @@ wwv_flow_api.create_worksheet_column(
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(6707293552597922)
 ,p_db_column_name=>'PROGRAM_ID1'
-,p_display_order=>84
+,p_display_order=>125
 ,p_column_identifier=>'W'
 ,p_column_label=>'Parameters'
 ,p_column_link=>'f?p=&APP_ID.:100:&SESSION.::&DEBUG.:RP:P100_PROGRAM_ID:#PROGRAM_ID1#'
@@ -21136,7 +21145,7 @@ wwv_flow_api.create_worksheet_rpt(
 ,p_status=>'PUBLIC'
 ,p_is_default=>'Y'
 ,p_display_rows=>50
-,p_report_columns=>'ORGANIZATION_ID:PROGRAM_NAME:PROGRAM:PACKAGE:DESCRIPTION::PROGRAM_ID1'
+,p_report_columns=>'ORGANIZATION_ID:PROGRAM_NAME:PROGRAM:PACKAGE:DESCRIPTION::PROGRAM_ID1:PROGRAM_TYPE'
 ,p_sort_column_1=>'PROGRAM_NAME'
 ,p_sort_direction_1=>'ASC'
 ,p_flashback_enabled=>'N'
@@ -21398,6 +21407,7 @@ wwv_flow_api.create_page_button(
 ,p_button_redirect_url=>'f?p=&APP_ID.:100:&SESSION.::&DEBUG.:RP:P100_PROGRAM_ID:'
 ,p_button_condition=>'P100_PROGRAM_ID'
 ,p_button_condition_type=>'ITEM_IS_NOT_NULL'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(6533080614933308)
@@ -21410,10 +21420,11 @@ wwv_flow_api.create_page_button(
 ,p_button_is_hot=>'Y'
 ,p_button_image_alt=>'Create'
 ,p_button_position=>'RIGHT_OF_IR_SEARCH_BAR'
-,p_button_redirect_url=>'f?p=&APP_ID.:101:&SESSION.::&DEBUG.:101'
+,p_button_redirect_url=>'f?p=&APP_ID.:101:&SESSION.::&DEBUG.:101:P101_ORGANIZATION_ID:&P100_ORGANIZATION_ID.'
 ,p_button_condition=>':AD_READ_ONLY IS NULL AND :AD_READ_ONLY_PAGE IS NULL AND :P100_PROGRAM_ID IS NULL'
 ,p_button_condition_type=>'PLSQL_EXPRESSION'
 ,p_icon_css_classes=>'fa-plus'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(6675612556883959)
@@ -21429,6 +21440,7 @@ wwv_flow_api.create_page_button(
 ,p_button_redirect_url=>'f?p=&APP_ID.:102:&SESSION.::&DEBUG.:102'
 ,p_button_condition_type=>'NEVER'
 ,p_icon_css_classes=>'fa-plus'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(6707429237597924)
@@ -21577,7 +21589,7 @@ wwv_flow_api.create_page(
 ,p_protection_level=>'C'
 ,p_cache_mode=>'NOCACHE'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20180120154130'
+,p_last_upd_yyyymmddhh24miss=>'20180329212159'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(6514256826933280)
@@ -21618,6 +21630,7 @@ wwv_flow_api.create_page_button(
 ,p_button_position=>'REGION_TEMPLATE_CLOSE'
 ,p_warn_on_unsaved_changes=>null
 ,p_button_condition_type=>'NEVER'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(6514822665933281)
@@ -21634,6 +21647,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>':P101_PROGRAM_ID IS NOT NULL AND :AD_ALLOW_DELETE IS NOT NULL'
 ,p_button_condition_type=>'PLSQL_EXPRESSION'
 ,p_icon_css_classes=>'fa-close'
+,p_grid_new_grid=>false
 ,p_database_action=>'DELETE'
 );
 wwv_flow_api.create_page_button(
@@ -21649,6 +21663,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>'P101_PROGRAM_ID'
 ,p_button_condition_type=>'ITEM_IS_NOT_NULL'
 ,p_icon_css_classes=>'fa-check'
+,p_grid_new_grid=>false
 ,p_database_action=>'UPDATE'
 );
 wwv_flow_api.create_page_button(
@@ -21664,6 +21679,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>'P101_PROGRAM_ID'
 ,p_button_condition_type=>'ITEM_IS_NULL'
 ,p_icon_css_classes=>'fa-check'
+,p_grid_new_grid=>false
 ,p_database_action=>'INSERT'
 );
 wwv_flow_api.create_page_item(
@@ -21681,26 +21697,13 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(6518107752933289)
 ,p_name=>'P101_ORGANIZATION_ID'
-,p_is_required=>true
 ,p_item_sequence=>20
 ,p_item_plug_id=>wwv_flow_api.id(6514256826933280)
 ,p_use_cache_before_default=>'NO'
-,p_prompt=>'Organization'
 ,p_source=>'ORGANIZATION_ID'
 ,p_source_type=>'DB_COLUMN'
-,p_display_as=>'NATIVE_SELECT_LIST'
-,p_lov=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'SELECT ORGANIZATION_NAME, ORGANIZATION_ID FROM AD_ORGANIZATIONS AA',
-'WHERE AA.ENABLED = ''Y''',
-'AND SYSDATE BETWEEN NVL (AA.DATE_FROM, SYSDATE) AND NVL (AA.DATE_TO, SYSDATE)',
-'ORDER BY 1'))
-,p_lov_display_null=>'YES'
-,p_cHeight=>1
-,p_field_template=>wwv_flow_api.id(218191261878425732956)
-,p_item_template_options=>'#DEFAULT#'
-,p_lov_display_extra=>'YES'
-,p_attribute_01=>'NONE'
-,p_attribute_02=>'N'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
 );
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(6518511992933291)
@@ -21821,7 +21824,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(6520140737933292)
 ,p_name=>'P101_DESCRIPTION'
-,p_item_sequence=>80
+,p_item_sequence=>90
 ,p_item_plug_id=>wwv_flow_api.id(6514256826933280)
 ,p_use_cache_before_default=>'NO'
 ,p_prompt=>'Description'
@@ -21840,7 +21843,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(6520597078933292)
 ,p_name=>'P101_ENABLED'
-,p_item_sequence=>90
+,p_item_sequence=>100
 ,p_item_plug_id=>wwv_flow_api.id(6514256826933280)
 ,p_use_cache_before_default=>'NO'
 ,p_prompt=>'Enabled'
@@ -21857,7 +21860,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(6520932148933292)
 ,p_name=>'P101_DATE_FROM'
-,p_item_sequence=>100
+,p_item_sequence=>110
 ,p_item_plug_id=>wwv_flow_api.id(6514256826933280)
 ,p_use_cache_before_default=>'NO'
 ,p_prompt=>'Date From'
@@ -21876,7 +21879,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(6521344216933293)
 ,p_name=>'P101_DATE_TO'
-,p_item_sequence=>110
+,p_item_sequence=>120
 ,p_item_plug_id=>wwv_flow_api.id(6514256826933280)
 ,p_use_cache_before_default=>'NO'
 ,p_prompt=>'Date To'
@@ -21895,7 +21898,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(6521700755933293)
 ,p_name=>'P101_CREATED_BY'
-,p_item_sequence=>120
+,p_item_sequence=>130
 ,p_item_plug_id=>wwv_flow_api.id(6514256826933280)
 ,p_use_cache_before_default=>'NO'
 ,p_source=>'CREATED_BY'
@@ -21906,7 +21909,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(6522118643933293)
 ,p_name=>'P101_CREATED_ON'
-,p_item_sequence=>130
+,p_item_sequence=>140
 ,p_item_plug_id=>wwv_flow_api.id(6514256826933280)
 ,p_use_cache_before_default=>'NO'
 ,p_format_mask=>'DD-MON-YYYY HH24:MI:SS'
@@ -21918,7 +21921,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(6522575586933293)
 ,p_name=>'P101_UPDATED_BY'
-,p_item_sequence=>140
+,p_item_sequence=>150
 ,p_item_plug_id=>wwv_flow_api.id(6514256826933280)
 ,p_use_cache_before_default=>'NO'
 ,p_source=>'UPDATED_BY'
@@ -21929,7 +21932,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(6522991756933294)
 ,p_name=>'P101_UPDATED_ON'
-,p_item_sequence=>150
+,p_item_sequence=>160
 ,p_item_plug_id=>wwv_flow_api.id(6514256826933280)
 ,p_use_cache_before_default=>'NO'
 ,p_format_mask=>'DD-MON-YYYY HH24:MI:SS'
@@ -21941,10 +21944,35 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(6706001704597910)
 ,p_name=>'P101_ERROR'
-,p_item_sequence=>160
+,p_item_sequence=>170
 ,p_item_plug_id=>wwv_flow_api.id(6514256826933280)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(7481382771593602)
+,p_name=>'P101_PROGRAM_TYPE'
+,p_item_sequence=>80
+,p_item_plug_id=>wwv_flow_api.id(6514256826933280)
+,p_use_cache_before_default=>'NO'
+,p_prompt=>'Program Type'
+,p_source=>'PROGRAM_TYPE'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_SELECT_LIST'
+,p_lov=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'SELECT program_type_meaning, program_type',
+'FROM SH_SCHEDULER_PROGRAM_TYPES',
+'ORDER BY 1'))
+,p_lov_display_null=>'YES'
+,p_cHeight=>1
+,p_read_only_when=>'P101_PROGRAM_ID'
+,p_read_only_when_type=>'ITEM_IS_NOT_NULL'
+,p_field_template=>wwv_flow_api.id(218191261664992732956)
+,p_item_template_options=>'#DEFAULT#'
+,p_lov_display_extra=>'YES'
+,p_security_scheme=>wwv_flow_api.id(132707098689005805014)
+,p_attribute_01=>'NONE'
+,p_attribute_02=>'N'
 );
 wwv_flow_api.create_page_computation(
  p_id=>wwv_flow_api.id(6552724446759901)
@@ -22339,6 +22367,7 @@ wwv_flow_api.create_page_button(
 ,p_button_position=>'REGION_TEMPLATE_CLOSE'
 ,p_warn_on_unsaved_changes=>null
 ,p_button_condition_type=>'NEVER'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(6657088500883935)
@@ -22353,6 +22382,7 @@ wwv_flow_api.create_page_button(
 ,p_button_redirect_url=>'javascript:apex.confirm(htmldb_delete_message,''DELETE'');'
 ,p_button_execute_validations=>'N'
 ,p_button_condition_type=>'NEVER'
+,p_grid_new_grid=>false
 ,p_database_action=>'DELETE'
 );
 wwv_flow_api.create_page_button(
@@ -22368,6 +22398,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>'P102_ARGUMENT_ID'
 ,p_button_condition_type=>'ITEM_IS_NOT_NULL'
 ,p_icon_css_classes=>'fa-check'
+,p_grid_new_grid=>false
 ,p_database_action=>'UPDATE'
 );
 wwv_flow_api.create_page_button(
@@ -22382,6 +22413,7 @@ wwv_flow_api.create_page_button(
 ,p_button_image_alt=>'Create'
 ,p_button_position=>'REGION_TEMPLATE_NEXT'
 ,p_button_condition_type=>'NEVER'
+,p_grid_new_grid=>false
 ,p_database_action=>'INSERT'
 );
 wwv_flow_api.create_page_item(
@@ -23011,6 +23043,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>':AD_READ_ONLY IS NULL AND :AD_READ_ONLY_PAGE IS NULL'
 ,p_button_condition_type=>'PLSQL_EXPRESSION'
 ,p_icon_css_classes=>'fa-plus'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(6835850843606830)
@@ -23146,6 +23179,7 @@ wwv_flow_api.create_page_button(
 ,p_button_position=>'REGION_TEMPLATE_CLOSE'
 ,p_warn_on_unsaved_changes=>null
 ,p_button_condition_type=>'NEVER'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(6814329580561929)
@@ -23162,6 +23196,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>':P201_SCHEDULE_ID IS NOT NULL AND :AD_ALLOW_DELETE IS NOT NULL'
 ,p_button_condition_type=>'PLSQL_EXPRESSION'
 ,p_icon_css_classes=>'fa-close'
+,p_grid_new_grid=>false
 ,p_database_action=>'DELETE'
 );
 wwv_flow_api.create_page_button(
@@ -23177,6 +23212,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>'P201_SCHEDULE_ID'
 ,p_button_condition_type=>'ITEM_IS_NOT_NULL'
 ,p_icon_css_classes=>'fa-check'
+,p_grid_new_grid=>false
 ,p_database_action=>'UPDATE'
 );
 wwv_flow_api.create_page_button(
@@ -23192,6 +23228,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>'P201_SCHEDULE_ID'
 ,p_button_condition_type=>'ITEM_IS_NULL'
 ,p_icon_css_classes=>'fa-check'
+,p_grid_new_grid=>false
 ,p_database_action=>'INSERT'
 );
 wwv_flow_api.create_page_item(
@@ -23909,6 +23946,7 @@ wwv_flow_api.create_page_plug(
 '    job_name = ''SH''',
 '    ||:p300_job_id;'))
 ,p_plug_source_type=>'NATIVE_IR'
+,p_plug_query_row_template=>1
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_plug_display_condition_type=>'ITEM_IS_NOT_NULL'
 ,p_plug_display_when_condition=>'P300_JOB_ID'
@@ -24070,6 +24108,7 @@ wwv_flow_api.create_page_plug(
 '    AND   spa.argument_position = usja.argument_position',
 '    AND   spa.argument_type <> 7;'))
 ,p_plug_source_type=>'NATIVE_IR'
+,p_plug_query_row_template=>1
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_plug_display_condition_type=>'ITEM_IS_NOT_NULL'
 ,p_plug_display_when_condition=>'P300_JOB_ID'
@@ -24173,6 +24212,7 @@ wwv_flow_api.create_page_plug(
 ,p_include_in_reg_disp_sel_yn=>'Y'
 ,p_plug_display_point=>'BODY'
 ,p_plug_source_type=>'NATIVE_DISPLAY_SELECTOR'
+,p_plug_query_row_template=>1
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_plug_display_condition_type=>'ITEM_IS_NOT_NULL'
 ,p_plug_display_when_condition=>'P300_JOB_ID'
@@ -24208,6 +24248,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>'P300_JOB_ID'
 ,p_button_condition_type=>'ITEM_IS_NOT_NULL'
 ,p_icon_css_classes=>'fa-ellipsis-h'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(6881074526965037)
@@ -24224,6 +24265,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>':AD_READ_ONLY IS NULL AND :AD_READ_ONLY_PAGE IS NULL AND :P300_JOB_ID IS NULL'
 ,p_button_condition_type=>'PLSQL_EXPRESSION'
 ,p_icon_css_classes=>'fa-plus'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(6891516147574530)
@@ -24367,6 +24409,7 @@ wwv_flow_api.create_page_button(
 ,p_button_position=>'REGION_TEMPLATE_CLOSE'
 ,p_warn_on_unsaved_changes=>null
 ,p_button_condition_type=>'NEVER'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(6865239800965000)
@@ -24383,6 +24426,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>':P300_JOB_ID IS NOT NULL AND :AD_ALLOW_DELETE IS NOT NULL'
 ,p_button_condition_type=>'PLSQL_EXPRESSION'
 ,p_icon_css_classes=>'fa-close'
+,p_grid_new_grid=>false
 ,p_database_action=>'DELETE'
 );
 wwv_flow_api.create_page_button(
@@ -24398,6 +24442,7 @@ wwv_flow_api.create_page_button(
 ,p_button_position=>'REGION_TEMPLATE_NEXT'
 ,p_button_condition=>'P301_JOB_ID'
 ,p_button_condition_type=>'ITEM_IS_NOT_NULL'
+,p_grid_new_grid=>false
 ,p_database_action=>'UPDATE'
 );
 wwv_flow_api.create_page_button(
@@ -24413,6 +24458,7 @@ wwv_flow_api.create_page_button(
 ,p_button_position=>'REGION_TEMPLATE_NEXT'
 ,p_button_condition=>'P301_JOB_ID'
 ,p_button_condition_type=>'ITEM_IS_NULL'
+,p_grid_new_grid=>false
 ,p_database_action=>'INSERT'
 );
 wwv_flow_api.create_page_item(
@@ -24756,6 +24802,7 @@ wwv_flow_api.create_page_button(
 ,p_button_position=>'REGION_TEMPLATE_CLOSE'
 ,p_warn_on_unsaved_changes=>null
 ,p_button_condition_type=>'NEVER'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(6902543088100216)
@@ -24768,6 +24815,7 @@ wwv_flow_api.create_page_button(
 ,p_button_image_alt=>'Next'
 ,p_button_position=>'REGION_TEMPLATE_NEXT'
 ,p_icon_css_classes=>'fa-chevron-right'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_branch(
  p_id=>wwv_flow_api.id(6904201066100218)
@@ -25218,6 +25266,7 @@ wwv_flow_api.create_page_button(
 ,p_button_position=>'REGION_TEMPLATE_CLOSE'
 ,p_warn_on_unsaved_changes=>null
 ,p_button_condition_type=>'NEVER'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(6907323734100219)
@@ -25230,6 +25279,7 @@ wwv_flow_api.create_page_button(
 ,p_button_image_alt=>'Next'
 ,p_button_position=>'REGION_TEMPLATE_NEXT'
 ,p_icon_css_classes=>'fa-chevron-right'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(6907264944100219)
@@ -25243,6 +25293,7 @@ wwv_flow_api.create_page_button(
 ,p_button_position=>'REGION_TEMPLATE_PREVIOUS'
 ,p_button_execute_validations=>'N'
 ,p_icon_css_classes=>'fa-chevron-left'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_branch(
  p_id=>wwv_flow_api.id(6909726186100220)
@@ -29872,6 +29923,7 @@ wwv_flow_api.create_page_button(
 ,p_button_position=>'REGION_TEMPLATE_CLOSE'
 ,p_warn_on_unsaved_changes=>null
 ,p_button_condition_type=>'NEVER'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(6912848962100221)
@@ -29884,6 +29936,7 @@ wwv_flow_api.create_page_button(
 ,p_button_image_alt=>'Next'
 ,p_button_position=>'REGION_TEMPLATE_NEXT'
 ,p_icon_css_classes=>'fa-chevron-right'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(6912719700100221)
@@ -29897,6 +29950,7 @@ wwv_flow_api.create_page_button(
 ,p_button_position=>'REGION_TEMPLATE_PREVIOUS'
 ,p_button_execute_validations=>'N'
 ,p_icon_css_classes=>'fa-chevron-left'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_branch(
  p_id=>wwv_flow_api.id(6915270515100222)
@@ -30042,7 +30096,7 @@ wwv_flow_api.create_page(
 ,p_page_is_public_y_n=>'N'
 ,p_cache_mode=>'NOCACHE'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20180131221959'
+,p_last_upd_yyyymmddhh24miss=>'20180329225957'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(6915961034100222)
@@ -30092,6 +30146,7 @@ wwv_flow_api.create_page_plug(
 ,p_plug_display_sequence=>30
 ,p_include_in_reg_disp_sel_yn=>'Y'
 ,p_plug_display_point=>'BODY'
+,p_plug_query_row_template=>1
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_attribute_01=>'N'
 ,p_attribute_02=>'HTML'
@@ -30104,6 +30159,7 @@ wwv_flow_api.create_page_plug(
 ,p_plug_display_sequence=>20
 ,p_include_in_reg_disp_sel_yn=>'Y'
 ,p_plug_display_point=>'BODY'
+,p_plug_query_row_template=>1
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_attribute_01=>'N'
 ,p_attribute_02=>'HTML'
@@ -30120,6 +30176,7 @@ wwv_flow_api.create_page_button(
 ,p_button_position=>'REGION_TEMPLATE_CLOSE'
 ,p_warn_on_unsaved_changes=>null
 ,p_button_condition_type=>'NEVER'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(6918192381100223)
@@ -30131,6 +30188,7 @@ wwv_flow_api.create_page_button(
 ,p_button_template_id=>wwv_flow_api.id(218191262120896732956)
 ,p_button_image_alt=>'Submit Job'
 ,p_button_position=>'REGION_TEMPLATE_NEXT'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(6918219705100223)
@@ -30144,6 +30202,7 @@ wwv_flow_api.create_page_button(
 ,p_button_position=>'REGION_TEMPLATE_PREVIOUS'
 ,p_button_execute_validations=>'N'
 ,p_icon_css_classes=>'fa-chevron-left'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_branch(
  p_id=>wwv_flow_api.id(6920072188100224)
@@ -30645,6 +30704,25 @@ wwv_flow_api.create_page_item(
 ,p_attribute_02=>'LOV'
 ,p_attribute_04=>'Y'
 );
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(7481509737593604)
+,p_name=>'P430_PROGRAM_TYPE'
+,p_item_sequence=>10
+,p_item_plug_id=>wwv_flow_api.id(6916001892100222)
+,p_use_cache_before_default=>'NO'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_computation(
+ p_id=>wwv_flow_api.id(7481425536593603)
+,p_computation_sequence=>10
+,p_computation_item=>'P430_PROGRAM_TYPE'
+,p_computation_type=>'QUERY'
+,p_computation=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'SELECT PROGRAM_TYPE',
+'FROM SH_PROGRAMS',
+'WHERE PROGRAM_ID = :P430_PROGRAM'))
+);
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(6918429614100223)
 ,p_name=>'Cancel Dialog'
@@ -30683,6 +30761,7 @@ wwv_flow_api.create_page_da_action(
 ,p_affected_elements_type=>'ITEM'
 ,p_affected_elements=>'P430_PARAMETER1'
 ,p_attribute_01=>'N'
+,p_stop_execution_on_error=>'Y'
 );
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(7205094776372450)
@@ -30704,6 +30783,7 @@ wwv_flow_api.create_page_da_action(
 ,p_affected_elements_type=>'ITEM'
 ,p_affected_elements=>'P430_PARAMETER2'
 ,p_attribute_01=>'N'
+,p_stop_execution_on_error=>'Y'
 );
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(7251344652168502)
@@ -30725,6 +30805,7 @@ wwv_flow_api.create_page_da_action(
 ,p_affected_elements_type=>'ITEM'
 ,p_affected_elements=>'P430_PARAMETER3'
 ,p_attribute_01=>'N'
+,p_stop_execution_on_error=>'Y'
 );
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(7251589978168504)
@@ -30746,6 +30827,7 @@ wwv_flow_api.create_page_da_action(
 ,p_affected_elements_type=>'ITEM'
 ,p_affected_elements=>'P430_PARAMETER4'
 ,p_attribute_01=>'N'
+,p_stop_execution_on_error=>'Y'
 );
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(7251798837168506)
@@ -30767,6 +30849,7 @@ wwv_flow_api.create_page_da_action(
 ,p_affected_elements_type=>'ITEM'
 ,p_affected_elements=>'P430_PARAMETER5'
 ,p_attribute_01=>'N'
+,p_stop_execution_on_error=>'Y'
 );
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(7251955077168508)
@@ -30788,6 +30871,7 @@ wwv_flow_api.create_page_da_action(
 ,p_affected_elements_type=>'ITEM'
 ,p_affected_elements=>'P430_PARAMETER6'
 ,p_attribute_01=>'N'
+,p_stop_execution_on_error=>'Y'
 );
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(7252155200168510)
@@ -30809,6 +30893,7 @@ wwv_flow_api.create_page_da_action(
 ,p_affected_elements_type=>'ITEM'
 ,p_affected_elements=>'P430_PARAMETER7'
 ,p_attribute_01=>'N'
+,p_stop_execution_on_error=>'Y'
 );
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(7252382843168512)
@@ -30830,6 +30915,7 @@ wwv_flow_api.create_page_da_action(
 ,p_affected_elements_type=>'ITEM'
 ,p_affected_elements=>'P430_PARAMETER8'
 ,p_attribute_01=>'N'
+,p_stop_execution_on_error=>'Y'
 );
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(7252564287168514)
@@ -30851,6 +30937,7 @@ wwv_flow_api.create_page_da_action(
 ,p_affected_elements_type=>'ITEM'
 ,p_affected_elements=>'P430_PARAMETER9'
 ,p_attribute_01=>'N'
+,p_stop_execution_on_error=>'Y'
 );
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(7252736452168516)
@@ -30872,6 +30959,7 @@ wwv_flow_api.create_page_da_action(
 ,p_affected_elements_type=>'ITEM'
 ,p_affected_elements=>'P430_PARAMETER10'
 ,p_attribute_01=>'N'
+,p_stop_execution_on_error=>'Y'
 );
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(7252990794168518)
@@ -30893,6 +30981,7 @@ wwv_flow_api.create_page_da_action(
 ,p_affected_elements_type=>'ITEM'
 ,p_affected_elements=>'P430_PARAMETER11'
 ,p_attribute_01=>'N'
+,p_stop_execution_on_error=>'Y'
 );
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(7253133137168520)
@@ -30914,6 +31003,7 @@ wwv_flow_api.create_page_da_action(
 ,p_affected_elements_type=>'ITEM'
 ,p_affected_elements=>'P430_PARAMETER12'
 ,p_attribute_01=>'N'
+,p_stop_execution_on_error=>'Y'
 );
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(7253389962168522)
@@ -30935,6 +31025,7 @@ wwv_flow_api.create_page_da_action(
 ,p_affected_elements_type=>'ITEM'
 ,p_affected_elements=>'P430_PARAMETER13'
 ,p_attribute_01=>'N'
+,p_stop_execution_on_error=>'Y'
 );
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(7253520940168524)
@@ -30956,6 +31047,7 @@ wwv_flow_api.create_page_da_action(
 ,p_affected_elements_type=>'ITEM'
 ,p_affected_elements=>'P430_PARAMETER14'
 ,p_attribute_01=>'N'
+,p_stop_execution_on_error=>'Y'
 );
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(7253748758168526)
@@ -30977,7 +31069,11 @@ wwv_flow_api.create_page_da_action(
 ,p_affected_elements_type=>'ITEM'
 ,p_affected_elements=>'P430_PARAMETER15'
 ,p_attribute_01=>'N'
+,p_stop_execution_on_error=>'Y'
 );
+end;
+/
+begin
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(7253981617168528)
 ,p_name=>'Hide Parameter16'
@@ -30998,6 +31094,7 @@ wwv_flow_api.create_page_da_action(
 ,p_affected_elements_type=>'ITEM'
 ,p_affected_elements=>'P430_PARAMETER16'
 ,p_attribute_01=>'N'
+,p_stop_execution_on_error=>'Y'
 );
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(7254192997168530)
@@ -31019,10 +31116,8 @@ wwv_flow_api.create_page_da_action(
 ,p_affected_elements_type=>'ITEM'
 ,p_affected_elements=>'P430_PARAMETER17'
 ,p_attribute_01=>'N'
+,p_stop_execution_on_error=>'Y'
 );
-end;
-/
-begin
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(7254328501168532)
 ,p_name=>'Hide Parameter18'
@@ -31043,6 +31138,7 @@ wwv_flow_api.create_page_da_action(
 ,p_affected_elements_type=>'ITEM'
 ,p_affected_elements=>'P430_PARAMETER18'
 ,p_attribute_01=>'N'
+,p_stop_execution_on_error=>'Y'
 );
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(7254565231168534)
@@ -31064,6 +31160,7 @@ wwv_flow_api.create_page_da_action(
 ,p_affected_elements_type=>'ITEM'
 ,p_affected_elements=>'P430_PARAMETER19'
 ,p_attribute_01=>'N'
+,p_stop_execution_on_error=>'Y'
 );
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(7254765290168536)
@@ -31085,6 +31182,7 @@ wwv_flow_api.create_page_da_action(
 ,p_affected_elements_type=>'ITEM'
 ,p_affected_elements=>'P430_PARAMETER20'
 ,p_attribute_01=>'N'
+,p_stop_execution_on_error=>'Y'
 );
 wwv_flow_api.create_page_process(
  p_id=>wwv_flow_api.id(7204654137372446)
@@ -31094,445 +31192,284 @@ wwv_flow_api.create_page_process(
 ,p_process_name=>'Insert Jobs'
 ,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'BEGIN',
-'    INSERT INTO sh_jobs (',
-'        job_id,',
-'        program_id,',
-'        schedule_type,',
-'        schedule_id,',
-'        job_status,',
-'        date_from,',
-'        date_to,',
-'        created_by,',
-'        created_on,',
-'        updated_by,',
-'        updated_on',
-'    ) VALUES (',
-'        TO_CHAR(',
-'            SYSDATE,',
-'            ''YYYYMMDD''',
-'        )',
-'        || lpad(',
-'            "SH_JOBS_S".NEXTVAL,',
-'            7,',
-'            0',
-'        ),',
-'        :p430_program,',
-'        :p430_schedule_type,',
-'        :p430_schedule,',
-'        0,',
-'        :p430_date,',
-'        NULL,',
-'        :ad_user_id,',
-'        SYSDATE,',
-'        :ad_user_id,',
-'        SYSDATE',
-'    ) RETURNING job_id INTO :p430_job_id;',
-'',
-'    IF',
-'        :parameter_name1 IS NOT NULL',
-'    THEN',
-'        INSERT INTO sh_job_agruments VALUES (',
-'            TO_CHAR(',
-'                SYSDATE,',
-'                ''YYYYMMDD''',
-'            )',
-'            || lpad(',
-'                sh_job_agruments_s.NEXTVAL,',
-'                7,',
-'                0',
-'            ),',
-'            :p430_job_id,',
-'            :parameter_name1,',
-'            :p430_parameter1',
-'        );',
-'',
-'    END IF;',
-'',
-'    IF',
-'        :parameter_name2 IS NOT NULL',
-'    THEN',
-'        INSERT INTO sh_job_agruments VALUES (',
-'            TO_CHAR(',
-'                SYSDATE,',
-'                ''YYYYMMDD''',
-'            )',
-'            || lpad(',
-'                sh_job_agruments_s.NEXTVAL,',
-'                7,',
-'                0',
-'            ),',
-'            :p430_job_id,',
-'            :parameter_name2,',
-'            :p430_parameter2',
-'        );',
-'',
-'    END IF;',
-'',
-'    IF',
-'        :parameter_name3 IS NOT NULL',
-'    THEN',
-'        INSERT INTO sh_job_agruments VALUES (',
-'            TO_CHAR(',
-'                SYSDATE,',
-'                ''YYYYMMDD''',
-'            )',
-'            || lpad(',
-'                sh_job_agruments_s.NEXTVAL,',
-'                7,',
-'                0',
-'            ),',
-'            :p430_job_id,',
-'            :parameter_name3,',
-'            :p430_parameter3',
-'        );',
-'',
-'    END IF;',
-'',
-'    IF',
-'        :parameter_name4 IS NOT NULL',
-'    THEN',
-'        INSERT INTO sh_job_agruments VALUES (',
-'            TO_CHAR(',
-'                SYSDATE,',
-'                ''YYYYMMDD''',
-'            )',
-'            || lpad(',
-'                sh_job_agruments_s.NEXTVAL,',
-'                7,',
-'                0',
-'            ),',
-'            :p430_job_id,',
-'            :parameter_name4,',
-'            :p430_parameter4',
-'        );',
-'',
-'    END IF;',
-'',
-'    IF',
-'        :parameter_name5 IS NOT NULL',
-'    THEN',
-'        INSERT INTO sh_job_agruments VALUES (',
-'            TO_CHAR(',
-'                SYSDATE,',
-'                ''YYYYMMDD''',
-'            )',
-'            || lpad(',
-'                sh_job_agruments_s.NEXTVAL,',
-'                7,',
-'                0',
-'            ),',
-'            :p430_job_id,',
-'            :parameter_name5,',
-'            :p430_parameter5',
-'        );',
-'',
-'    END IF;',
-'',
-'    IF',
-'        :parameter_name6 IS NOT NULL',
-'    THEN',
-'        INSERT INTO sh_job_agruments VALUES (',
-'            TO_CHAR(',
-'                SYSDATE,',
-'                ''YYYYMMDD''',
-'            )',
-'            || lpad(',
-'                sh_job_agruments_s.NEXTVAL,',
-'                7,',
-'                0',
-'            ),',
-'            :p430_job_id,',
-'            :parameter_name6,',
-'            :p430_parameter6',
-'        );',
-'',
-'    END IF;',
-'',
-'    IF',
-'        :parameter_name7 IS NOT NULL',
-'    THEN',
-'        INSERT INTO sh_job_agruments VALUES (',
-'            TO_CHAR(',
-'                SYSDATE,',
-'                ''YYYYMMDD''',
-'            )',
-'            || lpad(',
-'                sh_job_agruments_s.NEXTVAL,',
-'                7,',
-'                0',
-'            ),',
-'            :p430_job_id,',
-'            :parameter_name7,',
-'            :p430_parameter7',
-'        );',
-'',
-'    END IF;',
-'',
-'    IF',
-'        :parameter_name8 IS NOT NULL',
-'    THEN',
-'        INSERT INTO sh_job_agruments VALUES (',
-'            TO_CHAR(',
-'                SYSDATE,',
-'                ''YYYYMMDD''',
-'            )',
-'            || lpad(',
-'                sh_job_agruments_s.NEXTVAL,',
-'                7,',
-'                0',
-'            ),',
-'            :p430_job_id,',
-'            :parameter_name8,',
-'            :p430_parameter8',
-'        );',
-'',
-'    END IF;',
-'',
-'    IF',
-'        :parameter_name9 IS NOT NULL',
-'    THEN',
-'        INSERT INTO sh_job_agruments VALUES (',
-'            TO_CHAR(',
-'                SYSDATE,',
-'                ''YYYYMMDD''',
-'            )',
-'            || lpad(',
-'                sh_job_agruments_s.NEXTVAL,',
-'                7,',
-'                0',
-'            ),',
-'            :p430_job_id,',
-'            :parameter_name9,',
-'            :p430_parameter9',
-'        );',
-'',
-'    END IF;',
-'',
-'    IF',
-'        :parameter_name10 IS NOT NULL',
-'    THEN',
-'        INSERT INTO sh_job_agruments VALUES (',
-'            TO_CHAR(',
-'                SYSDATE,',
-'                ''YYYYMMDD''',
-'            )',
-'            || lpad(',
-'                sh_job_agruments_s.NEXTVAL,',
-'                7,',
-'                0',
-'            ),',
-'            :p430_job_id,',
-'            :parameter_name10,',
-'            :p430_parameter10',
-'        );',
-'',
-'    END IF;',
-'',
-'    IF',
-'        :parameter_name11 IS NOT NULL',
-'    THEN',
-'        INSERT INTO sh_job_agruments VALUES (',
-'            TO_CHAR(',
-'                SYSDATE,',
-'                ''YYYYMMDD''',
-'            )',
-'            || lpad(',
-'                sh_job_agruments_s.NEXTVAL,',
-'                7,',
-'                0',
-'            ),',
-'            :p430_job_id,',
-'            :parameter_name11,',
-'            :p430_parameter11',
-'        );',
-'',
-'    END IF;',
-'',
-'    IF',
-'        :parameter_name12 IS NOT NULL',
-'    THEN',
-'        INSERT INTO sh_job_agruments VALUES (',
-'            TO_CHAR(',
-'                SYSDATE,',
-'                ''YYYYMMDD''',
-'            )',
-'            || lpad(',
-'                sh_job_agruments_s.NEXTVAL,',
-'                7,',
-'                0',
-'            ),',
-'            :p430_job_id,',
-'            :parameter_name12,',
-'            :p430_parameter12',
-'        );',
-'',
-'    END IF;',
-'',
-'    IF',
-'        :parameter_name13 IS NOT NULL',
-'    THEN',
-'        INSERT INTO sh_job_agruments VALUES (',
-'            TO_CHAR(',
-'                SYSDATE,',
-'                ''YYYYMMDD''',
-'            )',
-'            || lpad(',
-'                sh_job_agruments_s.NEXTVAL,',
-'                7,',
-'                0',
-'            ),',
-'            :p430_job_id,',
-'            :parameter_name13,',
-'            :p430_parameter13',
-'        );',
-'',
-'    END IF;',
-'',
-'    IF',
-'        :parameter_name14 IS NOT NULL',
-'    THEN',
-'        INSERT INTO sh_job_agruments VALUES (',
-'            TO_CHAR(',
-'                SYSDATE,',
-'                ''YYYYMMDD''',
-'            )',
-'            || lpad(',
-'                sh_job_agruments_s.NEXTVAL,',
-'                7,',
-'                0',
-'            ),',
-'            :p430_job_id,',
-'            :parameter_name14,',
-'            :p430_parameter14',
-'        );',
-'',
-'    END IF;',
-'',
-'    IF',
-'        :parameter_name15 IS NOT NULL',
-'    THEN',
-'        INSERT INTO sh_job_agruments VALUES (',
-'            TO_CHAR(',
-'                SYSDATE,',
-'                ''YYYYMMDD''',
-'            )',
-'            || lpad(',
-'                sh_job_agruments_s.NEXTVAL,',
-'                7,',
-'                0',
-'            ),',
-'            :p430_job_id,',
-'            :parameter_name15,',
-'            :p430_parameter15',
-'        );',
-'',
-'    END IF;',
-'',
-'    IF',
-'        :parameter_name16 IS NOT NULL',
-'    THEN',
-'        INSERT INTO sh_job_agruments VALUES (',
-'            TO_CHAR(',
-'                SYSDATE,',
-'                ''YYYYMMDD''',
-'            )',
-'            || lpad(',
-'                sh_job_agruments_s.NEXTVAL,',
-'                7,',
-'                0',
-'            ),',
-'            :p430_job_id,',
-'            :parameter_name16,',
-'            :p430_parameter16',
-'        );',
-'',
-'    END IF;',
-'',
-'    IF',
-'        :parameter_name17 IS NOT NULL',
-'    THEN',
-'        INSERT INTO sh_job_agruments VALUES (',
-'            TO_CHAR(',
-'                SYSDATE,',
-'                ''YYYYMMDD''',
-'            )',
-'            || lpad(',
-'                sh_job_agruments_s.NEXTVAL,',
-'                7,',
-'                0',
-'            ),',
-'            :p430_job_id,',
-'            :parameter_name17,',
-'            :p430_parameter17',
-'        );',
-'',
-'    END IF;',
-'',
-'    IF',
-'        :parameter_name18 IS NOT NULL',
-'    THEN',
-'        INSERT INTO sh_job_agruments VALUES (',
-'            TO_CHAR(',
-'                SYSDATE,',
-'                ''YYYYMMDD''',
-'            )',
-'            || lpad(',
-'                sh_job_agruments_s.NEXTVAL,',
-'                7,',
-'                0',
-'            ),',
-'            :p430_job_id,',
-'            :parameter_name18,',
-'            :p430_parameter18',
-'        );',
-'',
-'    END IF;',
-'',
-'    IF',
-'        :parameter_name19 IS NOT NULL',
-'    THEN',
-'        INSERT INTO sh_job_agruments VALUES (',
-'            TO_CHAR(',
-'                SYSDATE,',
-'                ''YYYYMMDD''',
-'            )',
-'            || lpad(',
-'                sh_job_agruments_s.NEXTVAL,',
-'                7,',
-'                0',
-'            ),',
-'            :p430_job_id,',
-'            :parameter_name19,',
-'            :p430_parameter19',
-'        );',
-'',
-'    END IF;',
-'',
-'    IF',
-'        :parameter_name20 IS NOT NULL',
-'    THEN',
-'        INSERT INTO sh_job_agruments VALUES (',
-'            TO_CHAR(',
-'                SYSDATE,',
-'                ''YYYYMMDD''',
-'            )',
-'            || lpad(',
-'                sh_job_agruments_s.NEXTVAL,',
-'                7,',
-'                0',
-'            ),',
-'            :p430_job_id,',
-'            :parameter_name20,',
-'            :p430_parameter20',
-'        );',
-'',
-'    END IF;',
-'',
-'    COMMIT;',
+'  INSERT INTO sh_jobs',
+'    (job_id,',
+'     program_id,',
+'     schedule_type,',
+'     schedule_id,',
+'     job_status,',
+'     date_from,',
+'     date_to,',
+'     created_by,',
+'     created_on,',
+'     updated_by,',
+'     updated_on)',
+'  VALUES',
+'    (to_char(SYSDATE,',
+'             ''YYYYMMDD'') || lpad("SH_JOBS_S".NEXTVAL,',
+'                                 7,',
+'                                 0),',
+'     :p430_program,',
+'     :p430_schedule_type,',
+'     :p430_schedule,',
+'     0,',
+'     :p430_date,',
+'     NULL,',
+'     :ad_user_id,',
+'     SYSDATE,',
+'     :ad_user_id,',
+'     SYSDATE)',
+'  RETURNING job_id INTO :p430_job_id;',
+'  IF :parameter_name1 IS NOT NULL',
+'  THEN',
+'    INSERT INTO sh_job_agruments',
+'    VALUES',
+'      (to_char(SYSDATE,',
+'               ''YYYYMMDD'') || lpad(sh_job_agruments_s.nextval,',
+'                                   7,',
+'                                   0),',
+'       :p430_job_id,',
+'       :parameter_name1,',
+'       :p430_parameter1);',
+'  END IF;',
+'  IF :parameter_name2 IS NOT NULL',
+'  THEN',
+'    INSERT INTO sh_job_agruments',
+'    VALUES',
+'      (to_char(SYSDATE,',
+'               ''YYYYMMDD'') || lpad(sh_job_agruments_s.nextval,',
+'                                   7,',
+'                                   0),',
+'       :p430_job_id,',
+'       :parameter_name2,',
+'       :p430_parameter2);',
+'  END IF;',
+'  IF :parameter_name3 IS NOT NULL',
+'  THEN',
+'    INSERT INTO sh_job_agruments',
+'    VALUES',
+'      (to_char(SYSDATE,',
+'               ''YYYYMMDD'') || lpad(sh_job_agruments_s.nextval,',
+'                                   7,',
+'                                   0),',
+'       :p430_job_id,',
+'       :parameter_name3,',
+'       :p430_parameter3);',
+'  END IF;',
+'  IF :parameter_name4 IS NOT NULL',
+'  THEN',
+'    INSERT INTO sh_job_agruments',
+'    VALUES',
+'      (to_char(SYSDATE,',
+'               ''YYYYMMDD'') || lpad(sh_job_agruments_s.nextval,',
+'                                   7,',
+'                                   0),',
+'       :p430_job_id,',
+'       :parameter_name4,',
+'       :p430_parameter4);',
+'  END IF;',
+'  IF :parameter_name5 IS NOT NULL',
+'  THEN',
+'    INSERT INTO sh_job_agruments',
+'    VALUES',
+'      (to_char(SYSDATE,',
+'               ''YYYYMMDD'') || lpad(sh_job_agruments_s.nextval,',
+'                                   7,',
+'                                   0),',
+'       :p430_job_id,',
+'       :parameter_name5,',
+'       :p430_parameter5);',
+'  END IF;',
+'  IF :parameter_name6 IS NOT NULL',
+'  THEN',
+'    INSERT INTO sh_job_agruments',
+'    VALUES',
+'      (to_char(SYSDATE,',
+'               ''YYYYMMDD'') || lpad(sh_job_agruments_s.nextval,',
+'                                   7,',
+'                                   0),',
+'       :p430_job_id,',
+'       :parameter_name6,',
+'       :p430_parameter6);',
+'  END IF;',
+'  IF :parameter_name7 IS NOT NULL',
+'  THEN',
+'    INSERT INTO sh_job_agruments',
+'    VALUES',
+'      (to_char(SYSDATE,',
+'               ''YYYYMMDD'') || lpad(sh_job_agruments_s.nextval,',
+'                                   7,',
+'                                   0),',
+'       :p430_job_id,',
+'       :parameter_name7,',
+'       :p430_parameter7);',
+'  END IF;',
+'  IF :parameter_name8 IS NOT NULL',
+'  THEN',
+'    INSERT INTO sh_job_agruments',
+'    VALUES',
+'      (to_char(SYSDATE,',
+'               ''YYYYMMDD'') || lpad(sh_job_agruments_s.nextval,',
+'                                   7,',
+'                                   0),',
+'       :p430_job_id,',
+'       :parameter_name8,',
+'       :p430_parameter8);',
+'  END IF;',
+'  IF :parameter_name9 IS NOT NULL',
+'  THEN',
+'    INSERT INTO sh_job_agruments',
+'    VALUES',
+'      (to_char(SYSDATE,',
+'               ''YYYYMMDD'') || lpad(sh_job_agruments_s.nextval,',
+'                                   7,',
+'                                   0),',
+'       :p430_job_id,',
+'       :parameter_name9,',
+'       :p430_parameter9);',
+'  END IF;',
+'  IF :parameter_name10 IS NOT NULL',
+'  THEN',
+'    INSERT INTO sh_job_agruments',
+'    VALUES',
+'      (to_char(SYSDATE,',
+'               ''YYYYMMDD'') || lpad(sh_job_agruments_s.nextval,',
+'                                   7,',
+'                                   0),',
+'       :p430_job_id,',
+'       :parameter_name10,',
+'       :p430_parameter10);',
+'  END IF;',
+'  IF :parameter_name11 IS NOT NULL',
+'  THEN',
+'    INSERT INTO sh_job_agruments',
+'    VALUES',
+'      (to_char(SYSDATE,',
+'               ''YYYYMMDD'') || lpad(sh_job_agruments_s.nextval,',
+'                                   7,',
+'                                   0),',
+'       :p430_job_id,',
+'       :parameter_name11,',
+'       :p430_parameter11);',
+'  END IF;',
+'  IF :parameter_name12 IS NOT NULL',
+'  THEN',
+'    INSERT INTO sh_job_agruments',
+'    VALUES',
+'      (to_char(SYSDATE,',
+'               ''YYYYMMDD'') || lpad(sh_job_agruments_s.nextval,',
+'                                   7,',
+'                                   0),',
+'       :p430_job_id,',
+'       :parameter_name12,',
+'       :p430_parameter12);',
+'  END IF;',
+'  IF :parameter_name13 IS NOT NULL',
+'  THEN',
+'    INSERT INTO sh_job_agruments',
+'    VALUES',
+'      (to_char(SYSDATE,',
+'               ''YYYYMMDD'') || lpad(sh_job_agruments_s.nextval,',
+'                                   7,',
+'                                   0),',
+'       :p430_job_id,',
+'       :parameter_name13,',
+'       :p430_parameter13);',
+'  END IF;',
+'  IF :parameter_name14 IS NOT NULL',
+'  THEN',
+'    INSERT INTO sh_job_agruments',
+'    VALUES',
+'      (to_char(SYSDATE,',
+'               ''YYYYMMDD'') || lpad(sh_job_agruments_s.nextval,',
+'                                   7,',
+'                                   0),',
+'       :p430_job_id,',
+'       :parameter_name14,',
+'       :p430_parameter14);',
+'  END IF;',
+'  IF :parameter_name15 IS NOT NULL',
+'  THEN',
+'    INSERT INTO sh_job_agruments',
+'    VALUES',
+'      (to_char(SYSDATE,',
+'               ''YYYYMMDD'') || lpad(sh_job_agruments_s.nextval,',
+'                                   7,',
+'                                   0),',
+'       :p430_job_id,',
+'       :parameter_name15,',
+'       :p430_parameter15);',
+'  END IF;',
+'  IF :parameter_name16 IS NOT NULL',
+'  THEN',
+'    INSERT INTO sh_job_agruments',
+'    VALUES',
+'      (to_char(SYSDATE,',
+'               ''YYYYMMDD'') || lpad(sh_job_agruments_s.nextval,',
+'                                   7,',
+'                                   0),',
+'       :p430_job_id,',
+'       :parameter_name16,',
+'       :p430_parameter16);',
+'  END IF;',
+'  IF :parameter_name17 IS NOT NULL',
+'  THEN',
+'    INSERT INTO sh_job_agruments',
+'    VALUES',
+'      (to_char(SYSDATE,',
+'               ''YYYYMMDD'') || lpad(sh_job_agruments_s.nextval,',
+'                                   7,',
+'                                   0),',
+'       :p430_job_id,',
+'       :parameter_name17,',
+'       :p430_parameter17);',
+'  END IF;',
+'  IF :parameter_name18 IS NOT NULL',
+'  THEN',
+'    INSERT INTO sh_job_agruments',
+'    VALUES',
+'      (to_char(SYSDATE,',
+'               ''YYYYMMDD'') || lpad(sh_job_agruments_s.nextval,',
+'                                   7,',
+'                                   0),',
+'       :p430_job_id,',
+'       :parameter_name18,',
+'       :p430_parameter18);',
+'  END IF;',
+'  IF :parameter_name19 IS NOT NULL',
+'  THEN',
+'    INSERT INTO sh_job_agruments',
+'    VALUES',
+'      (to_char(SYSDATE,',
+'               ''YYYYMMDD'') || lpad(sh_job_agruments_s.nextval,',
+'                                   7,',
+'                                   0),',
+'       :p430_job_id,',
+'       :parameter_name19,',
+'       :p430_parameter19);',
+'  END IF;',
+'  IF :parameter_name20 IS NOT NULL',
+'  THEN',
+'    INSERT INTO sh_job_agruments',
+'    VALUES',
+'      (to_char(SYSDATE,',
+'               ''YYYYMMDD'') || lpad(sh_job_agruments_s.nextval,',
+'                                   7,',
+'                                   0),',
+'       :p430_job_id,',
+'       :parameter_name20,',
+'       :p430_parameter20);',
+'  END IF;',
+'  IF :p430_program_type = 1',
+'  THEN',
+'    sh_scheduler_pkg.submit_job(:p430_job_id);',
+'  END IF;',
+'  COMMIT;',
 'EXCEPTION',
-'    WHEN OTHERS THEN',
-'        :p430_job_id   := NULL;',
-'END;'))
+'  WHEN OTHERS THEN',
+'    :p430_job_id := NULL;',
+'END;',
+''))
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_process_when_button_id=>wwv_flow_api.id(6918192381100223)
 ,p_process_success_message=>'Job &P430_JOB_ID. is submitted successfully.'
@@ -31930,6 +31867,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>'P500_PROGRAM_GROUP_ID'
 ,p_button_condition_type=>'ITEM_IS_NOT_NULL'
 ,p_icon_css_classes=>'fa-ellipsis-h'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(7347723442056935)
@@ -31946,6 +31884,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>':AD_READ_ONLY IS NULL AND :AD_READ_ONLY_PAGE IS NULL AND :P500_PROGRAM_GROUP_ID IS NULL'
 ,p_button_condition_type=>'PLSQL_EXPRESSION'
 ,p_icon_css_classes=>'fa-plus'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(7386168918690000)
@@ -31960,6 +31899,7 @@ wwv_flow_api.create_page_button(
 ,p_button_position=>'RIGHT_OF_IR_SEARCH_BAR'
 ,p_button_redirect_url=>'f?p=&APP_ID.:502:&SESSION.::&DEBUG.:502:P502_PROGRAM_GROUP_ID:&P500_PROGRAM_GROUP_ID.'
 ,p_icon_css_classes=>'fa-plus'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(7295880300710124)
@@ -32112,6 +32052,7 @@ wwv_flow_api.create_page_button(
 ,p_button_position=>'REGION_TEMPLATE_CLOSE'
 ,p_warn_on_unsaved_changes=>null
 ,p_button_condition_type=>'NEVER'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(7331983732056905)
@@ -32128,6 +32069,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>':P501_PROGRAM_GROUP_ID IS NOT NULL AND :AD_ALLOW_DELETE IS NOT NULL'
 ,p_button_condition_type=>'PLSQL_EXPRESSION'
 ,p_icon_css_classes=>'fa-close'
+,p_grid_new_grid=>false
 ,p_database_action=>'DELETE'
 );
 wwv_flow_api.create_page_button(
@@ -32143,6 +32085,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>'P501_PROGRAM_GROUP_ID'
 ,p_button_condition_type=>'ITEM_IS_NOT_NULL'
 ,p_icon_css_classes=>'fa-check'
+,p_grid_new_grid=>false
 ,p_database_action=>'UPDATE'
 );
 wwv_flow_api.create_page_button(
@@ -32158,6 +32101,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>'P501_PROGRAM_GROUP_ID'
 ,p_button_condition_type=>'ITEM_IS_NULL'
 ,p_icon_css_classes=>'fa-check'
+,p_grid_new_grid=>false
 ,p_database_action=>'INSERT'
 );
 wwv_flow_api.create_page_item(
@@ -32510,6 +32454,7 @@ wwv_flow_api.create_page_button(
 ,p_button_position=>'REGION_TEMPLATE_CLOSE'
 ,p_warn_on_unsaved_changes=>null
 ,p_button_condition_type=>'NEVER'
+,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(7371532975689969)
@@ -32526,6 +32471,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>':P502_PROGRAM_DETAIL_ID IS NOT NULL AND :AD_ALLOW_DELETE IS NOT NULL'
 ,p_button_condition_type=>'PLSQL_EXPRESSION'
 ,p_icon_css_classes=>'fa-close'
+,p_grid_new_grid=>false
 ,p_database_action=>'DELETE'
 );
 wwv_flow_api.create_page_button(
@@ -32541,6 +32487,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>'P502_PROGRAM_DETAIL_ID'
 ,p_button_condition_type=>'ITEM_IS_NOT_NULL'
 ,p_icon_css_classes=>'fa-check'
+,p_grid_new_grid=>false
 ,p_database_action=>'UPDATE'
 );
 wwv_flow_api.create_page_button(
@@ -32556,6 +32503,7 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>'P502_PROGRAM_DETAIL_ID'
 ,p_button_condition_type=>'ITEM_IS_NULL'
 ,p_icon_css_classes=>'fa-check'
+,p_grid_new_grid=>false
 ,p_database_action=>'INSERT'
 );
 wwv_flow_api.create_page_item(
@@ -32823,21 +32771,28 @@ begin
 wwv_flow_api.create_install(
  p_id=>wwv_flow_api.id(132959052569147285965)
 ,p_deinstall_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'UPDATE AD_PAGES SET ENABLED = ''Y'' WHERE PAGE_ID = 200101010000005;',
-'UPDATE AD_MENUS SET MENU_NAME = ''Users'', MENU = ''USERS'' WHERE MENU_ID = 200101010000002;',
-'DELETE FROM AD_APPLICATIONS WHERE APPLICATION_ID = 200201010000001;',
-'ALTER TABLE AD_USERS DROP CONSTRAINT AD_USERS_FK1;',
-'ALTER TABLE AD_USERS DROP COLUMN ORGANIZATION_ID;',
-'ALTER TABLE AD_USERS DROP COLUMN AVATAR;',
-'DROP TABLE AD_USER_DETAILS;',
-'DROP TABLE AD_USER_INFO;',
-'DROP TABLE AD_ORGANIZATION_ROLES;',
-'DROP TABLE AD_ORGANIZATIONS;',
-'DROP SEQUENCE AD_ORGANIZATIONS_S;',
-'DROP SEQUENCE AD_USER_DETAILS_S;',
-'DROP SEQUENCE AD_USER_INFO_S;',
-'DROP SEQUENCE AD_ORGANIZATION_ROLES_S;',
-'DROP VIEW AD_PROFILE_USER_INFO_TYPES;'))
+'DELETE FROM AD_APPLICATIONS WHERE APPLICATION_ID = 200601010000001;',
+'DROP TABLE SH_PROGRAM_GROUP_DETAILS;',
+'DROP TABLE SH_PROGRAM_GROUPS;',
+'DROP TABLE SH_JOB_AGRUMENTS;',
+'DROP TABLE SH_JOBS;',
+'DROP TABLE SH_PROGRAM_ARGUMENTS;',
+'DROP TABLE SH_PROGRAMS;',
+'DROP TABLE SH_SCHEDULES;',
+'DROP SEQUENCE SH_PROGRAM_GROUP_DETAILS_S;',
+'DROP SEQUENCE SH_PROGRAM_GROUPS_S;',
+'DROP SEQUENCE SH_JOB_AGRUMENTS_S;',
+'DROP SEQUENCE SH_JOBS_S;',
+'DROP SEQUENCE SH_PROGRAM_ARGUMENTS_S;',
+'DROP SEQUENCE SH_PROGRAMS_S;',
+'DROP SEQUENCE SH_SCHEDULES_S;',
+'DROP VIEW SH_SCHEDULE_TYPES; ',
+'DROP VIEW SH_SCHEDULER_ARGUMENT_TYPES; ',
+'DROP VIEW SH_SCHEDULER_FREQUENCIES;',
+'DROP VIEW SH_SCHEDULER_PROGRAM_TYPES;',
+'DROP PACKAGE SH_SCHEDULER_PKG;',
+'',
+''))
 ,p_prompt_sub_string_01=>'Y'
 ,p_install_prompt_01=>'Administration Application'
 );
@@ -32859,6 +32814,7 @@ wwv_flow_api.create_install_script(
 '	"PROGRAM" VARCHAR2(150) NOT NULL ENABLE, ',
 '	"PACKAGE" NUMBER, ',
 '	"PROCEDURE" NUMBER NOT NULL ENABLE, ',
+'	"PROGRAM_TYPE" NUMBER, ',
 '	"DESCRIPTION" VARCHAR2(2000), ',
 '	"ENABLED" VARCHAR2(1), ',
 '	"DATE_FROM" DATE, ',
@@ -33182,7 +33138,8 @@ wwv_flow_api.create_install_script(
 '  WHERE al.lookup_id = alv.lookup_id',
 '  AND alv.enabled    = ''Y''',
 '  AND sysdate BETWEEN NVL(alv.date_from, sysdate) AND NVL(alv.date_to, sysdate)',
-'  AND al.lookup = ''SCHEDULER_ARGUMENT_TYPES'';',
+'  AND al.lookup = ''SCHEDULER_ARGUMENT_TYPES''',
+';',
 '',
 'CREATE OR REPLACE FORCE VIEW "SH_SCHEDULER_FREQUENCIES" ("FREQUENCY", "FREQUENCY_MEANING", "FREQUENCY_CODE") AS ',
 '  SELECT code FREQUENCY,',
@@ -33193,7 +33150,18 @@ wwv_flow_api.create_install_script(
 '  WHERE al.lookup_id = alv.lookup_id',
 '  AND alv.enabled    = ''Y''',
 '  AND sysdate BETWEEN NVL(alv.date_from, sysdate) AND NVL(alv.date_to, sysdate)',
-'  AND al.lookup = ''SCHEDULER_FREQUENCIES'';',
+'  AND al.lookup = ''SCHEDULER_FREQUENCIES''',
+';',
+'',
+'CREATE OR REPLACE FORCE VIEW "SH_SCHEDULER_PROGRAM_TYPES" ("PROGRAM_TYPE", "PROGRAM_TYPE_MEANING") AS ',
+'  SELECT code program_type,',
+'    meaning program_type_meaning',
+'  FROM ad_lookups al,',
+'    ad_lookup_values alv',
+'  WHERE al.lookup_id = alv.lookup_id',
+'  AND alv.enabled    = ''Y''',
+'  AND sysdate BETWEEN NVL(alv.date_from, sysdate) AND NVL(alv.date_to, sysdate)',
+'  AND al.lookup = ''SCHEDULER_PROGRAM_TYPES'';',
 '',
 'CREATE OR REPLACE FORCE VIEW "SH_SCHEDULE_TYPES" ("SCHEDULE_TYPE", "SCHEDULE_TYPE_MEANING") AS ',
 '  SELECT code SCHEDULE_type,',
@@ -33203,7 +33171,8 @@ wwv_flow_api.create_install_script(
 '  WHERE al.lookup_id = alv.lookup_id',
 '  AND alv.enabled    = ''Y''',
 '  AND sysdate BETWEEN NVL(alv.date_from, sysdate) AND NVL(alv.date_to, sysdate)',
-'  AND al.lookup = ''SCHEDULER_SCHEDULE_TYPES'';',
+'  AND al.lookup = ''SCHEDULER_SCHEDULE_TYPES''',
+';',
 '',
 ''))
 );
@@ -33228,6 +33197,17 @@ wwv_flow_api.create_install_object(
 ,p_last_updated_on=>to_date('20180314185705','YYYYMMDDHH24MISS')
 ,p_created_by=>'ADMIN'
 ,p_created_on=>to_date('20180314185705','YYYYMMDDHH24MISS')
+);
+wwv_flow_api.create_install_object(
+ p_id=>wwv_flow_api.id(7495009228877511)
+,p_script_id=>wwv_flow_api.id(7414640374524248)
+,p_object_owner=>'#OWNER#'
+,p_object_type=>'VIEW'
+,p_object_name=>'SH_SCHEDULER_PROGRAM_TYPES'
+,p_last_updated_by=>'ADMIN'
+,p_last_updated_on=>to_date('20180329220215','YYYYMMDDHH24MISS')
+,p_created_by=>'ADMIN'
+,p_created_on=>to_date('20180329220215','YYYYMMDDHH24MISS')
 );
 wwv_flow_api.create_install_object(
  p_id=>wwv_flow_api.id(7415108377524253)
@@ -34402,6 +34382,37 @@ wwv_flow_api.create_install_script(
 '    ''200101010000003'',',
 '    to_date(''01-01-06'',''DD-MM-RR'')',
 '  );',
+'INSERT',
+'INTO AD_LOOKUPS',
+'  (',
+'    LOOKUP_ID,',
+'    APPLICATION_ID,',
+'    LOOKUP_NAME,',
+'    LOOKUP,',
+'    LOOKUP_TYPE,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200601010000004'',',
+'    ''200601010000001'',',
+'    ''Scheduler Program Types'',',
+'    ''SCHEDULER_PROGRAM_TYPES'',',
+'    ''1'',',
+'    ''Y'',',
+'    to_date(''01-01-06'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-06'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-06'',''DD-MM-RR'')',
+'  );',
 'REM INSERTING into AD_LOOKUP_VALUES',
 'SET DEFINE OFF;',
 'INSERT',
@@ -34903,6 +34914,35 @@ wwv_flow_api.create_install_script(
 '    ''200601010000003'',',
 '    ''3'',',
 '    ''Schedule'',',
+'    ''Y'',',
+'    to_date(''01-01-06'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-06'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-06'',''DD-MM-RR'')',
+'  );',
+'INSERT',
+'INTO AD_LOOKUP_VALUES',
+'  (',
+'    LOOKUP_VALUE_ID,',
+'    LOOKUP_ID,',
+'    CODE,',
+'    MEANING,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200601010000018'',',
+'    ''200601010000004'',',
+'    ''1'',',
+'    ''Program Manager'',',
 '    ''Y'',',
 '    to_date(''01-01-06'',''DD-MM-RR''),',
 '    NULL,',
