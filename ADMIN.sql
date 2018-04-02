@@ -27,7 +27,7 @@ prompt APPLICATION 1000 - Administration
 -- Application Export:
 --   Application:     1000
 --   Name:            Administration
---   Date and Time:   11:27 Sunday April 1, 2018
+--   Date and Time:   14:38 Monday April 2, 2018
 --   Exported By:     ABHISHEK
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -37,7 +37,7 @@ prompt APPLICATION 1000 - Administration
 
 -- Application Statistics:
 --   Pages:                     39
---     Items:                  204
+--     Items:                  205
 --     Computations:            67
 --     Validations:             24
 --     Processes:               96
@@ -66,11 +66,12 @@ prompt APPLICATION 1000 - Administration
 --         Breadcrumb:           1
 --         Button:               3
 --         Report:               9
+--       LOVs:                   1
 --       Shortcuts:              2
 --       Plug-ins:               3
 --     Globalization:
 --     Reports:
---   Supporting Objects:  Included (auto-install)
+--   Supporting Objects:  Included
 --     Install scripts:          4
 
 prompt --application/delete_application
@@ -126,7 +127,7 @@ wwv_flow_api.create_flow(
 ,p_auto_time_zone=>'N'
 ,p_default_error_display_loc=>'INLINE_IN_NOTIFICATION'
 ,p_last_updated_by=>'ABHISHEK'
-,p_last_upd_yyyymmddhh24miss=>'20180401112520'
+,p_last_upd_yyyymmddhh24miss=>'20180402142937'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -3782,7 +3783,14 @@ end;
 /
 prompt --application/shared_components/user_interface/lovs
 begin
-null;
+wwv_flow_api.create_list_of_values(
+ p_id=>wwv_flow_api.id(5578800761544520)
+,p_lov_name=>'SH_PROGRAM GROUPS'
+,p_lov_query=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'SELECT PROGRAM_GROUP_NAME, PROGRAM_GROUP_ID',
+'FROM SH_PROGRAM_GROUPS',
+'ORDER BY 1'))
+);
 end;
 /
 prompt --application/shared_components/navigation/trees
@@ -27015,7 +27023,7 @@ wwv_flow_api.create_page(
 ,p_cache_mode=>'NOCACHE'
 ,p_help_text=>'No help is available for this page.'
 ,p_last_updated_by=>'ABHISHEK'
-,p_last_upd_yyyymmddhh24miss=>'20180401112501'
+,p_last_upd_yyyymmddhh24miss=>'20180402132735'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(180524890265026137893)
@@ -27031,6 +27039,7 @@ wwv_flow_api.create_page_plug(
 '"ROLE",',
 '(SELECT APPLICATION_NAME FROM AD_APPLICATIONS WHERE APPLICATION_ID = AR.APPLICATION_ID) "APPLICATION_ID",',
 '(SELECT MENU_NAME FROM AD_MENUS WHERE MENU_ID = AR.MENU_ID) "MENU_ID",',
+'"PROGRAM_GROUP_ID",',
 '(SELECT REPORT_GROUP_NAME FROM AD_REPORT_GROUPS WHERE REPORT_GROUP_ID = AR.REPORT_GROUP_ID) "REPORT_GROUP_ID",',
 '(SELECT PAGE_NAME FROM AD_PAGES WHERE PAGE_ID = HOME_PAGE) "HOME_PAGE",',
 '"ENABLED",',
@@ -27192,6 +27201,23 @@ wwv_flow_api.create_worksheet_column(
 ,p_column_label=>'Report Group'
 ,p_column_type=>'STRING'
 );
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(5574482365505718)
+,p_db_column_name=>'PROGRAM_GROUP_ID'
+,p_display_order=>133
+,p_column_identifier=>'V'
+,p_column_label=>'Program Group'
+,p_column_type=>'NUMBER'
+,p_display_text_as=>'LOV_ESCAPE_SC'
+,p_rpt_named_lov=>wwv_flow_api.id(5578800761544520)
+,p_rpt_show_filter_lov=>'1'
+,p_display_condition_type=>'EXISTS'
+,p_display_condition=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'SELECT 1 FROM AD_APPLICATIONS',
+'WHERE APPLICATION = ''SH''',
+'AND ENABLED = ''Y''',
+'AND SYSDATE BETWEEN NVL(DATE_FROM, SYSDATE) AND NVL(DATE_TO, SYSDATE)'))
+);
 wwv_flow_api.create_worksheet_rpt(
  p_id=>wwv_flow_api.id(180524911002192207701)
 ,p_application_user=>'APXWS_DEFAULT'
@@ -27200,7 +27226,7 @@ wwv_flow_api.create_worksheet_rpt(
 ,p_status=>'PUBLIC'
 ,p_is_default=>'Y'
 ,p_display_rows=>50
-,p_report_columns=>'ROLE_NAME:ROLE:APPLICATION_ID:MENU_ID:REPORT_GROUP_ID:HOME_PAGE:ENABLED:DATE_FROM:DATE_TO'
+,p_report_columns=>'ROLE_NAME:ROLE:APPLICATION_ID:MENU_ID:PROGRAM_GROUP_ID:REPORT_GROUP_ID:HOME_PAGE:ENABLED:DATE_FROM:DATE_TO:'
 ,p_sort_column_1=>'ROLE_NAME'
 ,p_sort_direction_1=>'ASC'
 ,p_flashback_enabled=>'N'
@@ -27287,7 +27313,7 @@ wwv_flow_api.create_page(
 ,p_cache_mode=>'NOCACHE'
 ,p_help_text=>'No help is available for this page.'
 ,p_last_updated_by=>'ABHISHEK'
-,p_last_upd_yyyymmddhh24miss=>'20180401112520'
+,p_last_upd_yyyymmddhh24miss=>'20180402142937'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(180524875251072137877)
@@ -27393,6 +27419,36 @@ wwv_flow_api.create_page_button(
 ,p_icon_css_classes=>'fa-check'
 ,p_grid_new_grid=>false
 ,p_database_action=>'INSERT'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(5574527180505719)
+,p_name=>'P311_PROGRAM_GROUP_ID'
+,p_item_sequence=>60
+,p_item_plug_id=>wwv_flow_api.id(180524875251072137877)
+,p_use_cache_before_default=>'NO'
+,p_prompt=>'Program Group'
+,p_source=>'PROGRAM_GROUP_ID'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_SELECT_LIST'
+,p_lov=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'SELECT PROGRAM_GROUP_NAME, PROGRAM_GROUP_ID',
+'FROM SH_PROGRAM_GROUPS',
+'WHERE ENABLED = ''Y''',
+'AND SYSDATE BETWEEN NVL(DATE_FROM, SYSDATE) AND NVL(DATE_TO, SYSDATE)',
+'ORDER BY 1'))
+,p_lov_display_null=>'YES'
+,p_cHeight=>1
+,p_display_when=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'SELECT 1 FROM AD_APPLICATIONS',
+'WHERE APPLICATION = ''SH''',
+'AND ENABLED = ''Y''',
+'AND SYSDATE BETWEEN NVL(DATE_FROM, SYSDATE) AND NVL(DATE_TO, SYSDATE)'))
+,p_display_when_type=>'EXISTS'
+,p_field_template=>wwv_flow_api.id(69457003557683333253)
+,p_item_template_options=>'#DEFAULT#'
+,p_lov_display_extra=>'NO'
+,p_attribute_01=>'NONE'
+,p_attribute_02=>'N'
 );
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(132955242863742415225)
@@ -33775,6 +33831,7 @@ wwv_flow_api.create_install_script(
 '	"ROLE_NAME" VARCHAR2(150) NOT NULL ENABLE, ',
 '	"ROLE" VARCHAR2(150) NOT NULL ENABLE, ',
 '	"MENU_ID" NUMBER, ',
+'    "PROGRAM_GROUP_ID" NUMBER,',
 '	"REPORT_GROUP_ID" NUMBER, ',
 '	"HOME_PAGE" NUMBER, ',
 '	"ENABLED" VARCHAR2(1), ',
@@ -37036,7 +37093,7 @@ end;
 /
 prompt --application/end_environment
 begin
-wwv_flow_api.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, true));
+wwv_flow_api.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, false));
 commit;
 end;
 /
