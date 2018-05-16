@@ -27,7 +27,7 @@ prompt APPLICATION 149870 - Notifications
 -- Application Export:
 --   Application:     149870
 --   Name:            Notifications
---   Date and Time:   20:28 Wednesday May 16, 2018
+--   Date and Time:   20:54 Wednesday May 16, 2018
 --   Exported By:     ABHISHEK9982@GMAIL.COM
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -126,7 +126,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'180615'
 ,p_last_updated_by=>'ABHISHEK9982@GMAIL.COM'
-,p_last_upd_yyyymmddhh24miss=>'20180516202806'
+,p_last_upd_yyyymmddhh24miss=>'20180516205412'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -20008,6 +20008,7 @@ wwv_flow_api.create_install(
  p_id=>wwv_flow_api.id(258251355806569678628)
 ,p_deinstall_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'DELETE FROM AD_APPLICATIONS WHERE APPLICATION_ID = 200701010000001;',
+'DELETE FROM SH_PROGRAMS WHERE PROGRAM_ID = 200701010000001;',
 'DROP TABLE NT_ATTACHMENTS;',
 'DROP TABLE NT_NOTIFICATIONS;',
 'DROP TABLE NT_TEMPLATES;',
