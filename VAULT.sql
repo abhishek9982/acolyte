@@ -27,7 +27,7 @@ prompt APPLICATION 124 - Vault
 -- Application Export:
 --   Application:     124
 --   Name:            Vault
---   Date and Time:   13:27 Sunday August 19, 2018
+--   Date and Time:   18:51 Saturday September 1, 2018
 --   Exported By:     ABHISHEK
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -36,12 +36,13 @@ prompt APPLICATION 124 - Vault
 --
 
 -- Application Statistics:
---   Pages:                     11
---     Items:                   84
---     Computations:            30
---     Processes:               33
---     Regions:                 26
---     Buttons:                 34
+--   Pages:                     12
+--     Items:                   94
+--     Computations:            31
+--     Validations:              1
+--     Processes:               39
+--     Regions:                 29
+--     Buttons:                 36
 --     Dynamic Actions:         22
 --   Shared Components:
 --     Logic:
@@ -73,7 +74,7 @@ prompt APPLICATION 124 - Vault
 --       Layouts:                1
 --     E-Mail:
 --   Supporting Objects:  Included
---     Install scripts:          4
+--     Install scripts:          6
 
 prompt --application/delete_application
 begin
@@ -103,7 +104,10 @@ wwv_flow_api.create_flow(
 ,p_timestamp_tz_format=>'DD-MON-YYYY HH24.MI.SSXFF TZR'
 ,p_direction_right_to_left=>'N'
 ,p_flow_image_prefix => nvl(wwv_flow_application_install.get_image_prefix,'')
-,p_documentation_banner=>'AA-1043: [Notifications] Add Notification Menu'
+,p_documentation_banner=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'AA-1046: [Vault] Create Vault Application',
+'AA-1048: [Vault] Create and Test DB Links for Connections',
+'AA-1049: [Vault] Manage Request Accesses'))
 ,p_authentication=>'PLUGIN'
 ,p_authentication_id=>wwv_flow_api.id(484245631447378085108)
 ,p_populate_roles=>'A'
@@ -125,7 +129,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'1003'
 ,p_last_updated_by=>'ABHISHEK'
-,p_last_upd_yyyymmddhh24miss=>'20180810115233'
+,p_last_upd_yyyymmddhh24miss=>'20180901184101'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -19021,7 +19025,7 @@ wwv_flow_api.create_page(
 ,p_step_template=>wwv_flow_api.id(373124592904207190657)
 ,p_page_template_options=>'#DEFAULT#'
 ,p_last_updated_by=>'ABHISHEK'
-,p_last_upd_yyyymmddhh24miss=>'20180807035312'
+,p_last_upd_yyyymmddhh24miss=>'20180828104055'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(15158153739656544194)
@@ -19051,7 +19055,8 @@ wwv_flow_api.create_page_plug(
 '(SELECT USER_NAME FROM AD_USERS WHERE USER_ID = VC.CREATED_BY) "CREATED_BY",',
 '"CREATED_ON",',
 '(SELECT USER_NAME FROM AD_USERS WHERE USER_ID = VC.UPDATED_BY) "UPDATED_BY",',
-'"UPDATED_ON"',
+'"UPDATED_ON",',
+'"CONNECTION_ID" TEST_CONNECTION',
 'from "#OWNER#"."VA_CONNECTIONS" VC',
 'WHERE ORGANIZATION_ID = :P100_ORGANIZATION_ID',
 ''))
@@ -19126,8 +19131,7 @@ wwv_flow_api.create_worksheet_column(
 ,p_column_identifier=>'F'
 ,p_column_label=>'Password'
 ,p_column_type=>'STRING'
-,p_heading_alignment=>'LEFT'
-,p_tz_dependent=>'N'
+,p_display_text_as=>'HIDDEN'
 );
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(15158156621748544200)
@@ -19146,8 +19150,7 @@ wwv_flow_api.create_worksheet_column(
 ,p_column_identifier=>'H'
 ,p_column_label=>'Host Name'
 ,p_column_type=>'STRING'
-,p_heading_alignment=>'LEFT'
-,p_tz_dependent=>'N'
+,p_display_text_as=>'HIDDEN'
 );
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(15158157408066544200)
@@ -19156,8 +19159,7 @@ wwv_flow_api.create_worksheet_column(
 ,p_column_identifier=>'I'
 ,p_column_label=>'Port'
 ,p_column_type=>'STRING'
-,p_heading_alignment=>'LEFT'
-,p_tz_dependent=>'N'
+,p_display_text_as=>'HIDDEN'
 );
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(15158157766011544201)
@@ -19166,8 +19168,7 @@ wwv_flow_api.create_worksheet_column(
 ,p_column_identifier=>'J'
 ,p_column_label=>'Service Name'
 ,p_column_type=>'STRING'
-,p_heading_alignment=>'LEFT'
-,p_tz_dependent=>'N'
+,p_display_text_as=>'HIDDEN'
 );
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(15158158155819544201)
@@ -19176,8 +19177,7 @@ wwv_flow_api.create_worksheet_column(
 ,p_column_identifier=>'K'
 ,p_column_label=>'Sid'
 ,p_column_type=>'STRING'
-,p_heading_alignment=>'LEFT'
-,p_tz_dependent=>'N'
+,p_display_text_as=>'HIDDEN'
 );
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(15158158587936544202)
@@ -19186,8 +19186,7 @@ wwv_flow_api.create_worksheet_column(
 ,p_column_identifier=>'L'
 ,p_column_label=>'Sysdba'
 ,p_column_type=>'STRING'
-,p_heading_alignment=>'LEFT'
-,p_tz_dependent=>'N'
+,p_display_text_as=>'HIDDEN'
 );
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(15158158986092544204)
@@ -19196,7 +19195,7 @@ wwv_flow_api.create_worksheet_column(
 ,p_column_identifier=>'M'
 ,p_column_label=>'DB Link'
 ,p_column_type=>'STRING'
-,p_heading_alignment=>'LEFT'
+,p_display_text_as=>'HIDDEN'
 );
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(15158159361803544205)
@@ -19273,6 +19272,19 @@ wwv_flow_api.create_worksheet_column(
 ,p_column_label=>'Updated By'
 ,p_column_type=>'STRING'
 );
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(4859087956081909)
+,p_db_column_name=>'TEST_CONNECTION'
+,p_display_order=>60
+,p_column_identifier=>'X'
+,p_column_label=>'Test Connection'
+,p_column_link=>'javascript:apex.submit({request:"TEST_CONNECTION",set:{"P100_CONNECTION_ID":#CONNECTION_ID#}});'
+,p_column_linktext=>'<i class="fa fa-plug"></i>'
+,p_column_link_attr=>'t-Button t-Button--noLabel t-Button--icon js-ignoreChange t-Button--small lto15158163025735544208_0 t-Button--hot'
+,p_column_type=>'NUMBER'
+,p_column_alignment=>'CENTER'
+,p_static_id=>'testConnection'
+);
 wwv_flow_api.create_worksheet_rpt(
  p_id=>wwv_flow_api.id(15159013748296861500)
 ,p_application_user=>'APXWS_DEFAULT'
@@ -19280,7 +19292,7 @@ wwv_flow_api.create_worksheet_rpt(
 ,p_report_alias=>'151545270'
 ,p_status=>'PUBLIC'
 ,p_is_default=>'Y'
-,p_report_columns=>'ORGANIZATION_ID:CONNECTION_NAME:CONNECTION:USER_NAME:PASSWORD:CONNECT_STRING:HOST_NAME:PORT:SERVICE_NAME:SID:SYSDBA:DB_LINK:'
+,p_report_columns=>'ORGANIZATION_ID:CONNECTION_NAME:CONNECTION:USER_NAME:PASSWORD:CONNECT_STRING:HOST_NAME:PORT:SERVICE_NAME:SID:SYSDBA:DB_LINK::TEST_CONNECTION'
 ,p_sort_column_1=>'CONNECTION_NAME'
 ,p_sort_direction_1=>'ASC'
 );
@@ -19312,6 +19324,14 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>':AD_READ_ONLY IS NULL AND :AD_READ_ONLY_PAGE IS NULL'
 ,p_button_condition_type=>'PLSQL_EXPRESSION'
 ,p_icon_css_classes=>'fa-plus'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(4859327979081912)
+,p_name=>'P100_CONNECTION_ID'
+,p_item_sequence=>20
+,p_item_plug_id=>wwv_flow_api.id(15159058509820463248)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'N'
 );
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(15159058536222463249)
@@ -19385,6 +19405,31 @@ wwv_flow_api.create_page_da_action(
 ,p_affected_region_id=>wwv_flow_api.id(15158153739656544194)
 ,p_stop_execution_on_error=>'Y'
 );
+wwv_flow_api.create_page_process(
+ p_id=>wwv_flow_api.id(4859483389081913)
+,p_process_sequence=>10
+,p_process_point=>'AFTER_SUBMIT'
+,p_process_type=>'NATIVE_PLSQL'
+,p_process_name=>'Test Connection'
+,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'DECLARE',
+'  lv_query VARCHAR2(32000) := NULL;',
+'  ln_count NUMBER := 0;',
+'BEGIN',
+'  lv_query := ''SELECT COUNT(*) FROM DUAL@VA'' || :p100_connection_id;',
+'  EXECUTE IMMEDIATE lv_query',
+'    INTO ln_count;',
+'EXCEPTION',
+'  WHEN OTHERS THEN',
+'    RAISE_APPLICATION_ERROR ( -20001, ''ERROR: Testing Connection.'');',
+'END;',
+''))
+,p_process_error_message=>'Connection Test Unsuccessful'
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_when=>'TEST_CONNECTION'
+,p_process_when_type=>'REQUEST_EQUALS_CONDITION'
+,p_process_success_message=>'Connection Test Successful'
+);
 end;
 /
 prompt --application/pages/page_00101
@@ -19403,7 +19448,7 @@ wwv_flow_api.create_page(
 ,p_dialog_chained=>'N'
 ,p_protection_level=>'C'
 ,p_last_updated_by=>'ABHISHEK'
-,p_last_upd_yyyymmddhh24miss=>'20180806041355'
+,p_last_upd_yyyymmddhh24miss=>'20180828073339'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(15158139521112544083)
@@ -19430,21 +19475,20 @@ wwv_flow_api.create_page_plug(
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(15158140619907544084)
-,p_button_sequence=>10
+,p_button_sequence=>30
 ,p_button_plug_id=>wwv_flow_api.id(15158140191510544084)
 ,p_button_name=>'CANCEL'
 ,p_button_action=>'DEFINED_BY_DA'
 ,p_button_template_options=>'#DEFAULT#'
 ,p_button_template_id=>wwv_flow_api.id(373081315889985311281)
 ,p_button_image_alt=>'Cancel'
-,p_button_position=>'REGION_TEMPLATE_CLOSE'
+,p_button_position=>'BELOW_BOX'
 ,p_warn_on_unsaved_changes=>null
 ,p_button_condition_type=>'NEVER'
-,p_grid_new_grid=>false
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(15158140072851544084)
-,p_button_sequence=>20
+,p_button_sequence=>40
 ,p_button_plug_id=>wwv_flow_api.id(15158140191510544084)
 ,p_button_name=>'DELETE'
 ,p_button_action=>'REDIRECT_URL'
@@ -19457,12 +19501,11 @@ wwv_flow_api.create_page_button(
 ,p_button_condition=>':P101_CONNECTION_ID IS NOT NULL AND :AD_ALLOW_DELETE IS NOT NULL'
 ,p_button_condition_type=>'PLSQL_EXPRESSION'
 ,p_icon_css_classes=>'fa-close'
-,p_grid_new_grid=>false
 ,p_database_action=>'DELETE'
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(15158139970626544084)
-,p_button_sequence=>30
+,p_button_sequence=>50
 ,p_button_plug_id=>wwv_flow_api.id(15158140191510544084)
 ,p_button_name=>'SAVE'
 ,p_button_action=>'SUBMIT'
@@ -19477,7 +19520,7 @@ wwv_flow_api.create_page_button(
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(15158139838259544084)
-,p_button_sequence=>40
+,p_button_sequence=>60
 ,p_button_plug_id=>wwv_flow_api.id(15158140191510544084)
 ,p_button_name=>'CREATE'
 ,p_button_action=>'SUBMIT'
@@ -19489,6 +19532,14 @@ wwv_flow_api.create_page_button(
 ,p_button_condition_type=>'ITEM_IS_NULL'
 ,p_icon_css_classes=>'fa-check'
 ,p_database_action=>'INSERT'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(4858435542081903)
+,p_name=>'P101_ERROR'
+,p_item_sequence=>210
+,p_item_plug_id=>wwv_flow_api.id(15158139521112544083)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
 );
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(15158143044569544134)
@@ -19548,6 +19599,8 @@ wwv_flow_api.create_page_item(
 ,p_cSize=>40
 ,p_cMaxlength=>150
 ,p_colspan=>9
+,p_read_only_when=>'P101_CONNECTION_ID'
+,p_read_only_when_type=>'ITEM_IS_NOT_NULL'
 ,p_field_template=>wwv_flow_api.id(373081315647514311281)
 ,p_item_template_options=>'#DEFAULT#:t-Form-fieldContainer--stretchInputs'
 ,p_attribute_01=>'N'
@@ -19558,6 +19611,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(15158144681713544157)
 ,p_name=>'P101_USER_NAME'
+,p_is_required=>true
 ,p_item_sequence=>50
 ,p_item_plug_id=>wwv_flow_api.id(15158139521112544083)
 ,p_use_cache_before_default=>'NO'
@@ -19568,7 +19622,7 @@ wwv_flow_api.create_page_item(
 ,p_cSize=>60
 ,p_cMaxlength=>150
 ,p_colspan=>9
-,p_field_template=>wwv_flow_api.id(373081315434081311281)
+,p_field_template=>wwv_flow_api.id(373081315647514311281)
 ,p_item_template_options=>'#DEFAULT#:t-Form-fieldContainer--stretchInputs'
 ,p_attribute_01=>'N'
 ,p_attribute_02=>'N'
@@ -19588,7 +19642,7 @@ wwv_flow_api.create_page_item(
 ,p_cSize=>40
 ,p_cMaxlength=>150
 ,p_colspan=>9
-,p_field_template=>wwv_flow_api.id(373081315434081311281)
+,p_field_template=>wwv_flow_api.id(373081315647514311281)
 ,p_item_template_options=>'#DEFAULT#:t-Form-fieldContainer--stretchInputs'
 ,p_attribute_01=>'N'
 ,p_attribute_02=>'Y'
@@ -19596,6 +19650,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(15158145523310544157)
 ,p_name=>'P101_CONNECT_STRING'
+,p_is_required=>true
 ,p_item_sequence=>70
 ,p_item_plug_id=>wwv_flow_api.id(15158139521112544083)
 ,p_use_cache_before_default=>'NO'
@@ -19607,7 +19662,7 @@ wwv_flow_api.create_page_item(
 ,p_cMaxlength=>2000
 ,p_cHeight=>2
 ,p_colspan=>9
-,p_field_template=>wwv_flow_api.id(373081315434081311281)
+,p_field_template=>wwv_flow_api.id(373081315647514311281)
 ,p_item_template_options=>'#DEFAULT#:t-Form-fieldContainer--stretchInputs'
 ,p_attribute_01=>'Y'
 ,p_attribute_02=>'N'
@@ -19620,19 +19675,10 @@ wwv_flow_api.create_page_item(
 ,p_item_sequence=>80
 ,p_item_plug_id=>wwv_flow_api.id(15158139521112544083)
 ,p_use_cache_before_default=>'NO'
-,p_prompt=>'Host Name'
 ,p_source=>'HOST_NAME'
 ,p_source_type=>'DB_COLUMN'
-,p_display_as=>'NATIVE_TEXT_FIELD'
-,p_cSize=>40
-,p_cMaxlength=>150
-,p_colspan=>9
-,p_field_template=>wwv_flow_api.id(373081315434081311281)
-,p_item_template_options=>'#DEFAULT#:t-Form-fieldContainer--stretchInputs'
-,p_attribute_01=>'N'
-,p_attribute_02=>'N'
-,p_attribute_04=>'TEXT'
-,p_attribute_05=>'BOTH'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
 );
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(15158146271870544158)
@@ -19640,16 +19686,10 @@ wwv_flow_api.create_page_item(
 ,p_item_sequence=>90
 ,p_item_plug_id=>wwv_flow_api.id(15158139521112544083)
 ,p_use_cache_before_default=>'NO'
-,p_prompt=>'Port'
 ,p_source=>'PORT'
 ,p_source_type=>'DB_COLUMN'
-,p_display_as=>'NATIVE_NUMBER_FIELD'
-,p_cSize=>40
-,p_cMaxlength=>150
-,p_colspan=>9
-,p_field_template=>wwv_flow_api.id(373081315434081311281)
-,p_item_template_options=>'#DEFAULT#:t-Form-fieldContainer--stretchInputs'
-,p_attribute_03=>'left'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
 );
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(15158146694652544159)
@@ -19657,19 +19697,10 @@ wwv_flow_api.create_page_item(
 ,p_item_sequence=>100
 ,p_item_plug_id=>wwv_flow_api.id(15158139521112544083)
 ,p_use_cache_before_default=>'NO'
-,p_prompt=>'Service Name'
 ,p_source=>'SERVICE_NAME'
 ,p_source_type=>'DB_COLUMN'
-,p_display_as=>'NATIVE_TEXT_FIELD'
-,p_cSize=>40
-,p_cMaxlength=>150
-,p_colspan=>9
-,p_field_template=>wwv_flow_api.id(373081315434081311281)
-,p_item_template_options=>'#DEFAULT#:t-Form-fieldContainer--stretchInputs'
-,p_attribute_01=>'N'
-,p_attribute_02=>'N'
-,p_attribute_04=>'TEXT'
-,p_attribute_05=>'BOTH'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
 );
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(15158147075984544159)
@@ -19677,19 +19708,10 @@ wwv_flow_api.create_page_item(
 ,p_item_sequence=>110
 ,p_item_plug_id=>wwv_flow_api.id(15158139521112544083)
 ,p_use_cache_before_default=>'NO'
-,p_prompt=>'SID'
 ,p_source=>'SID'
 ,p_source_type=>'DB_COLUMN'
-,p_display_as=>'NATIVE_TEXT_FIELD'
-,p_cSize=>40
-,p_cMaxlength=>150
-,p_colspan=>9
-,p_field_template=>wwv_flow_api.id(373081315434081311281)
-,p_item_template_options=>'#DEFAULT#:t-Form-fieldContainer--stretchInputs'
-,p_attribute_01=>'N'
-,p_attribute_02=>'N'
-,p_attribute_04=>'TEXT'
-,p_attribute_05=>'BOTH'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
 );
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(15158147485589544159)
@@ -19697,17 +19719,10 @@ wwv_flow_api.create_page_item(
 ,p_item_sequence=>120
 ,p_item_plug_id=>wwv_flow_api.id(15158139521112544083)
 ,p_use_cache_before_default=>'NO'
-,p_prompt=>'Sysdba'
 ,p_source=>'SYSDBA'
 ,p_source_type=>'DB_COLUMN'
-,p_display_as=>'NATIVE_YES_NO'
-,p_colspan=>9
-,p_field_template=>wwv_flow_api.id(373081315434081311281)
-,p_item_template_options=>'#DEFAULT#:t-Form-fieldContainer--stretchInputs'
-,p_attribute_01=>'CUSTOM'
-,p_attribute_02=>'Y'
-,p_attribute_03=>'Yes'
-,p_attribute_05=>'No'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
 );
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(15158147902867544159)
@@ -19715,18 +19730,12 @@ wwv_flow_api.create_page_item(
 ,p_item_sequence=>130
 ,p_item_plug_id=>wwv_flow_api.id(15158139521112544083)
 ,p_use_cache_before_default=>'NO'
-,p_prompt=>'DB Link'
 ,p_source=>'DB_LINK'
 ,p_source_type=>'DB_COLUMN'
-,p_display_as=>'NATIVE_TEXT_FIELD'
-,p_cSize=>40
-,p_colspan=>9
-,p_field_template=>wwv_flow_api.id(373081315434081311281)
-,p_item_template_options=>'#DEFAULT#:t-Form-fieldContainer--stretchInputs'
-,p_attribute_01=>'N'
-,p_attribute_02=>'N'
-,p_attribute_04=>'TEXT'
-,p_attribute_05=>'BOTH'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_display_when=>'P101_CONNECTION_ID'
+,p_display_when_type=>'ITEM_IS_NOT_NULL'
+,p_attribute_01=>'Y'
 );
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(15158148279327544160)
@@ -19864,6 +19873,24 @@ wwv_flow_api.create_page_computation(
 ,p_computation_type=>'PLSQL_EXPRESSION'
 ,p_computation=>'SYSDATE'
 );
+wwv_flow_api.create_page_computation(
+ p_id=>wwv_flow_api.id(4858843849081907)
+,p_computation_sequence=>50
+,p_computation_item=>'P101_ERROR'
+,p_computation_type=>'STATIC_ASSIGNMENT'
+);
+wwv_flow_api.create_page_validation(
+ p_id=>wwv_flow_api.id(4858909793081908)
+,p_validation_name=>'Password must have some value'
+,p_validation_sequence=>10
+,p_validation=>'P101_PASSWORD'
+,p_validation_type=>'ITEM_NOT_NULL'
+,p_error_message=>'Password must have some value.'
+,p_validation_condition=>'CREATE,SAVE'
+,p_validation_condition_type=>'REQUEST_IN_CONDITION'
+,p_associated_item=>wwv_flow_api.id(15158145032564544157)
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+);
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(15158140640221544084)
 ,p_name=>'Cancel Dialog'
@@ -19919,14 +19946,63 @@ wwv_flow_api.create_page_process(
 ,p_attribute_02=>'VA_CONNECTIONS'
 ,p_attribute_03=>'P101_CONNECTION_ID'
 ,p_attribute_04=>'CONNECTION_ID'
+,p_attribute_09=>'P101_CONNECTION_ID'
 ,p_attribute_11=>'I:U:D'
 ,p_attribute_12=>'Y'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_when=>'CREATE,SAVE,DELETE'
+,p_process_when_type=>'REQUEST_IN_CONDITION'
 ,p_process_success_message=>'Action Processed.'
 );
 wwv_flow_api.create_page_process(
- p_id=>wwv_flow_api.id(15158152659103544169)
+ p_id=>wwv_flow_api.id(4858565995081904)
 ,p_process_sequence=>40
+,p_process_point=>'AFTER_SUBMIT'
+,p_process_type=>'NATIVE_PLSQL'
+,p_process_name=>'Create DB Link'
+,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'DECLARE',
+'  ln_count NUMBER := 0;',
+'  lv_query VARCHAR2(32000) := NULL;',
+'BEGIN',
+'  SELECT COUNT(*)',
+'    INTO ln_count',
+'    FROM user_db_links',
+'   WHERE db_link = ''VA'' || :p101_connection_id;',
+'  IF ln_count > 0',
+'  THEN',
+'    BEGIN',
+'      lv_query := ''DROP DATABASE LINK VA'' || :p101_connection_id;',
+'      EXECUTE IMMEDIATE lv_query;',
+'    EXCEPTION',
+'      WHEN OTHERS THEN',
+'        :p101_error := ''ERROR: Dropping database link. '' || lv_query || '' '' ||',
+'                       SQLERRM;',
+'        logger.log_error(:p101_error);',
+'    END;',
+'  END IF;',
+'  IF :p101_error IS NULL',
+'  THEN',
+'    BEGIN',
+'      lv_query := ''CREATE DATABASE LINK VA'' || :p101_connection_id ||',
+'                  '' CONNECT TO '' || :p101_user_name || '' IDENTIFIED BY '' ||',
+'                  :p101_password || '' USING '''''' || :p101_connect_string || '''''''';',
+'      EXECUTE IMMEDIATE lv_query;',
+'    EXCEPTION',
+'      WHEN OTHERS THEN',
+'        :p101_error := ''ERROR: Creating database link. '' || lv_query || '' '' ||',
+'                       SQLERRM;',
+'        logger.log_error(:p101_error);',
+'    END;',
+'  END IF;',
+'END;'))
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_when=>'CREATE,SAVE'
+,p_process_when_type=>'REQUEST_IN_CONDITION'
+);
+wwv_flow_api.create_page_process(
+ p_id=>wwv_flow_api.id(15158152659103544169)
+,p_process_sequence=>60
 ,p_process_point=>'AFTER_SUBMIT'
 ,p_process_type=>'NATIVE_SESSION_STATE'
 ,p_process_name=>'reset page'
@@ -19936,7 +20012,7 @@ wwv_flow_api.create_page_process(
 );
 wwv_flow_api.create_page_process(
  p_id=>wwv_flow_api.id(15158153093415544170)
-,p_process_sequence=>50
+,p_process_sequence=>70
 ,p_process_point=>'AFTER_SUBMIT'
 ,p_process_type=>'NATIVE_CLOSE_WINDOW'
 ,p_process_name=>'Close Dialog'
@@ -19963,8 +20039,8 @@ wwv_flow_api.create_page(
 '}'))
 ,p_step_template=>wwv_flow_api.id(373124592904207190657)
 ,p_page_template_options=>'#DEFAULT#'
-,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20180807174713'
+,p_last_updated_by=>'ABHISHEK'
+,p_last_upd_yyyymmddhh24miss=>'20180828154546'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(4546937334638835)
@@ -20156,7 +20232,7 @@ wwv_flow_api.create_worksheet(
 ,p_report_list_mode=>'TABS'
 ,p_show_detail_link=>'C'
 ,p_download_formats=>'CSV:HTML:EMAIL:XLS:PDF:RTF'
-,p_detail_link=>'f?p=&APP_ID.:203:&APP_SESSION.::::P203_VAULT_REQUESTER_ID:#VAULT_REQUESTER_ID#'
+,p_detail_link=>'f?p=&APP_ID.:203:&SESSION.::&DEBUG.::P203_VAULT_REQUESTER_ID,P203_ORGANIZATION_ID:#VAULT_REQUESTER_ID#,&P200_ORGANIZATION_ID.'
 ,p_detail_link_text=>'<i class="fa fa-pencil"></i>'
 ,p_detail_link_condition_type=>'PLSQL_EXPRESSION'
 ,p_detail_link_cond=>':AD_READ_ONLY IS NULL AND :AD_READ_ONLY_PAGE IS NULL'
@@ -20309,7 +20385,7 @@ wwv_flow_api.create_worksheet(
 ,p_report_list_mode=>'TABS'
 ,p_show_detail_link=>'C'
 ,p_download_formats=>'CSV:HTML:EMAIL:XLS:PDF:RTF'
-,p_detail_link=>'f?p=&APP_ID.:204:&APP_SESSION.::::P204_VAULT_APPROVER_ID:#VAULT_APPROVER_ID#'
+,p_detail_link=>'f?p=&APP_ID.:204:&SESSION.::&DEBUG.::P204_VAULT_APPROVER_ID,P204_ORGANIZATION_ID:#VAULT_APPROVER_ID#,&P200_ORGANIZATION_ID.'
 ,p_detail_link_text=>'<i class="fa fa-pencil"></i>'
 ,p_detail_link_condition_type=>'PLSQL_EXPRESSION'
 ,p_detail_link_cond=>':AD_READ_ONLY IS NULL AND :AD_READ_ONLY_PAGE IS NULL'
@@ -22553,7 +22629,7 @@ wwv_flow_api.create_page(
 ,p_step_template=>wwv_flow_api.id(373124592904207190657)
 ,p_page_template_options=>'#DEFAULT#'
 ,p_last_updated_by=>'ABHISHEK'
-,p_last_upd_yyyymmddhh24miss=>'20180810110937'
+,p_last_upd_yyyymmddhh24miss=>'20180831095621'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(4523511099329137)
@@ -22575,7 +22651,9 @@ wwv_flow_api.create_page_plug(
 'VR.CREATED_ON "CREATED_ON",',
 '(SELECT USER_NAME FROM AD_USERS WHERE USER_ID = VR.UPDATED_BY) "UPDATED_BY",',
 'VR.UPDATED_ON "UPDATED_ON",',
-'(SELECT STATUS_MEANING FROM VA_VAULT_REQUEST_STATUS WHERE STATUS = (SELECT STATUS FROM VA_REQUEST_STATUSES WHERE REQUEST_ID = VR.REQUEST_ID)) STATUS',
+'(SELECT STATUS_MEANING FROM VA_VAULT_REQUEST_STATUS WHERE STATUS = (SELECT MAX(STATUS) FROM VA_REQUEST_STATUSES WHERE REQUEST_ID = VR.REQUEST_ID)) STATUS,',
+'CASE WHEN VR.CREATED_BY = :AD_USER_ID AND SYSDATE BETWEEN VR.DATE_FROM AND VR.DATE_TO AND (SELECT MAX(STATUS) FROM VA_REQUEST_STATUSES WHERE REQUEST_ID = VR.REQUEST_ID) = 1 THEN ''<i class="fa fa-key"></i>'' ELSE NULL END "PASSWORD",',
+'CONNECTION_ID CONNECTION_ID1',
 'from "#OWNER#"."VA_REQUESTS" VR, VA_VAULTS VV',
 'where VR.VAULT_ID = VV.VAULT_ID',
 'AND VV.ORGANIZATION_ID = :P300_ORGANIZATION_ID',
@@ -22752,9 +22830,40 @@ wwv_flow_api.create_worksheet_column(
 ,p_db_column_name=>'STATUS'
 ,p_display_order=>110
 ,p_column_identifier=>'K'
-,p_column_label=>'Status'
+,p_column_label=>'Request Status'
 ,p_column_type=>'STRING'
 ,p_heading_alignment=>'LEFT'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(4860121149081920)
+,p_db_column_name=>'CONNECTION_ID1'
+,p_display_order=>120
+,p_column_identifier=>'N'
+,p_column_label=>'Connection Id1'
+,p_column_type=>'NUMBER'
+,p_column_alignment=>'RIGHT'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(4859621222081915)
+,p_db_column_name=>'PASSWORD'
+,p_display_order=>130
+,p_column_identifier=>'M'
+,p_column_label=>'Password'
+,p_column_link=>'f?p=&APP_ID.:302:&SESSION.::&DEBUG.:RP:P302_CONNECTION_ID,P302_REQUEST_ID:#CONNECTION_ID1#,#REQUEST_ID#'
+,p_column_linktext=>'#PASSWORD#'
+,p_allow_sorting=>'N'
+,p_allow_filtering=>'N'
+,p_allow_highlighting=>'N'
+,p_allow_ctrl_breaks=>'N'
+,p_allow_aggregations=>'N'
+,p_allow_computations=>'N'
+,p_allow_charting=>'N'
+,p_allow_group_by=>'N'
+,p_allow_pivot=>'N'
+,p_allow_hide=>'N'
+,p_column_type=>'STRING'
+,p_display_text_as=>'WITHOUT_MODIFICATION'
+,p_column_alignment=>'CENTER'
 );
 wwv_flow_api.create_worksheet_rpt(
  p_id=>wwv_flow_api.id(4738078737349528)
@@ -22763,7 +22872,7 @@ wwv_flow_api.create_worksheet_rpt(
 ,p_report_alias=>'47381'
 ,p_status=>'PUBLIC'
 ,p_is_default=>'Y'
-,p_report_columns=>'VAULT_ID:CONNECTION_ID:REQUEST_REASON:STATUS:DATE_FROM:DATE_TO:CREATED_BY:CREATED_ON:'
+,p_report_columns=>'VAULT_ID:CONNECTION_ID:STATUS:REQUEST_REASON:DATE_FROM:DATE_TO:CREATED_BY:CREATED_ON:PASSWORD:'
 ,p_sort_column_1=>'CONNECTION_ID'
 ,p_sort_direction_1=>'ASC'
 ,p_break_on=>'VAULT_ID'
@@ -22788,11 +22897,12 @@ wwv_flow_api.create_page_plug(
 'VR.CREATED_ON "CREATED_ON",',
 '(SELECT USER_NAME FROM AD_USERS WHERE USER_ID = VR.UPDATED_BY) "UPDATED_BY",',
 'VR.UPDATED_ON "UPDATED_ON",',
-'(SELECT STATUS_MEANING FROM VA_VAULT_REQUEST_STATUS WHERE STATUS = (SELECT STATUS FROM VA_REQUEST_STATUSES WHERE REQUEST_ID = VR.REQUEST_ID)) STATUS',
+'(SELECT STATUS_MEANING FROM VA_VAULT_REQUEST_STATUS WHERE STATUS = (SELECT MAX(STATUS) FROM VA_REQUEST_STATUSES WHERE REQUEST_ID = VR.REQUEST_ID)) STATUS,',
+'CASE WHEN VR.CREATED_BY = :AD_USER_ID AND SYSDATE BETWEEN VR.DATE_FROM AND VR.DATE_TO AND (SELECT MAX(STATUS) FROM VA_REQUEST_STATUSES WHERE REQUEST_ID = VR.REQUEST_ID) = 1 THEN ''<i class="fa fa-key"></i>'' ELSE NULL END "PASSWORD",',
+'CONNECTION_ID CONNECTION_ID1',
 'from "#OWNER#"."VA_REQUESTS" VR, VA_VAULTS VV',
 'where VR.VAULT_ID = VV.VAULT_ID',
-'AND VV.ORGANIZATION_ID = :P300_ORGANIZATION_ID',
-''))
+'AND VV.ORGANIZATION_ID = :P300_ORGANIZATION_ID'))
 ,p_plug_source_type=>'NATIVE_IR'
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_plug_required_role=>'!'||wwv_flow_api.id(4700929556616223)
@@ -22919,9 +23029,40 @@ wwv_flow_api.create_worksheet_column(
 ,p_db_column_name=>'STATUS'
 ,p_display_order=>60
 ,p_column_identifier=>'O'
-,p_column_label=>'Status'
+,p_column_label=>'Request Status'
 ,p_column_type=>'STRING'
 ,p_heading_alignment=>'LEFT'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(4861279007081931)
+,p_db_column_name=>'PASSWORD'
+,p_display_order=>70
+,p_column_identifier=>'P'
+,p_column_label=>'Password'
+,p_column_link=>'f?p=&APP_ID.:302:&SESSION.::&DEBUG.:RP:P302_CONNECTION_ID,P302_REQUEST_ID:#CONNECTION_ID1#,#REQUEST_ID#'
+,p_column_linktext=>'#PASSWORD#'
+,p_allow_sorting=>'N'
+,p_allow_filtering=>'N'
+,p_allow_highlighting=>'N'
+,p_allow_ctrl_breaks=>'N'
+,p_allow_aggregations=>'N'
+,p_allow_computations=>'N'
+,p_allow_charting=>'N'
+,p_allow_group_by=>'N'
+,p_allow_pivot=>'N'
+,p_allow_hide=>'N'
+,p_column_type=>'STRING'
+,p_display_text_as=>'WITHOUT_MODIFICATION'
+,p_column_alignment=>'CENTER'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(4861361588081932)
+,p_db_column_name=>'CONNECTION_ID1'
+,p_display_order=>80
+,p_column_identifier=>'Q'
+,p_column_label=>'Connection Id1'
+,p_column_type=>'NUMBER'
+,p_column_alignment=>'RIGHT'
 );
 wwv_flow_api.create_worksheet_rpt(
  p_id=>wwv_flow_api.id(4681879929880295)
@@ -22930,13 +23071,15 @@ wwv_flow_api.create_worksheet_rpt(
 ,p_report_alias=>'46819'
 ,p_status=>'PUBLIC'
 ,p_is_default=>'Y'
-,p_report_columns=>'VAULT_ID:CONNECTION_ID:REQUEST_REASON:DATE_FROM:DATE_TO:CREATED_BY:CREATED_ON::STATUS'
-,p_sort_column_1=>'CONNECTION_ID'
-,p_sort_direction_1=>'ASC'
-,p_sort_column_2=>'VAULT_ID'
+,p_report_columns=>'VAULT_ID:CONNECTION_ID:STATUS:REQUEST_REASON:DATE_FROM:DATE_TO:CREATED_BY:CREATED_ON:PASSWORD:'
+,p_sort_column_1=>'CREATED_ON'
+,p_sort_direction_1=>'DESC'
+,p_sort_column_2=>'CONNECTION_ID'
 ,p_sort_direction_2=>'ASC'
-,p_break_on=>'VAULT_ID:0:0:0:0:0'
-,p_break_enabled_on=>'VAULT_ID:0:0:0:0:0'
+,p_sort_column_3=>'VAULT_ID'
+,p_sort_direction_3=>'ASC'
+,p_break_on=>'0:0:0:0:0'
+,p_break_enabled_on=>'0:0:0:0:0'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(15163741342207366475)
@@ -23100,9 +23243,9 @@ begin
 wwv_flow_api.create_page(
  p_id=>301
 ,p_user_interface_id=>wwv_flow_api.id(484148560624440986193)
-,p_name=>'Create Requests'
+,p_name=>'Manage Requests'
 ,p_page_mode=>'MODAL'
-,p_step_title=>'Create Requests'
+,p_step_title=>'Manage Requests'
 ,p_step_sub_title_type=>'TEXT_WITH_SUBSTITUTIONS'
 ,p_autocomplete_on_off=>'OFF'
 ,p_javascript_code=>'var htmldb_delete_message=''"DELETE_CONFIRM_MSG"'';'
@@ -23111,7 +23254,7 @@ wwv_flow_api.create_page(
 ,p_dialog_chained=>'N'
 ,p_protection_level=>'C'
 ,p_last_updated_by=>'ABHISHEK'
-,p_last_upd_yyyymmddhh24miss=>'20180810113206'
+,p_last_upd_yyyymmddhh24miss=>'20180828161828'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(4660424905842412)
@@ -23267,9 +23410,8 @@ wwv_flow_api.create_page_item(
 ,p_item_plug_id=>wwv_flow_api.id(4660424905842412)
 ,p_use_cache_before_default=>'NO'
 ,p_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'SELECT STATUS FROM VA_REQUEST_STATUSES',
-'WHERE REQUEST_ID = :P301_REQUEST_ID',
-'AND ROWNUM = 1'))
+'SELECT MAX(STATUS) FROM VA_REQUEST_STATUSES',
+'WHERE REQUEST_ID = :P301_REQUEST_ID'))
 ,p_source_type=>'QUERY'
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_attribute_01=>'Y'
@@ -23747,6 +23889,322 @@ wwv_flow_api.create_page_process(
 );
 end;
 /
+prompt --application/pages/page_00302
+begin
+wwv_flow_api.create_page(
+ p_id=>302
+,p_user_interface_id=>wwv_flow_api.id(484148560624440986193)
+,p_name=>'Passwords'
+,p_page_mode=>'MODAL'
+,p_step_title=>'Passwords'
+,p_step_sub_title_type=>'TEXT_WITH_SUBSTITUTIONS'
+,p_autocomplete_on_off=>'OFF'
+,p_javascript_code=>'var htmldb_delete_message=''"DELETE_CONFIRM_MSG"'';'
+,p_step_template=>wwv_flow_api.id(373124590403048188645)
+,p_page_template_options=>'#DEFAULT#'
+,p_dialog_chained=>'N'
+,p_protection_level=>'C'
+,p_last_updated_by=>'ABHISHEK'
+,p_last_upd_yyyymmddhh24miss=>'20180831101901'
+);
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(4861059397081929)
+,p_plug_name=>'Error'
+,p_region_template_options=>'#DEFAULT#:t-Alert--colorBG:t-Alert--horizontal:t-Alert--defaultIcons:t-Alert--danger:t-Alert--removeHeading'
+,p_plug_template=>wwv_flow_api.id(373081245650589311237)
+,p_plug_display_sequence=>20
+,p_include_in_reg_disp_sel_yn=>'Y'
+,p_plug_display_point=>'BODY'
+,p_plug_source=>'Connection is locked by &P302_LOCKED_BY. or awaiting password refresh.'
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_plug_display_condition_type=>'ITEM_IS_NULL'
+,p_plug_display_when_condition=>'P302_CONNECTION_ID'
+,p_attribute_01=>'N'
+,p_attribute_02=>'HTML'
+);
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(4898032136623000)
+,p_plug_name=>'Passwords'
+,p_region_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_api.id(373081249319251311240)
+,p_plug_display_sequence=>10
+,p_plug_display_point=>'BODY'
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_plug_display_condition_type=>'ITEM_IS_NOT_NULL'
+,p_plug_display_when_condition=>'P302_CONNECTION_ID'
+,p_attribute_01=>'N'
+,p_attribute_02=>'TEXT'
+,p_attribute_03=>'Y'
+);
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(4898795740623001)
+,p_plug_name=>'Buttons'
+,p_region_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_api.id(373081250359973311240)
+,p_plug_display_sequence=>10
+,p_plug_display_point=>'REGION_POSITION_03'
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_plug_display_condition_type=>'ITEM_IS_NOT_NULL'
+,p_plug_display_when_condition=>'P302_CONNECTION_ID'
+,p_attribute_01=>'N'
+,p_attribute_02=>'TEXT'
+,p_attribute_03=>'Y'
+);
+wwv_flow_api.create_page_button(
+ p_id=>wwv_flow_api.id(4860226526081921)
+,p_button_sequence=>10
+,p_button_plug_id=>wwv_flow_api.id(4898795740623001)
+,p_button_name=>'COPY'
+,p_button_action=>'DEFINED_BY_DA'
+,p_button_template_options=>'#DEFAULT#'
+,p_button_template_id=>wwv_flow_api.id(373081315838633311281)
+,p_button_is_hot=>'Y'
+,p_button_image_alt=>'Copy'
+,p_button_position=>'REGION_TEMPLATE_CREATE'
+,p_warn_on_unsaved_changes=>null
+,p_icon_css_classes=>'fa-copy'
+,p_button_cattributes=>'data-clipboard-source="#P302_PASSWORD_DISPLAY"'
+);
+wwv_flow_api.create_page_button(
+ p_id=>wwv_flow_api.id(4860704703081926)
+,p_button_sequence=>10
+,p_button_plug_id=>wwv_flow_api.id(4898795740623001)
+,p_button_name=>'RELEASE'
+,p_button_action=>'SUBMIT'
+,p_button_template_options=>'#DEFAULT#:t-Button--warning'
+,p_button_template_id=>wwv_flow_api.id(373081315838633311281)
+,p_button_image_alt=>'Release'
+,p_button_position=>'REGION_TEMPLATE_PREVIOUS'
+,p_icon_css_classes=>'fa-unlock'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(4860695382081925)
+,p_name=>'P302_REQUEST_ID'
+,p_item_sequence=>10
+,p_item_plug_id=>wwv_flow_api.id(4898032136623000)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(4861126989081930)
+,p_name=>'P302_LOCKED_BY'
+,p_item_sequence=>70
+,p_item_plug_id=>wwv_flow_api.id(4898032136623000)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(4901566593623021)
+,p_name=>'P302_CONNECTION_ID'
+,p_item_sequence=>10
+,p_item_plug_id=>wwv_flow_api.id(4898032136623000)
+,p_use_cache_before_default=>'NO'
+,p_source=>'CONNECTION_ID'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_protection_level=>'S'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(4901901834623033)
+,p_name=>'P302_ORGANIZATION_ID'
+,p_item_sequence=>20
+,p_item_plug_id=>wwv_flow_api.id(4898032136623000)
+,p_use_cache_before_default=>'NO'
+,p_source=>'ORGANIZATION_ID'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(4902297877623045)
+,p_name=>'P302_CONNECTION_NAME'
+,p_item_sequence=>30
+,p_item_plug_id=>wwv_flow_api.id(4898032136623000)
+,p_use_cache_before_default=>'NO'
+,p_prompt=>'Connection Name'
+,p_source=>'CONNECTION_NAME'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_DISPLAY_ONLY'
+,p_colspan=>9
+,p_field_template=>wwv_flow_api.id(373081315434081311281)
+,p_item_template_options=>'#DEFAULT#'
+,p_attribute_01=>'Y'
+,p_attribute_02=>'VALUE'
+,p_attribute_04=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(4902660759623045)
+,p_name=>'P302_CONNECTION'
+,p_item_sequence=>40
+,p_item_plug_id=>wwv_flow_api.id(4898032136623000)
+,p_use_cache_before_default=>'NO'
+,p_prompt=>'Connection'
+,p_source=>'CONNECTION'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_DISPLAY_ONLY'
+,p_colspan=>9
+,p_field_template=>wwv_flow_api.id(373081315434081311281)
+,p_item_template_options=>'#DEFAULT#'
+,p_attribute_01=>'Y'
+,p_attribute_02=>'VALUE'
+,p_attribute_04=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(4903090580623049)
+,p_name=>'P302_USER_NAME'
+,p_item_sequence=>50
+,p_item_plug_id=>wwv_flow_api.id(4898032136623000)
+,p_use_cache_before_default=>'NO'
+,p_prompt=>'User Name'
+,p_source=>'USER_NAME'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_DISPLAY_ONLY'
+,p_colspan=>9
+,p_field_template=>wwv_flow_api.id(373081315434081311281)
+,p_item_template_options=>'#DEFAULT#'
+,p_attribute_01=>'Y'
+,p_attribute_02=>'VALUE'
+,p_attribute_04=>'Y'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(4903474633623049)
+,p_name=>'P302_PASSWORD'
+,p_item_sequence=>60
+,p_item_plug_id=>wwv_flow_api.id(4898032136623000)
+,p_use_cache_before_default=>'NO'
+,p_prompt=>'Password'
+,p_source=>'PASSWORD'
+,p_source_type=>'DB_COLUMN'
+,p_display_as=>'NATIVE_DISPLAY_ONLY'
+,p_colspan=>9
+,p_field_template=>wwv_flow_api.id(373081315434081311281)
+,p_item_template_options=>'#DEFAULT#'
+,p_attribute_01=>'Y'
+,p_attribute_02=>'VALUE'
+,p_attribute_04=>'Y'
+);
+wwv_flow_api.create_page_process(
+ p_id=>wwv_flow_api.id(4860517043081924)
+,p_process_sequence=>10
+,p_process_point=>'AFTER_HEADER'
+,p_process_type=>'NATIVE_PLSQL'
+,p_process_name=>'Insert Request Access'
+,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'DECLARE',
+'  ln_connection_id     NUMBER := 0;',
+'  ln_request_access_id NUMBER := 0;',
+'BEGIN',
+'  SELECT vc.connection_id',
+'    INTO ln_connection_id',
+'    FROM va_connections vc',
+'   WHERE vc.connection_id = :p302_connection_id',
+'     AND (vc.request_access_id IS NULL OR EXISTS',
+'          (SELECT 1',
+'             FROM va_request_accesses vra',
+'            WHERE vra.request_access_id = vc.request_access_id',
+'              AND vra.created_by = :ad_user_id',
+'              AND vra.status = 1))',
+'     FOR UPDATE;',
+'  INSERT INTO va_request_accesses',
+'    (request_access_id,',
+'     request_id,',
+'     status,',
+'     created_by,',
+'     created_on)',
+'  VALUES',
+'    (to_char(SYSDATE,',
+'             ''YYYYMMDD'') || lpad(va_request_accesses_s.nextval,',
+'                                 7,',
+'                                 0),',
+'     :p302_request_id,',
+'     1,',
+'     :ad_user_id,',
+'     SYSDATE)',
+'  RETURNING request_access_id INTO ln_request_access_id;',
+'  UPDATE va_connections vc',
+'     SET vc.request_access_id = ln_request_access_id',
+'   WHERE connection_id = ln_connection_id;',
+'  COMMIT;',
+'EXCEPTION',
+'  WHEN OTHERS THEN',
+'    SELECT first_name || '' '' || last_name || '' ('' || au.user_name || '')''',
+'      INTO :p302_locked_by',
+'      FROM ad_users            au,',
+'           va_request_accesses vra,',
+'           va_connections      vc',
+'     WHERE au.user_id = vra.created_by',
+'       AND vra.request_access_id = vc.request_access_id',
+'       AND vc.connection_id = :p302_connection_id;',
+'    :p302_connection_id := NULL;',
+'    ',
+'END;',
+''))
+,p_process_error_message=>'Connection is either locked by other user or in a process of getting released.'
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+);
+wwv_flow_api.create_page_process(
+ p_id=>wwv_flow_api.id(4904276467623054)
+,p_process_sequence=>20
+,p_process_point=>'AFTER_HEADER'
+,p_process_type=>'NATIVE_FORM_FETCH'
+,p_process_name=>'Fetch Row from VA_CONNECTIONS'
+,p_attribute_02=>'VA_CONNECTIONS'
+,p_attribute_03=>'P302_CONNECTION_ID'
+,p_attribute_04=>'CONNECTION_ID'
+,p_process_error_message=>'Error'
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_when=>'P302_CONNECTION_ID'
+,p_process_when_type=>'ITEM_IS_NOT_NULL'
+);
+wwv_flow_api.create_page_process(
+ p_id=>wwv_flow_api.id(4860860525081927)
+,p_process_sequence=>10
+,p_process_point=>'AFTER_SUBMIT'
+,p_process_type=>'NATIVE_PLSQL'
+,p_process_name=>'Release'
+,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'DECLARE ',
+'  ln_request_access_id NUMBER := 0;',
+'BEGIN',
+'    INSERT INTO va_request_accesses (',
+'        request_access_id,',
+'        request_id,',
+'        status,',
+'        created_by,',
+'        created_on',
+'    ) VALUES (',
+'        TO_CHAR(SYSDATE,''YYYYMMDD'') || lpad(',
+'            va_request_accesses_s.NEXTVAL,',
+'            7,',
+'            0',
+'        ),',
+'        :p302_request_id,',
+'        2,',
+'        :ad_user_id,',
+'        SYSDATE',
+'    ) returning request_access_id into ln_request_access_id;',
+'    ',
+'   UPDATE va_connections vc',
+'     SET vc.request_access_id = ln_request_access_id',
+'   WHERE connection_id = :p302_connection_id;',
+'',
+'END;'))
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_when_button_id=>wwv_flow_api.id(4860704703081926)
+,p_process_success_message=>'Connection Successfully Released'
+);
+wwv_flow_api.create_page_process(
+ p_id=>wwv_flow_api.id(4860956464081928)
+,p_process_sequence=>20
+,p_process_point=>'AFTER_SUBMIT'
+,p_process_type=>'NATIVE_CLOSE_WINDOW'
+,p_process_name=>'Close Dialog'
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_when_button_id=>wwv_flow_api.id(4860704703081926)
+);
+end;
+/
 prompt --application/deployment/definition
 begin
 wwv_flow_api.create_install(
@@ -23795,6 +24253,7 @@ wwv_flow_api.create_install_script(
 '	"SID" VARCHAR2(150), ',
 '	"SYSDBA" VARCHAR2(1), ',
 '	"DB_LINK" VARCHAR2(150), ',
+'    "REQUEST_ACCESS_ID" NUMBER, ',
 '	"ENABLED" VARCHAR2(1), ',
 '	"DATE_FROM" DATE, ',
 '	"DATE_TO" DATE, ',
@@ -23802,47 +24261,7 @@ wwv_flow_api.create_install_script(
 '	"CREATED_ON" DATE, ',
 '	"UPDATED_BY" NUMBER, ',
 '	"UPDATED_ON" DATE, ',
-'	 CONSTRAINT "VA_CONNECTIONS_PK" PRIMARY KEY ("CONNECTION_ID")',
-'  USING INDEX  ENABLE',
-'   ) ;',
-'',
-'CREATE TABLE "VA_VAULT_CONNECTIONS" ',
-'   (	"VAULT_CONNECTION_ID" NUMBER NOT NULL ENABLE, ',
-'	"VAULT_ID" NUMBER NOT NULL ENABLE, ',
-'	"CONNECTION_ID" NUMBER NOT NULL ENABLE, ',
-'	"ENABLED" VARCHAR2(1), ',
-'	"DATE_FROM" DATE, ',
-'	"DATE_TO" DATE, ',
-'	"CREATED_BY" NUMBER, ',
-'	"CREATED_ON" DATE, ',
-'	"UPDATED_BY" NUMBER, ',
-'	"UPDATED_ON" DATE, ',
-'	 CONSTRAINT "VA_VAULT_CONNECTIONS_PK" PRIMARY KEY ("VAULT_CONNECTION_ID")',
-'  USING INDEX  ENABLE',
-'   ) ;',
-'',
-'CREATE TABLE "VA_REQUESTS" ',
-'   (	"REQUEST_ID" NUMBER NOT NULL ENABLE, ',
-'	"VAULT_CONNECTION_ID" NUMBER NOT NULL ENABLE, ',
-'	"REQUEST_REASON" VARCHAR2(2000) NOT NULL ENABLE, ',
-'	"DATE_FROM" DATE, ',
-'	"DATE_TO" DATE, ',
-'	"CREATED_BY" NUMBER, ',
-'	"CREATED_ON" DATE, ',
-'	"UPDATED_BY" NUMBER, ',
-'	"UPDATED_ON" DATE, ',
-'	 CONSTRAINT "VA_REQUESTS_PK" PRIMARY KEY ("REQUEST_ID")',
-'  USING INDEX  ENABLE',
-'   ) ;',
-'',
-'CREATE TABLE "VA_REQUEST_STATUSES" ',
-'   (	"REQUEST_STATUS_ID" NUMBER NOT NULL ENABLE, ',
-'	"REQUEST_ID" NUMBER NOT NULL ENABLE, ',
-'	"STATUS" NUMBER NOT NULL ENABLE, ',
-'	"CREATED_BY" NUMBER, ',
-'	"CREATED_ON" DATE, ',
-'	 CONSTRAINT "VA_REQUEST_STATUSES_PK" PRIMARY KEY ("REQUEST_STATUS_ID")',
-'  USING INDEX  ENABLE',
+'	 CONSTRAINT "VA_CONNECTIONS_PK" PRIMARY KEY ("CONNECTION_ID") ENABLE',
 '   ) ;',
 '',
 'CREATE TABLE "VA_VAULTS" ',
@@ -23858,8 +24277,30 @@ wwv_flow_api.create_install_script(
 '	"CREATED_ON" DATE, ',
 '	"UPDATED_BY" NUMBER, ',
 '	"UPDATED_ON" DATE, ',
-'	 CONSTRAINT "VA_VAULTS_PK" PRIMARY KEY ("VAULT_ID")',
-'  USING INDEX  ENABLE',
+'	 CONSTRAINT "VA_VAULTS_PK" PRIMARY KEY ("VAULT_ID") ENABLE',
+'   ) ;',
+'',
+'CREATE TABLE "VA_REQUESTS" ',
+'   (	"REQUEST_ID" NUMBER NOT NULL ENABLE, ',
+'	"VAULT_ID" NUMBER NOT NULL ENABLE, ',
+'	"CONNECTION_ID" NUMBER NOT NULL ENABLE, ',
+'	"REQUEST_REASON" VARCHAR2(2000) NOT NULL ENABLE, ',
+'	"DATE_FROM" DATE NOT NULL ENABLE, ',
+'	"DATE_TO" DATE NOT NULL ENABLE, ',
+'	"CREATED_BY" NUMBER, ',
+'	"CREATED_ON" DATE, ',
+'	"UPDATED_BY" NUMBER, ',
+'	"UPDATED_ON" DATE, ',
+'	 CONSTRAINT "VA_REQUESTS_PK" PRIMARY KEY ("REQUEST_ID") ENABLE',
+'   ) ;',
+'',
+'CREATE TABLE "VA_REQUEST_STATUSES" ',
+'   (	"REQUEST_STATUS_ID" NUMBER NOT NULL ENABLE, ',
+'	"REQUEST_ID" NUMBER NOT NULL ENABLE, ',
+'	"STATUS" NUMBER NOT NULL ENABLE, ',
+'	"CREATED_BY" NUMBER, ',
+'	"CREATED_ON" DATE, ',
+'	 CONSTRAINT "VA_REQUEST_STATUSES_PK" PRIMARY KEY ("REQUEST_STATUS_ID") ENABLE',
 '   ) ;',
 '',
 'CREATE TABLE "VA_VAULT_APPROVERS" ',
@@ -23873,8 +24314,21 @@ wwv_flow_api.create_install_script(
 '	"CREATED_ON" DATE, ',
 '	"UPDATED_BY" NUMBER, ',
 '	"UPDATED_ON" DATE, ',
-'	 CONSTRAINT "VA_VAULT_APPROVERS_PK" PRIMARY KEY ("VAULT_APPROVER_ID")',
-'  USING INDEX  ENABLE',
+'	 CONSTRAINT "VA_VAULT_APPROVERS_PK" PRIMARY KEY ("VAULT_APPROVER_ID") ENABLE',
+'   ) ;',
+'',
+'CREATE TABLE "VA_VAULT_CONNECTIONS" ',
+'   (	"VAULT_CONNECTION_ID" NUMBER NOT NULL ENABLE, ',
+'	"VAULT_ID" NUMBER NOT NULL ENABLE, ',
+'	"CONNECTION_ID" NUMBER NOT NULL ENABLE, ',
+'	"ENABLED" VARCHAR2(1), ',
+'	"DATE_FROM" DATE, ',
+'	"DATE_TO" DATE, ',
+'	"CREATED_BY" NUMBER, ',
+'	"CREATED_ON" DATE, ',
+'	"UPDATED_BY" NUMBER, ',
+'	"UPDATED_ON" DATE, ',
+'	 CONSTRAINT "VA_VAULT_CONNECTIONS_PK" PRIMARY KEY ("VAULT_CONNECTION_ID") ENABLE',
 '   ) ;',
 '',
 'CREATE TABLE "VA_VAULT_REQUESTERS" ',
@@ -23888,15 +24342,29 @@ wwv_flow_api.create_install_script(
 '	"CREATED_ON" DATE, ',
 '	"UPDATED_BY" NUMBER, ',
 '	"UPDATED_ON" DATE, ',
-'	 CONSTRAINT "VA_VAULT_REQUESTERS_PK" PRIMARY KEY ("VAULT_REQUESTER_ID")',
-'  USING INDEX  ENABLE',
+'	 CONSTRAINT "VA_VAULT_REQUESTERS_PK" PRIMARY KEY ("VAULT_REQUESTER_ID") ENABLE',
+'   ) ;',
+'',
+'CREATE TABLE "VA_REQUEST_ACCESSES" ',
+'   (	"REQUEST_ACCESS_ID" NUMBER NOT NULL ENABLE, ',
+'	"REQUEST_ID" NUMBER NOT NULL ENABLE, ',
+'	"STATUS" NUMBER NOT NULL ENABLE, ',
+'	"CREATED_BY" NUMBER, ',
+'	"CREATED_ON" DATE, ',
+'	 CONSTRAINT "VA_REQUEST_ACCESSES_PK" PRIMARY KEY ("REQUEST_ACCESS_ID") ENABLE',
 '   ) ;',
 '',
 'ALTER TABLE "VA_CONNECTIONS" ADD CONSTRAINT "VA_CONNECTIONS_FK1" FOREIGN KEY ("ORGANIZATION_ID")',
 '	  REFERENCES "AD_ORGANIZATIONS" ("ORGANIZATION_ID") ON DELETE CASCADE ENABLE;',
 '',
-'ALTER TABLE "VA_REQUESTS" ADD CONSTRAINT "VA_REQUESTS_FK1" FOREIGN KEY ("VAULT_CONNECTION_ID")',
-'	  REFERENCES "VA_VAULT_CONNECTIONS" ("VAULT_CONNECTION_ID") ON DELETE CASCADE ENABLE;',
+'ALTER TABLE "VA_REQUESTS" ADD CONSTRAINT "VA_REQUESTS_FK1" FOREIGN KEY ("VAULT_ID")',
+'	  REFERENCES "VA_VAULTS" ("VAULT_ID") ON DELETE CASCADE ENABLE;',
+'',
+'ALTER TABLE "VA_REQUESTS" ADD CONSTRAINT "VA_REQUESTS_FK2" FOREIGN KEY ("CONNECTION_ID")',
+'	  REFERENCES "VA_CONNECTIONS" ("CONNECTION_ID") ON DELETE CASCADE ENABLE;',
+'',
+'ALTER TABLE "VA_REQUEST_ACCESSES" ADD CONSTRAINT "VA_REQUEST_ACCESSES_FK1" FOREIGN KEY ("REQUEST_ID")',
+'	  REFERENCES "VA_REQUESTS" ("REQUEST_ID") ON DELETE CASCADE ENABLE;',
 '',
 'ALTER TABLE "VA_REQUEST_STATUSES" ADD CONSTRAINT "VA_REQUEST_STATUSES_FK1" FOREIGN KEY ("REQUEST_ID")',
 '	  REFERENCES "VA_REQUESTS" ("REQUEST_ID") ON DELETE CASCADE ENABLE;',
@@ -24001,6 +24469,17 @@ wwv_flow_api.create_install_object(
 ,p_created_by=>'ABHISHEK9982@GMAIL.COM'
 ,p_created_on=>to_date('20180801193847','YYYYMMDDHH24MISS')
 );
+wwv_flow_api.create_install_object(
+ p_id=>wwv_flow_api.id(4940170905738101)
+,p_script_id=>wwv_flow_api.id(15423794464983208266)
+,p_object_owner=>'#OWNER#'
+,p_object_type=>'TABLE'
+,p_object_name=>'VA_REQUEST_ACCESSES'
+,p_last_updated_by=>'ABHISHEK'
+,p_last_updated_on=>to_date('20180831104820','YYYYMMDDHH24MISS')
+,p_created_by=>'ABHISHEK'
+,p_created_on=>to_date('20180831104820','YYYYMMDDHH24MISS')
+);
 end;
 /
 prompt --application/deployment/install/install_create_sequences
@@ -24012,19 +24491,21 @@ wwv_flow_api.create_install_script(
 ,p_sequence=>20
 ,p_script_type=>'INSTALL'
 ,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
-' CREATE SEQUENCE  "VA_CONNECTIONS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
+' CREATE SEQUENCE  "VA_REQUEST_ACCESSES_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
 '',
-' CREATE SEQUENCE  "VA_REQUESTS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
-'',
-' CREATE SEQUENCE  "VA_REQUEST_STATUSES_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
-'',
-' CREATE SEQUENCE  "VA_VAULTS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
-'',
-' CREATE SEQUENCE  "VA_VAULT_APPROVERS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
+' CREATE SEQUENCE  "VA_VAULT_REQUESTERS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
 '',
 ' CREATE SEQUENCE  "VA_VAULT_CONNECTIONS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
 '',
-' CREATE SEQUENCE  "VA_VAULT_REQUESTERS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
+' CREATE SEQUENCE  "VA_VAULT_APPROVERS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
+'',
+' CREATE SEQUENCE  "VA_VAULTS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
+'',
+' CREATE SEQUENCE  "VA_REQUEST_STATUSES_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
+'',
+' CREATE SEQUENCE  "VA_REQUESTS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
+'',
+' CREATE SEQUENCE  "VA_CONNECTIONS_S"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  CYCLE ;',
 '',
 ''))
 );
@@ -24105,6 +24586,17 @@ wwv_flow_api.create_install_object(
 ,p_created_by=>'ABHISHEK9982@GMAIL.COM'
 ,p_created_on=>to_date('20180801194024','YYYYMMDDHH24MISS')
 );
+wwv_flow_api.create_install_object(
+ p_id=>wwv_flow_api.id(4940550099743929)
+,p_script_id=>wwv_flow_api.id(15423898933834218013)
+,p_object_owner=>'#OWNER#'
+,p_object_type=>'SEQUENCE'
+,p_object_name=>'VA_REQUEST_ACCESSES_S'
+,p_last_updated_by=>'ABHISHEK'
+,p_last_updated_on=>to_date('20180831104918','YYYYMMDDHH24MISS')
+,p_created_by=>'ABHISHEK'
+,p_created_on=>to_date('20180831104918','YYYYMMDDHH24MISS')
+);
 end;
 /
 prompt --application/deployment/install/install_create_views
@@ -24116,6 +24608,17 @@ wwv_flow_api.create_install_script(
 ,p_sequence=>30
 ,p_script_type=>'INSTALL'
 ,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'CREATE OR REPLACE FORCE VIEW "VA_VAULT_REQUEST_ACCESS" ("ACCESS", "ACCESS_MEANING") AS ',
+'  SELECT code "ACCESS",',
+'    meaning "ACCESS_MEANING"',
+'  FROM ad_lookups al,',
+'    ad_lookup_values alv',
+'  WHERE al.lookup_id = alv.lookup_id',
+'  AND alv.enabled    = ''Y''',
+'  AND sysdate BETWEEN NVL(alv.date_from, sysdate) AND NVL(alv.date_to, sysdate)',
+'  AND al.lookup = ''VAULT_REQUEST_ACCESS''',
+';',
+'',
 'CREATE OR REPLACE FORCE VIEW "VA_VAULT_REQUEST_STATUS" ("STATUS", "STATUS_MEANING") AS ',
 '  SELECT code STATUS,',
 '    meaning STATUS_MEANING',
@@ -24139,6 +24642,17 @@ wwv_flow_api.create_install_script(
 ''))
 );
 wwv_flow_api.create_install_object(
+ p_id=>wwv_flow_api.id(4941446363778441)
+,p_script_id=>wwv_flow_api.id(4764846142638287)
+,p_object_owner=>'#OWNER#'
+,p_object_type=>'VIEW'
+,p_object_name=>'VA_VAULT_REQUEST_ACCESS'
+,p_last_updated_by=>'ABHISHEK'
+,p_last_updated_on=>to_date('20180831105504','YYYYMMDDHH24MISS')
+,p_created_by=>'ABHISHEK'
+,p_created_on=>to_date('20180831105504','YYYYMMDDHH24MISS')
+);
+wwv_flow_api.create_install_object(
  p_id=>wwv_flow_api.id(4764977915638294)
 ,p_script_id=>wwv_flow_api.id(4764846142638287)
 ,p_object_owner=>'#OWNER#'
@@ -24159,6 +24673,88 @@ wwv_flow_api.create_install_object(
 ,p_last_updated_on=>to_date('20180810114027','YYYYMMDDHH24MISS')
 ,p_created_by=>'ABHISHEK'
 ,p_created_on=>to_date('20180810114027','YYYYMMDDHH24MISS')
+);
+end;
+/
+prompt --application/deployment/install/install_create_packages
+begin
+wwv_flow_api.create_install_script(
+ p_id=>wwv_flow_api.id(4941830780782027)
+,p_install_id=>wwv_flow_api.id(287849106338235864290)
+,p_name=>'Create Packages'
+,p_sequence=>40
+,p_script_type=>'INSTALL'
+,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'CREATE OR REPLACE PACKAGE "VA_VAULTS_PKG" AS',
+'  /* ***************************************************************************',
+'  -- ------------------------------------------------------------------------',
+'  -- Package Name        : VA_VAULTS_PKG',
+'  -- Company             : Acolyte',
+'  -- Author              : Abhishek Arora',
+'  -- ------------------------------------------------------------------------',
+'  -- Description...',
+'  -- This package contians the code related to vault application.',
+'  -- ------------------------------------------------------------------------',
+'  -- Revision History...',
+'  -- -----------  ---------------  ------------------------------------------',
+'  -- Date         Author           Change',
+'  -- -----------  ---------------  ------------------------------------------',
+'  -- 26-AUG-2018  Abhishek         Created Package',
+'  -- ------------------------------------------------------------------------',
+'  *************************************************************************** */',
+'  PROCEDURE update_connections;',
+'',
+'END va_vaults_pkg;',
+'/',
+'',
+'',
+'CREATE OR REPLACE PACKAGE BODY "VA_VAULTS_PKG" AS',
+'  PROCEDURE update_connections IS',
+'    /* ***************************************************************************',
+'    -- ------------------------------------------------------------------------',
+'    -- Function Name       : UPDATE_CONNECTION',
+'    -- ------------------------------------------------------------------------',
+'    -- Description...',
+'    -- This procedure updates connection after password is released or expired',
+'    -- ------------------------------------------------------------------------',
+'    -- Parameters...',
+'    -- ---------------  -----  ------------------------------------------------',
+'    -- Paramter Name    Type   Description',
+'    -- ---------------  -----  ------------------------------------------------',
+'    -- ---------------  -----  ------------------------------------------------',
+'    *************************************************************************** */',
+'    CURSOR cur_connections IS',
+'      SELECT vc.connection_id',
+'        FROM va_connections      vc,',
+'             va_request_accesses vra,',
+'             va_requests         vr',
+'       WHERE vc.request_access_id = vra.request_access_id',
+'         AND vra.request_id = vr.request_id',
+'         AND ((vra.status = 2) OR (vra.status = 1 AND SYSDATE > vr.date_to));  BEGIN',
+'    FOR rec_connections IN cur_connections',
+'    LOOP',
+'      UPDATE va_connections',
+'         SET request_access_id = NULL',
+'       WHERE connection_id = rec_connections.connection_id;',
+'    END LOOP;',
+'    COMMIT;',
+'  END update_connections;',
+'',
+'END va_vaults_pkg;',
+'/',
+'',
+''))
+);
+wwv_flow_api.create_install_object(
+ p_id=>wwv_flow_api.id(4941933513782031)
+,p_script_id=>wwv_flow_api.id(4941830780782027)
+,p_object_owner=>'#OWNER#'
+,p_object_type=>'PACKAGE'
+,p_object_name=>'VA_VAULTS_PKG'
+,p_last_updated_by=>'ABHISHEK'
+,p_last_updated_on=>to_date('20180831105539','YYYYMMDDHH24MISS')
+,p_created_by=>'ABHISHEK'
+,p_created_on=>to_date('20180831105539','YYYYMMDDHH24MISS')
 );
 end;
 /
@@ -25031,6 +25627,37 @@ wwv_flow_api.create_install_script(
 '    ''200101010000003'',',
 '    to_date(''01-01-08'',''DD-MM-RR'')',
 '  );',
+'INSERT',
+'INTO AD_LOOKUPS',
+'  (',
+'    LOOKUP_ID,',
+'    APPLICATION_ID,',
+'    LOOKUP_NAME,',
+'    LOOKUP,',
+'    LOOKUP_TYPE,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200801010000003'',',
+'    ''200801010000001'',',
+'    ''Vault Request Access'',',
+'    ''VAULT_REQUEST_ACCESS'',',
+'    ''1'',',
+'    ''Y'',',
+'    to_date(''01-01-08'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-08'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-08'',''DD-MM-RR'')',
+'  );',
 'REM INSERTING into AD_LOOKUP_VALUES',
 'SET DEFINE OFF;',
 'INSERT',
@@ -25177,7 +25804,174 @@ wwv_flow_api.create_install_script(
 '    to_date(''01-01-08'',''DD-MM-RR''),',
 '    ''200101010000003'',',
 '    to_date(''01-01-08'',''DD-MM-RR'')',
-'  );'))
+'  );',
+'INSERT',
+'INTO AD_LOOKUP_VALUES',
+'  (',
+'    LOOKUP_VALUE_ID,',
+'    LOOKUP_ID,',
+'    CODE,',
+'    MEANING,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200801010000006'',',
+'    ''200801010000003'',',
+'    ''1'',',
+'    ''Locked'',',
+'    ''Y'',',
+'    to_date(''01-01-08'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-08'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-08'',''DD-MM-RR'')',
+'  );',
+'INSERT',
+'INTO AD_LOOKUP_VALUES',
+'  (',
+'    LOOKUP_VALUE_ID,',
+'    LOOKUP_ID,',
+'    CODE,',
+'    MEANING,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+'  )',
+'  VALUES',
+'  (',
+'    ''200801010000007'',',
+'    ''200801010000003'',',
+'    ''2'',',
+'    ''Released'',',
+'    ''Y'',',
+'    to_date(''01-01-08'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    to_date(''01-01-08'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    to_date(''01-01-08'',''DD-MM-RR'')',
+'  );',
+'REM INSERTING into SH_PROGRAMS',
+'SET DEFINE OFF;',
+'INSERT INTO SH_PROGRAMS (',
+'    PROGRAM_ID,',
+'    ORGANIZATION_ID,',
+'    PROGRAM_NAME,',
+'    PROGRAM,',
+'    PACKAGE,',
+'    PROCEDURE,',
+'    PROGRAM_TYPE,',
+'    DESCRIPTION,',
+'    ENABLED,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+') VALUES (',
+'    200801010000001,',
+'    200201010000001,',
+'    ''Connection Clean Up'',',
+'    ''CONNECTION_CLEAN_UP'',',
+'    (',
+'        SELECT',
+'            OBJECT_ID',
+'        FROM',
+'            USER_PROCEDURES UP',
+'        WHERE',
+'                OBJECT_TYPE = ''PACKAGE''',
+'            AND',
+'                SUBPROGRAM_ID = 0',
+'            AND',
+'                OBJECT_NAME = ''VA_VAULTS_PKG''',
+'    ),',
+'    (',
+'        SELECT',
+'            SUBPROGRAM_ID',
+'        FROM',
+'            USER_PROCEDURES',
+'        WHERE',
+'                OBJECT_TYPE = ''PACKAGE''',
+'            AND',
+'                SUBPROGRAM_ID <> 0',
+'            AND',
+'                OBJECT_NAME = ''VA_VAULTS_PKG''',
+'            AND',
+'                PROCEDURE_NAME = ''UPDATE_CONNECTIONS''',
+'    ),',
+'    1,',
+'    ''Vault connection clean up job to remove lock on connections.'',',
+'    ''Y'',',
+'    TO_DATE(''01-01-08'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    TO_DATE(''01-01-08'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    TO_DATE(''01-01-08'',''DD-MM-RR'')',
+');',
+'REM INSERTING into SH_JOBS',
+'SET DEFINE OFF;',
+'INSERT INTO SH_JOBS (',
+'    JOB_ID,',
+'    PROGRAM_ID,',
+'    SCHEDULE_TYPE,',
+'    SCHEDULE_ID,',
+'    JOB_STATUS,',
+'    DATE_FROM,',
+'    DATE_TO,',
+'    CREATED_BY,',
+'    CREATED_ON,',
+'    UPDATED_BY,',
+'    UPDATED_ON',
+') VALUES (',
+'    200801010000001,',
+'    200801010000001,',
+'    3,',
+'    200601010000001,',
+'    0,',
+'    TO_DATE(''01-01-08'',''DD-MM-RR''),',
+'    NULL,',
+'    ''200101010000003'',',
+'    TO_DATE(''01-01-08'',''DD-MM-RR''),',
+'    ''200101010000003'',',
+'    TO_DATE(''01-01-08'',''DD-MM-RR'')',
+');'))
+);
+end;
+/
+prompt --application/deployment/install/install_create_program
+begin
+wwv_flow_api.create_install_script(
+ p_id=>wwv_flow_api.id(4943742318212492)
+,p_install_id=>wwv_flow_api.id(287849106338235864290)
+,p_name=>'Create Program'
+,p_sequence=>70
+,p_script_type=>'INSTALL'
+,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'begin',
+'  dbms_scheduler.create_program(program_name        => ''CONNECTION_CLEAN_UP'',',
+'                                program_type        => ''STORED_PROCEDURE'',',
+'                                program_action      => ''VA_VAULTS_PKG.UPDATE_CONNECTIONS'',',
+'                                number_of_arguments => 0,',
+'                                enabled             => FALSE,',
+'                                comments            => ''Program to clean released connection.'');',
+'',
+'  dbms_scheduler.enable(''CONNECTION_CLEAN_UP'');',
+'end;',
+'/'))
 );
 end;
 /
