@@ -27,7 +27,7 @@ prompt APPLICATION 107 - Vault
 -- Application Export:
 --   Application:     107
 --   Name:            Vault
---   Date and Time:   07:28 Sunday September 2, 2018
+--   Date and Time:   14:10 Monday September 3, 2018
 --   Exported By:     ABHISHEK
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -129,7 +129,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'1003'
 ,p_last_updated_by=>'ABHISHEK'
-,p_last_upd_yyyymmddhh24miss=>'20180902072758'
+,p_last_upd_yyyymmddhh24miss=>'20180902160631'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -18843,7 +18843,7 @@ wwv_flow_api.create_page(
 ,p_page_template_options=>'#DEFAULT#'
 ,p_help_text=>'No help is available for this page.'
 ,p_last_updated_by=>'ABHISHEK'
-,p_last_upd_yyyymmddhh24miss=>'20180808151437'
+,p_last_upd_yyyymmddhh24miss=>'20180902151916'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(9452466291580453)
@@ -18959,7 +18959,7 @@ wwv_flow_api.create_page_da_event(
 ,p_bind_event_type=>'ready'
 ,p_display_when_type=>'ITEM_IS_NOT_NULL'
 ,p_display_when_cond=>'NT_APP_ID'
-,p_security_scheme=>wwv_flow_api.id(34351813549294412092)
+,p_security_scheme=>wwv_flow_api.id(9648399335254155)
 );
 wwv_flow_api.create_page_da_action(
  p_id=>wwv_flow_api.id(24433235629858619184)
@@ -19025,7 +19025,7 @@ wwv_flow_api.create_page(
 ,p_step_template=>wwv_flow_api.id(373129540373985828589)
 ,p_page_template_options=>'#DEFAULT#'
 ,p_last_updated_by=>'ABHISHEK'
-,p_last_upd_yyyymmddhh24miss=>'20180828104055'
+,p_last_upd_yyyymmddhh24miss=>'20180902160631'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(15163101209435182126)
@@ -19278,7 +19278,7 @@ wwv_flow_api.create_worksheet_column(
 ,p_display_order=>60
 ,p_column_identifier=>'X'
 ,p_column_label=>'Test Connection'
-,p_column_link=>'javascript:apex.submit({request:"TEST_CONNECTION",set:{"P100_CONNECTION_ID":#CONNECTION_ID#}});'
+,p_column_link=>'javascript:apex.submit({request:"TEST_CONNECTION",set:{"P100_CONNECTION_ID":#TEST_CONNECTION#}});'
 ,p_column_linktext=>'<i class="fa fa-plug"></i>'
 ,p_column_link_attr=>'t-Button t-Button--noLabel t-Button--icon js-ignoreChange t-Button--small lto15158163025735544208_0 t-Button--hot'
 ,p_column_type=>'NUMBER'
@@ -19330,7 +19330,7 @@ wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(9806797757719844)
 ,p_name=>'P100_CONNECTION_ID'
 ,p_item_sequence=>20
-,p_item_plug_id=>wwv_flow_api.id(15164005979599101180)
+,p_item_plug_id=>wwv_flow_api.id(15163101209435182126)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_attribute_01=>'N'
 );
@@ -19422,6 +19422,7 @@ wwv_flow_api.create_page_process(
 '    INTO ln_count;',
 'EXCEPTION',
 '  WHEN OTHERS THEN',
+'    logger.log_error(lv_query);',
 '    RAISE_APPLICATION_ERROR ( -20001, ''ERROR: Testing Connection.'');',
 'END;',
 ''))
