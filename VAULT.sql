@@ -27,7 +27,7 @@ prompt APPLICATION 107 - Vault
 -- Application Export:
 --   Application:     107
 --   Name:            Vault
---   Date and Time:   14:16 Thursday September 6, 2018
+--   Date and Time:   16:34 Thursday September 6, 2018
 --   Exported By:     ABHISHEK
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -110,7 +110,8 @@ wwv_flow_api.create_flow(
 'AA-1049: [Vault] Manage Request Accesses',
 'AA-1050: [Vault] Enable Notifications Link in Vault Application',
 'AA-1052: [Vault] Update De-Installation Scripts',
-'AA-1051: [Vault] Improve Connections Cleanup Program for Change Password'))
+'AA-1051: [Vault] Improve Connections Cleanup Program for Change Password',
+'AA-1054: [Vault] Reset Password Only for Managed Vaults'))
 ,p_authentication=>'PLUGIN'
 ,p_authentication_id=>wwv_flow_api.id(484250578917156723040)
 ,p_populate_roles=>'A'
@@ -132,7 +133,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'1003'
 ,p_last_updated_by=>'ABHISHEK'
-,p_last_upd_yyyymmddhh24miss=>'20180906141640'
+,p_last_upd_yyyymmddhh24miss=>'20180906163417'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -24851,9 +24852,12 @@ wwv_flow_api.create_install_script(
 '             vc.connect_string',
 '        FROM va_connections      vc,',
 '             va_request_accesses vra,',
-'             va_requests         vr',
+'             va_requests         vr,',
+'             va_vaults           vv',
 '       WHERE vc.request_access_id = vra.request_access_id',
 '         AND vra.request_id = vr.request_id',
+'         AND vr.vault_id = vv.vault_id',
+'         AND vv.vault_type = 1',
 '         AND ((vra.status = 2) OR (vra.status = 1 AND SYSDATE > vr.date_to));',
 '    ln_count    NUMBER;',
 '    lv_query    VARCHAR2(32000);',
