@@ -27,7 +27,7 @@ prompt APPLICATION 107 - Vault
 -- Application Export:
 --   Application:     107
 --   Name:            Vault
---   Date and Time:   14:10 Monday September 3, 2018
+--   Date and Time:   14:16 Thursday September 6, 2018
 --   Exported By:     ABHISHEK
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -74,7 +74,7 @@ prompt APPLICATION 107 - Vault
 --       Layouts:                1
 --     E-Mail:
 --   Supporting Objects:  Included
---     Install scripts:          6
+--     Install scripts:          7
 
 prompt --application/delete_application
 begin
@@ -107,7 +107,10 @@ wwv_flow_api.create_flow(
 ,p_documentation_banner=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'AA-1046: [Vault] Create Vault Application',
 'AA-1048: [Vault] Create and Test DB Links for Connections',
-'AA-1049: [Vault] Manage Request Accesses'))
+'AA-1049: [Vault] Manage Request Accesses',
+'AA-1050: [Vault] Enable Notifications Link in Vault Application',
+'AA-1052: [Vault] Update De-Installation Scripts',
+'AA-1051: [Vault] Improve Connections Cleanup Program for Change Password'))
 ,p_authentication=>'PLUGIN'
 ,p_authentication_id=>wwv_flow_api.id(484250578917156723040)
 ,p_populate_roles=>'A'
@@ -129,7 +132,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'1003'
 ,p_last_updated_by=>'ABHISHEK'
-,p_last_upd_yyyymmddhh24miss=>'20180902160631'
+,p_last_upd_yyyymmddhh24miss=>'20180906141640'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -24272,6 +24275,7 @@ wwv_flow_api.create_install(
 'DROP VIEW VA_VAULT_REQUEST_ACCESS;',
 'DROP VIEW VA_VAULT_REQUEST_STATUS;',
 'DROP VIEW VA_VAULT_TYPES;',
+'DROP SYNONYM REMOTE_DBMS_SQL;',
 'DROP PACKAGE VA_VAULTS_PKG;',
 '',
 'DECLARE',
@@ -24738,13 +24742,25 @@ wwv_flow_api.create_install_object(
 );
 end;
 /
+prompt --application/deployment/install/install_create_synonyms
+begin
+wwv_flow_api.create_install_script(
+ p_id=>wwv_flow_api.id(4983916132749244)
+,p_install_id=>wwv_flow_api.id(287854053808014502222)
+,p_name=>'Create Synonyms'
+,p_sequence=>40
+,p_script_type=>'INSTALL'
+,p_script_clob=>'CREATE OR REPLACE SYNONYM REMOTE_DBMS_SQL FOR DBMS_SQL;'
+);
+end;
+/
 prompt --application/deployment/install/install_create_packages
 begin
 wwv_flow_api.create_install_script(
  p_id=>wwv_flow_api.id(9889300559419959)
 ,p_install_id=>wwv_flow_api.id(287854053808014502222)
 ,p_name=>'Create Packages'
-,p_sequence=>40
+,p_sequence=>50
 ,p_script_type=>'INSTALL'
 ,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'CREATE OR REPLACE PACKAGE "VA_VAULTS_PKG" AS',
@@ -24765,12 +24781,55 @@ wwv_flow_api.create_install_script(
 '  -- ------------------------------------------------------------------------',
 '  *************************************************************************** */',
 '  PROCEDURE update_connections;',
-'',
 'END va_vaults_pkg;',
 '/',
 '',
 '',
 'CREATE OR REPLACE PACKAGE BODY "VA_VAULTS_PKG" AS',
+'',
+'  PROCEDURE alter_user',
+'  (',
+'    p_user_name    VARCHAR2,',
+'    p_old_password VARCHAR2,',
+'    p_new_password VARCHAR2,',
+'    p_error        OUT VARCHAR2',
+'  ) IS',
+'    /* ***************************************************************************',
+'    -- ------------------------------------------------------------------------',
+'    -- Function Name       : ALTER USER',
+'    -- ------------------------------------------------------------------------',
+'    -- Description...',
+'    -- This procedure updates password',
+'    -- ------------------------------------------------------------------------',
+'    -- Parameters...',
+'    -- ---------------  -----  ------------------------------------------------',
+'    -- Paramter Name    Type   Description',
+'    -- ---------------  -----  ------------------------------------------------',
+'    -- P_USER_NAME      IN     User Name',
+'    -- P_OLD_PASSWORD   IN     Old Password',
+'    -- P_NEW_PASSWORD   IN     New Password',
+'    -- P_ERROR          OUT    Error',
+'    -- ---------------  -----  ------------------------------------------------',
+'    *************************************************************************** */',
+'    ln_handle NUMBER;',
+'    ln_return NUMBER;',
+'    lv_query  VARCHAR2(1000);',
+'  BEGIN',
+'    ln_handle := remote_dbms_sql.open_cursor();',
+'    lv_query  := ''ALTER USER '' || p_user_name || '' IDENTIFIED BY '' ||',
+'                 p_new_password || '' REPLACE '' || p_old_password;',
+'    remote_dbms_sql.parse(ln_handle,',
+'                          lv_query,',
+'                          dbms_sql.native);',
+'    ln_return := remote_dbms_sql.execute(ln_handle);',
+'    remote_dbms_sql.close_cursor(ln_handle);',
+'    p_error := NULL;',
+'  EXCEPTION',
+'    WHEN OTHERS THEN',
+'      p_error := ''ERROR: Alter User. '' || lv_query || '' '' || SQLERRM;',
+'      logger.log_error(p_error);',
+'  END;',
+'',
 '  PROCEDURE update_connections IS',
 '    /* ***************************************************************************',
 '    -- ------------------------------------------------------------------------',
@@ -24786,18 +24845,83 @@ wwv_flow_api.create_install_script(
 '    -- ---------------  -----  ------------------------------------------------',
 '    *************************************************************************** */',
 '    CURSOR cur_connections IS',
-'      SELECT vc.connection_id',
+'      SELECT vc.connection_id,',
+'             vc.user_name,',
+'             vc.password,',
+'             vc.connect_string',
 '        FROM va_connections      vc,',
 '             va_request_accesses vra,',
 '             va_requests         vr',
 '       WHERE vc.request_access_id = vra.request_access_id',
 '         AND vra.request_id = vr.request_id',
-'         AND ((vra.status = 2) OR (vra.status = 1 AND SYSDATE > vr.date_to));  BEGIN',
+'         AND ((vra.status = 2) OR (vra.status = 1 AND SYSDATE > vr.date_to));',
+'    ln_count    NUMBER;',
+'    lv_query    VARCHAR2(32000);',
+'    lv_error    VARCHAR2(32000);',
+'    lv_password VARCHAR2(10);',
+'  BEGIN',
 '    FOR rec_connections IN cur_connections',
 '    LOOP',
-'      UPDATE va_connections',
-'         SET request_access_id = NULL',
-'       WHERE connection_id = rec_connections.connection_id;',
+'      lv_error := NULL;',
+'      ln_count := 0;',
+'      BEGIN',
+'        lv_query := ''CREATE OR REPLACE SYNONYM REMOTE_DBMS_SQL FOR DBMS_SQL@VA'' ||',
+'                    rec_connections.connection_id;',
+'        EXECUTE IMMEDIATE lv_query;',
+'      EXCEPTION',
+'        WHEN OTHERS THEN',
+'          lv_error := ''ERROR: Creating Synonym. '' || lv_query || '' '' ||',
+'                      SQLERRM;',
+'      END;',
+'      IF lv_error IS NULL',
+'      THEN',
+'        BEGIN',
+'          SELECT dbms_random.string(''A'',',
+'                                    10)',
+'            INTO lv_password',
+'            FROM dual;',
+'          alter_user(rec_connections.user_name,',
+'                     rec_connections.password,',
+'                     lv_password,',
+'                     lv_error);',
+'        EXCEPTION',
+'          WHEN OTHERS THEN',
+'            logger.log_error(lv_error);',
+'        END;',
+'      END IF;',
+'      BEGIN',
+'        lv_query := ''DROP DATABASE LINK VA'' ||',
+'                    rec_connections.connection_id;',
+'        EXECUTE IMMEDIATE lv_query;',
+'      EXCEPTION',
+'        WHEN OTHERS THEN',
+'          lv_error := ''ERROR: Dropping database link. '' || lv_query || '' '' ||',
+'                      SQLERRM;',
+'          logger.log_error(lv_error);',
+'      END;',
+'      IF lv_error IS NULL',
+'      THEN',
+'        BEGIN',
+'          lv_query := ''CREATE DATABASE LINK VA'' ||',
+'                      rec_connections.connection_id || '' CONNECT TO '' ||',
+'                      rec_connections.user_name || '' IDENTIFIED BY '' ||',
+'                      lv_password || '' USING '''''' ||',
+'                      rec_connections.connect_string || '''''''';',
+'          EXECUTE IMMEDIATE lv_query;',
+'        EXCEPTION',
+'          WHEN OTHERS THEN',
+'            lv_error := ''ERROR: Creating database link. '' || lv_query || '' '' ||',
+'                        SQLERRM;',
+'            logger.log_error(lv_error);',
+'        END;',
+'      END IF;',
+'      IF lv_error IS NULL',
+'      THEN',
+'        UPDATE va_connections',
+'           SET request_access_id = NULL,',
+'               password          = lv_password',
+'         WHERE connection_id = rec_connections.connection_id;',
+'      END IF;',
 '    END LOOP;',
 '    COMMIT;',
 '  END update_connections;',
