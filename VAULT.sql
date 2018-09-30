@@ -27,7 +27,7 @@ prompt APPLICATION 107 - Vault
 -- Application Export:
 --   Application:     107
 --   Name:            Vault
---   Date and Time:   16:34 Thursday September 6, 2018
+--   Date and Time:   15:27 Sunday September 30, 2018
 --   Exported By:     ABHISHEK
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -74,7 +74,7 @@ prompt APPLICATION 107 - Vault
 --       Layouts:                1
 --     E-Mail:
 --   Supporting Objects:  Included
---     Install scripts:          7
+--     Install scripts:          8
 
 prompt --application/delete_application
 begin
@@ -133,7 +133,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'ADMIN_APPLICATION'
 ,p_substitution_value_01=>'1003'
 ,p_last_updated_by=>'ABHISHEK'
-,p_last_upd_yyyymmddhh24miss=>'20180906163417'
+,p_last_upd_yyyymmddhh24miss=>'20180930144419'
 ,p_email_from=>'administrator@acolyte-software.com'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>14
@@ -24277,6 +24277,7 @@ wwv_flow_api.create_install(
 'DROP VIEW VA_VAULT_REQUEST_STATUS;',
 'DROP VIEW VA_VAULT_TYPES;',
 'DROP SYNONYM REMOTE_DBMS_SQL;',
+'DROP PROCEDURE RECREATE_SYNONYM;',
 'DROP PACKAGE VA_VAULTS_PKG;',
 '',
 'DECLARE',
@@ -24755,13 +24756,70 @@ wwv_flow_api.create_install_script(
 );
 end;
 /
+prompt --application/deployment/install/install_create_procedures
+begin
+wwv_flow_api.create_install_script(
+ p_id=>wwv_flow_api.id(5101546228758022)
+,p_install_id=>wwv_flow_api.id(287854053808014502222)
+,p_name=>'Create Procedures'
+,p_sequence=>50
+,p_script_type=>'INSTALL'
+,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'CREATE OR REPLACE PROCEDURE "RECREATE_SYNONYM" ',
+'  (',
+'    p_connection_id NUMBER,',
+'    p_error         OUT VARCHAR2',
+'  ) IS',
+'    /* ***************************************************************************',
+'    -- ------------------------------------------------------------------------',
+'    -- Function Name       : RECREATE_SYNONYM',
+'    -- ------------------------------------------------------------------------',
+'    -- Description...',
+'    -- This procedure recreates synonym',
+'    -- ------------------------------------------------------------------------',
+'    -- Parameters...',
+'    -- ---------------  -----  ------------------------------------------------',
+'    -- Paramter Name    Type   Description',
+'    -- ---------------  -----  ------------------------------------------------',
+'    -- P_CONNECTION_ID  IN     Connection ID',
+'    -- ---------------  -----  ------------------------------------------------',
+'    *************************************************************************** */',
+'    lv_query VARCHAR2(32000);',
+'  BEGIN',
+'    lv_query := ''CREATE OR REPLACE SYNONYM REMOTE_DBMS_SQL FOR DBMS_SQL@VA'' ||',
+'                p_connection_id;',
+'    EXECUTE IMMEDIATE lv_query;',
+'    p_error := NULL;',
+'  EXCEPTION',
+'    WHEN OTHERS THEN',
+'      p_error := ''ERROR: Recreating Synonym. '' || lv_query || '' '' ||',
+'                 SQLERRM;',
+'      logger.log_error(p_error);',
+'  END recreate_synonym;',
+'/',
+'',
+''))
+);
+wwv_flow_api.create_install_object(
+ p_id=>wwv_flow_api.id(5101621240758029)
+,p_script_id=>wwv_flow_api.id(5101546228758022)
+,p_object_owner=>'#OWNER#'
+,p_object_type=>'PROCEDURE'
+,p_object_name=>'RECREATE_SYNONYM'
+,p_last_updated_by=>'ABHISHEK'
+,p_last_updated_on=>to_date('20180922075627','YYYYMMDDHH24MISS')
+,p_created_by=>'ABHISHEK'
+,p_created_on=>to_date('20180922075627','YYYYMMDDHH24MISS')
+);
+end;
+/
 prompt --application/deployment/install/install_create_packages
 begin
 wwv_flow_api.create_install_script(
  p_id=>wwv_flow_api.id(9889300559419959)
 ,p_install_id=>wwv_flow_api.id(287854053808014502222)
 ,p_name=>'Create Packages'
-,p_sequence=>50
+,p_sequence=>60
 ,p_script_type=>'INSTALL'
 ,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'CREATE OR REPLACE PACKAGE "VA_VAULTS_PKG" AS',
@@ -24787,50 +24845,6 @@ wwv_flow_api.create_install_script(
 '',
 '',
 'CREATE OR REPLACE PACKAGE BODY "VA_VAULTS_PKG" AS',
-'',
-'  PROCEDURE alter_user',
-'  (',
-'    p_user_name    VARCHAR2,',
-'    p_old_password VARCHAR2,',
-'    p_new_password VARCHAR2,',
-'    p_error        OUT VARCHAR2',
-'  ) IS',
-'    /* ***************************************************************************',
-'    -- ------------------------------------------------------------------------',
-'    -- Function Name       : ALTER USER',
-'    -- ------------------------------------------------------------------------',
-'    -- Description...',
-'    -- This procedure updates password',
-'    -- ------------------------------------------------------------------------',
-'    -- Parameters...',
-'    -- ---------------  -----  ------------------------------------------------',
-'    -- Paramter Name    Type   Description',
-'    -- ---------------  -----  ------------------------------------------------',
-'    -- P_USER_NAME      IN     User Name',
-'    -- P_OLD_PASSWORD   IN     Old Password',
-'    -- P_NEW_PASSWORD   IN     New Password',
-'    -- P_ERROR          OUT    Error',
-'    -- ---------------  -----  ------------------------------------------------',
-'    *************************************************************************** */',
-'    ln_handle NUMBER;',
-'    ln_return NUMBER;',
-'    lv_query  VARCHAR2(1000);',
-'  BEGIN',
-'    ln_handle := remote_dbms_sql.open_cursor();',
-'    lv_query  := ''ALTER USER '' || p_user_name || '' IDENTIFIED BY '' ||',
-'                 p_new_password || '' REPLACE '' || p_old_password;',
-'    remote_dbms_sql.parse(ln_handle,',
-'                          lv_query,',
-'                          dbms_sql.native);',
-'    ln_return := remote_dbms_sql.execute(ln_handle);',
-'    remote_dbms_sql.close_cursor(ln_handle);',
-'    p_error := NULL;',
-'  EXCEPTION',
-'    WHEN OTHERS THEN',
-'      p_error := ''ERROR: Alter User. '' || lv_query || '' '' || SQLERRM;',
-'      logger.log_error(p_error);',
-'  END;',
-'',
 '  PROCEDURE update_connections IS',
 '    /* ***************************************************************************',
 '    -- ------------------------------------------------------------------------',
@@ -24863,20 +24877,15 @@ wwv_flow_api.create_install_script(
 '    lv_query    VARCHAR2(32000);',
 '    lv_error    VARCHAR2(32000);',
 '    lv_password VARCHAR2(10);',
+'    ln_handle   NUMBER;',
+'    ln_return   NUMBER;',
 '  BEGIN',
 '    FOR rec_connections IN cur_connections',
 '    LOOP',
 '      lv_error := NULL;',
 '      ln_count := 0;',
-'      BEGIN',
-'        lv_query := ''CREATE OR REPLACE SYNONYM REMOTE_DBMS_SQL FOR DBMS_SQL@VA'' ||',
-'                    rec_connections.connection_id;',
-'        EXECUTE IMMEDIATE lv_query;',
-'      EXCEPTION',
-'        WHEN OTHERS THEN',
-'          lv_error := ''ERROR: Creating Synonym. '' || lv_query || '' '' ||',
-'                      SQLERRM;',
-'      END;',
+'      recreate_synonym(rec_connections.connection_id,',
+'                       lv_error);',
 '      IF lv_error IS NULL',
 '      THEN',
 '        BEGIN',
@@ -24884,25 +24893,34 @@ wwv_flow_api.create_install_script(
 '                                    10)',
 '            INTO lv_password',
 '            FROM dual;',
-'          alter_user(rec_connections.user_name,',
-'                     rec_connections.password,',
-'                     lv_password,',
-'                     lv_error);',
+'          ln_handle := remote_dbms_sql.open_cursor();',
+'          lv_query  := ''ALTER USER '' || rec_connections.user_name ||',
+'                       '' IDENTIFIED BY '' || lv_password || '' REPLACE '' ||',
+'                       rec_connections.password;',
+'          remote_dbms_sql.parse(ln_handle,',
+'                                lv_query,',
+'                                dbms_sql.native);',
+'          ln_return := remote_dbms_sql.execute(ln_handle);',
+'          remote_dbms_sql.close_cursor(ln_handle);',
 '        EXCEPTION',
 '          WHEN OTHERS THEN',
+'            lv_error := ''ERROR: Resetting Password. '' || SQLERRM;',
 '            logger.log_error(lv_error);',
 '        END;',
 '      END IF;',
-'      BEGIN',
-'        lv_query := ''DROP DATABASE LINK VA'' ||',
-'                    rec_connections.connection_id;',
-'        EXECUTE IMMEDIATE lv_query;',
-'      EXCEPTION',
-'        WHEN OTHERS THEN',
-'          lv_error := ''ERROR: Dropping database link. '' || lv_query || '' '' ||',
-'                      SQLERRM;',
-'          logger.log_error(lv_error);',
-'      END;',
+'      IF lv_error IS NULL',
+'      THEN',
+'        BEGIN',
+'          lv_query := ''DROP DATABASE LINK VA'' ||',
+'                      rec_connections.connection_id;',
+'          EXECUTE IMMEDIATE lv_query;',
+'        EXCEPTION',
+'          WHEN OTHERS THEN',
+'            lv_error := ''ERROR: Dropping database link. '' || lv_query || '' '' ||',
+'                        SQLERRM;',
+'            logger.log_error(lv_error);',
+'        END;',
+'      END IF;',
 '      IF lv_error IS NULL',
 '      THEN',
 '        BEGIN',
@@ -24921,15 +24939,17 @@ wwv_flow_api.create_install_script(
 '      END IF;',
 '      IF lv_error IS NULL',
 '      THEN',
+'        recreate_synonym(rec_connections.connection_id,',
+'                         lv_error);',
 '        UPDATE va_connections',
 '           SET request_access_id = NULL,',
 '               password          = lv_password',
 '         WHERE connection_id = rec_connections.connection_id;',
 '      END IF;',
+'          COMMIT;',
 '    END LOOP;',
-'    COMMIT;',
-'  END update_connections;',
 '',
+'  END update_connections;',
 'END va_vaults_pkg;',
 '/',
 '',
@@ -24948,13 +24968,36 @@ wwv_flow_api.create_install_object(
 );
 end;
 /
+prompt --application/deployment/install/install_create_program
+begin
+wwv_flow_api.create_install_script(
+ p_id=>wwv_flow_api.id(9891212096850424)
+,p_install_id=>wwv_flow_api.id(287854053808014502222)
+,p_name=>'Create Program'
+,p_sequence=>70
+,p_script_type=>'INSTALL'
+,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'begin',
+'  dbms_scheduler.create_program(program_name        => ''CONNECTION_CLEAN_UP'',',
+'                                program_type        => ''STORED_PROCEDURE'',',
+'                                program_action      => ''VA_VAULTS_PKG.UPDATE_CONNECTIONS'',',
+'                                number_of_arguments => 0,',
+'                                enabled             => FALSE,',
+'                                comments            => ''Program to clean released connection.'');',
+'',
+'  dbms_scheduler.enable(''CONNECTION_CLEAN_UP'');',
+'end;',
+'/'))
+);
+end;
+/
 prompt --application/deployment/install/install_insert_data
 begin
 wwv_flow_api.create_install_script(
  p_id=>wwv_flow_api.id(34877649581945004291)
 ,p_install_id=>wwv_flow_api.id(287854053808014502222)
 ,p_name=>'Insert Data'
-,p_sequence=>60
+,p_sequence=>80
 ,p_script_type=>'INSTALL'
 ,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'REM INSERTING into AD_APPLICATIONS',
@@ -26139,29 +26182,6 @@ wwv_flow_api.create_install_script(
 '    ''200101010000003'',',
 '    TO_DATE(''01-01-08'',''DD-MM-RR'')',
 ');'))
-);
-end;
-/
-prompt --application/deployment/install/install_create_program
-begin
-wwv_flow_api.create_install_script(
- p_id=>wwv_flow_api.id(9891212096850424)
-,p_install_id=>wwv_flow_api.id(287854053808014502222)
-,p_name=>'Create Program'
-,p_sequence=>70
-,p_script_type=>'INSTALL'
-,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'begin',
-'  dbms_scheduler.create_program(program_name        => ''CONNECTION_CLEAN_UP'',',
-'                                program_type        => ''STORED_PROCEDURE'',',
-'                                program_action      => ''VA_VAULTS_PKG.UPDATE_CONNECTIONS'',',
-'                                number_of_arguments => 0,',
-'                                enabled             => FALSE,',
-'                                comments            => ''Program to clean released connection.'');',
-'',
-'  dbms_scheduler.enable(''CONNECTION_CLEAN_UP'');',
-'end;',
-'/'))
 );
 end;
 /
